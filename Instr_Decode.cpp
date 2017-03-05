@@ -182,7 +182,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
             }
             case: tgeu_func
             {
-                tgeu
+                tgeu();
                 break;
             }
             case: tlt_func
