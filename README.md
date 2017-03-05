@@ -9,7 +9,9 @@ CompOrgProject
 ### Coding Styles
 
 All helper functions as lower case
+
 All main functions camel back
+
 All attributes are lower case
 
 Functions descriptions
