@@ -24,6 +24,17 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 add();      
                 break;
             }
+            case: clo_func
+            {
+                clo();      
+                break;
+            }
+            case: clz_func
+            {
+                clz();      
+                break;
+            }
+                
             case: addu_func
             {
                 addu();
@@ -79,6 +90,21 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 srl();
                 break;
             }
+            case: sllv_func
+            {
+                sllv();
+                break;
+            }
+            case: srav_func
+            {
+                srav();
+                break;
+            }
+            case: srlv_func
+            {
+                srlv();
+                break;
+            }
             case: sra_func
             {
                 sra();
@@ -104,14 +130,69 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 multu();
                 break;
             }
-            case: jrs_func:
+            case: mul_func
             {
-                jrs();
+                mul();      
                 break;
             }
-            case: jalrs_func:
+            case: madd_func
             {
-                jalrs();
+                madd();      
+                break;
+            }
+            case: maddu_func
+            {
+                maddu();      
+                break;
+            }
+            case: msub_func
+            {
+                msub();      
+                break;
+            }
+            case: msubu_func
+            {
+                msubu();      
+                break;
+            }
+            case: jr_func:
+            {
+                jr();
+                break;
+            }
+            case: jalr_func:
+            {
+                jalr();
+                break;
+            }
+            case: teq_func
+            {
+                teq();
+                break;
+            }
+            case: tne_func
+            {
+                tne();
+                break;
+            }
+            case: tge_func
+            {
+                tge();
+                break;
+            }
+            case: tgeu_func
+            {
+                tgeu
+                break;
+            }
+            case: tlt_func
+            {
+                tlt();
+                break;
+            }
+            case: tltu_func
+            {
+                tltu();
                 break;
             }
         }
