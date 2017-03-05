@@ -13,146 +13,105 @@ std::vector<int> Instr_Decode(unsigned int instr)
     std::vector<int> format = find_format(instr);
     if(format[0] == rtype)
     {
+        int rs = find_rs(instr);
+        int rt = find_rt(instr);
+        int rd = find_rd(instr);
+        int shamt = find_shamt(instr);
         switch(format[3])
         {
             case: add_func
             {
-                   
+                add();      
                 break;
             }
             case: addu_func
             {
-
+                addu();
                 break;
             }
             case: and_func
             {
-
+                and();
                 break;
             }
             case: nor_func
             {
-
+                nor();
                 break;
             }
             case: or_func
             {
-
+                or();
                 break;
             }
             case: slt_func
             {
-
+                slt();
                 break;
             }
             case: sltu_func
             {
-
+                sltu();
                 break;
             }
             case: sub_func
             {
-
+                sub();
                 break;
             }
             case: subu_func
             {
-
+                subu();
                 break;
             }
             case: xor_func
             {
-
+                xor();
                 break;
             }
             case: sll_func
             {
-
-                break;
-            }
-            case: sllv_func
-            {
-
+                sll();
                 break;
             }
             case: srl_func
             {
-
-                break;
-            }
-            case: srlv_func
-            {
-
+                srl();
                 break;
             }
             case: sra_func
             {
-
-                break;
-            }
-            case: srav_func
-            {
-
+                sra();
                 break;
             }
             case: div_func
             {
-
+                div();
                 break;
             }
             case: divu_func
             {
-
-                break;
-            }
-            case: mfhi_func
-            {
-
-                break;
-            }
-            case: mflo_func
-            {
-
-                break;
-            }
-            case: mthi_func
-            {
-
-                break;
-            }
-            case: mtlo_func
-            {
-
+                divu();
                 break;
             }
             case: mult_func
             {
-
+                mult();
                 break;
             }
             case: mutlu_func:
             {
-
-                break;
-            }
-            case: break_func:
-            {
-
+                multu();
                 break;
             }
             case: jrs_func:
             {
-
+                jrs();
                 break;
             }
             case: jalrs_func:
             {
-
-                break;
-            }
-            case: syscall_func:
-            {
-
+                jalrs();
                 break;
             }
         }
@@ -163,87 +122,87 @@ std::vector<int> Instr_Decode(unsigned int instr)
         {
             case: lw_opcode
             {
-            
+                lw();
                 break;
             }
             case: addi_opcode
             {
-            
+                addi();
                 break;
             }
             case: sw_opcode
             {
-            
+                sw();
                 break;
             }
             case: slti_opcode
             {
-
+                slti();
                 break;
             }
             case: sltiu_opcode
             {
-
+                sltiu();
                 break;
             }
             case: addiu_opcode
             {
-
+                addiu();
                 break;
             }
             case: andi_opcode
             {
-
+                andi();
                 break;
             }
             case: lui_opcode
             {
-
+                lui();
                 break;
             }
             case: ori_opcode
             {
-
+                ori();
                 break;
             }
             case: xori_opcode
             {
-
+                xori();
                 break;
             }
             case: lb_opcode
             {
-
+                lb();
                 break;
             }
             case: lh_opcode
             {
-
+                lh();
                 break;
             }
             case: sb_opcode
             {
-
+                sb();
                 break;
             }
             case: sh_opcode
             {
-
+                sh();
                 break;
             }
             case: beq_opcode
             {
-
+                beq();
                 break;
             }
             case: bne_opcode
             {
-
+                bne();
                 break;
             }
             case: lhu_opcode
             {
-
+                lhu();
                 break;
             }
         }
@@ -251,12 +210,12 @@ std::vector<int> Instr_Decode(unsigned int instr)
         {
             case: j_opcode
             {
-            
+                j();
                 break;
             }
             case: jal_opcode
             {
-            
+                jal();
                 break;
             }
         }
