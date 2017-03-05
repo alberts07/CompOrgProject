@@ -12,7 +12,7 @@ All helper functions as lower case
 All main functions camel back
 All attributes are lower case
 
-Functions discriptions
+Functions descriptions
     
     Instr_Decode.cpp
         Takes in the instruction, determines input parameters for the Exe.cpp
