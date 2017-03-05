@@ -9,9 +9,9 @@
 #ifndef Single_Cycle_hpp
 #define Single_Cycle_hpp
 
-#include <stdio.h>
+#include <vector>
+#include <iostream>
 
-
-void ID(int);
+std::vector<int> Instr_Decode(int);
 
 #endif /* Single_Cycle_hpp */
