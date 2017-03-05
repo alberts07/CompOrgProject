@@ -5,6 +5,7 @@ CompOrgProject
 ## TODO Define rtype as 0 itype as 1 jtype as 2
 ## TODO Define the masks
 ## Add the rest of the instruction set from pages A51 - A70
+## Run branches in Instr_Decode.cpp
 
 ### Coding Styles
 
