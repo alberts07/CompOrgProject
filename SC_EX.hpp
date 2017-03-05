@@ -1,14 +1,14 @@
 //
-//  SC_EX.hpp
+//  Exe.hpp
 //  
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
 
-#ifndef SC_EX_hpp
-#define SC_EX_hpp
+#ifndef Exe_hpp
+#define Exe_hpp
 
 #include <stdio.h>
 
-#endif /* SC_EX_hpp */
+#endif /* Exe_hpp */
