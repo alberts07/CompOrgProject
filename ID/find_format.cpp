@@ -12,8 +12,17 @@ std::vector<int> find_format(unsigned int instr)
     {
         return vector<int> format ({itype, opcode, 0)};
     }
-    else 
+    if((opcode == 2) || (opcode == 3)) 
     {
         return vector<int> format({jtype, opcode, 0});
     }
+    if(opcode == special_opcode2)
+    {
+        return vector<int> format({br_coprocessor, opcode, 0)};
+    }
+    if(opcode == special_opcode1)
+    {
+        return vector<int> format({trap_i_type, opcode, 0});
+    }
+                                   
 }
