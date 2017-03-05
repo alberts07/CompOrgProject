@@ -1,4 +1,5 @@
 int add()
 {
-    return Shadow_IDEX.rdvalue = Shadow_IDEX.rsvalue + Shadow_IDEX.rtvalue
+    Shadow_IDEX.rdvalue = Shadow_IDEX.rsvalue + Shadow_IDEX.rtvalue
+    #Should I return this?
 }
