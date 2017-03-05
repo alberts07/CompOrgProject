@@ -1,4 +1,4 @@
 int addi()
 {
-    return Shadow_IFEX.rt = Shadow_IFEX.rs + Shadow_IFEX.immed16
+    return Shadow_IFEX.rtvalue = Shadow_IFEX.rsvalue + Shadow_IFEX.immed16
 }
