@@ -1,0 +1,3 @@
+int nor {
+    Shadow_IDEX.rdvalue= ~(Shadow_IDEX.rdvalue & Shadow_IDEX.rdvalue) 
+}
