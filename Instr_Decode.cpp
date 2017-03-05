@@ -197,8 +197,11 @@ std::vector<int> Instr_Decode(unsigned int instr)
             }
         }
     }
-    if(format[0] = itype)
+    if(format[0] == itype)
     {
+        int immed16 = find_immed16(instr);
+        int rs = find_rs(instr);
+        int rt = find_rt(instr);
         switch(format[1])
         {
             case: lw_opcode
@@ -287,17 +290,39 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 break;
             }
         }
-        if(format[0] = jtype)
+        if(format[0] == jtype)
         {
-            case: j_opcode
+            int immed26 = find_immed26(instr);
+            switch(format[1])
             {
-                j();
-                break;
+                case: j_opcode
+                {
+                    j();
+                    break;
+                }
+                case: jal_opcode
+                {
+                    jal();
+                    break;
+                }
             }
-            case: jal_opcode
+        }
+        if(format[0] == br_coprocessor)
+        {
+            int immed16 = find_immed16(instr);
+            int rs = find_rs(instr);
+            switch(format[1])
             {
-                jal();
-                break;
+                case: bclt_func
+                {
+                    bclt();
+                    break;
+                }
+                case: bclf_func
+                {
+                    bclf();
+                    break;
+                }
             }
         }
     }
