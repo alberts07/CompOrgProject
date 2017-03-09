@@ -54,24 +54,25 @@ struct memwb {
     
 
 //Type Determination 
-#define     rtype           0x00000000
-#define     itype           0x00000001
-#define     jtype           0x00000010
-#define     trap_i_type     0x00000011
-#define     br_coprocessor  0x00000100
+#define     rtype               0x00000000
+#define     itype               0x00000001
+#define     jtype               0x00000010
+#define     special_opcode1     0x00000011
+#define     special_opcode2     0x00000100
+#define     special_opcode3     0x00000101
 
 
 //Masks for Determining Values
-#define     opcode_mask     0xFC000000
-#define     function_mask   0x0000003F
-#define     rs_mask         0x03E00000
-#define     rt_mask         0x001F0000
-#define     rd_mask         0x0000F800
-#define     shamt_mask      0x000007C0
-#define     immed16_mask    0x0000FFFF
-#define     immed26_mask    0x03FFFFFF
-#define     br_coprocessor  0x00030000
-#define     trap_mask       0x001F0000
+#define     opcode_mask             0xFC000000
+#define     function_mask           0x0000003F
+#define     rs_mask                 0x03E00000
+#define     rt_mask                 0x001F0000
+#define     rd_mask                 0x0000F800
+#define     shamt_mask              0x000007C0
+#define     immed16_mask            0x0000FFFF
+#define     immed26_mask            0x03FFFFFF
+#define     br_coprocessor          0x00030000
+#define     trap_i_mask             0x001F0000
 
 
 //Opcodes for every MIPS function
@@ -141,7 +142,7 @@ struct memwb {
 #define     tltu_func       0b110011
 
 //Special Functions 
-#define     special_opcode1 0b011100      //0x1C
+#define     special_opcode1 0b011100    
 #define     clo_func        0b100001
 #define     clz_func        0b100000
 #define     mul_func        0b000010
