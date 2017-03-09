@@ -1,6 +1,5 @@
 # What type is this?
-int and()
+void and()
 {
-    Shadow_IDEX.rdvalue = Shadow_IDEX.rtvalue & Shadow_IDEX.rsvalue 
-    //Should I return this or no?
+    Shadow_IDEX.ALUResult = Shadow_IDEX.rtvalue && Shadow_IDEX.rsvalue 
 }
