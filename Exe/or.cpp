@@ -1,4 +1,4 @@
 int or ()
 {
-    Shadow_IDEX.rdvalue = Shadow_IDEX.rsvalue | Shadow_IDEX.rtvalue 
+    Shadow_IDEX.RdValue = Shadow_IDEX.RsValue | Shadow_IDEX.RtValue 
 }
