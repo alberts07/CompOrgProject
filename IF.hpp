@@ -72,7 +72,7 @@ struct memwb {
 #define     immed16_mask            0x0000FFFF
 #define     immed26_mask            0x03FFFFFF
 #define     br_coprocessor          0x00030000
-#define     trap_i_mask             0x001F0000
+#define     spec_opcode3_mask       0x001F0000
 
 
 //Opcodes for every MIPS function
