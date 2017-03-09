@@ -20,7 +20,7 @@ struct ifid {
   int Rd;
   int Rt;
   int RtValue;
-  int immed16;
+  short immed16;
   int immed26;
   int opcode
   int func;
