@@ -12,8 +12,19 @@
 #include <stdio.h>
 
 
+
+
 struct ifid {
-  int 
+  short immed16;
+  int Rs;
+  int Rd;
+  int Rt;
+  int RtValue;
+  int immed16;
+  int immed26;
+  int opcode
+  int func;
+  int shamt;
   unsigned int instr;
   
 }Shadow_IFID, IFID;
