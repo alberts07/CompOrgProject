@@ -57,9 +57,9 @@ struct memwb {
 #define     rtype               0x00000000
 #define     itype               0x00000001
 #define     jtype               0x00000010
-#define     special_opcode1     0x00000011
-#define     special_opcode2     0x00000100
-#define     special_opcode3     0x00000101
+#define     special_opcode1l    0x00000011
+#define     special_opcode2l    0x00000100
+#define     special_opcode3l    0x00000101
 
 
 //Masks for Determining Values
