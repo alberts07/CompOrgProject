@@ -142,6 +142,7 @@ struct memwb {
 #define     tltu_func       0b110011
 
 //Special Functions 
+
 #define     special_opcode1 0b011100    
 #define     clo_func        0b100001
 #define     clz_func        0b100000
