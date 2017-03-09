@@ -1,5 +1,4 @@
-int add()
+void add()
 {
-    Shadow_IDEX.rdvalue = Shadow_IDEX.rsvalue + Shadow_IDEX.rtvalue
-    //Should I return this?
+    Shadow_IDEX.ALUResult = Shadow_IDEX.rsvalue + Shadow_IDEX.rtvalue;
 }
