@@ -1,5 +1,5 @@
 int addi()
 {
-    Shadow_IFEX.ALUResult = Shadow_IFEX.rsvalue + Shadow_IFEX.immed16
+    Shadow_IDEX.ALUResult = Shadow_IDEX.rsvalue + Shadow_IDEX.immed16
     // Should I return this?
 }
