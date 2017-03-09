@@ -12,6 +12,47 @@
 #include <stdio.h>
 
 
+struct ifid {
+  int 
+  unsigned int instr;
+  
+}Shadow_IFID, IFID;
+
+struct idex {
+    bool RegWrite;
+    bool MemRead;
+    bool MemWrite;
+    bool MemtoReg;
+    bool ALUSrc;
+    int Rs;
+    int RsValue;
+    int Rd;
+    int RdValue;
+    int Rt;
+    int RtValue;
+    int immed16;
+    int immed26;
+    int opcode
+    int func;
+    int shamt;
+} Shadow_IDEX, IDEX;
+
+struct exmem {
+    bool RegWrite;
+    bool MemRead;
+    bool MemWrite;
+    bool MemtoReg;
+    int ALUResult;
+} Shadow_EXMEM, EXMEM;
+
+struct memwb {
+    bool RegWrite;
+    bool MemtoReg;
+    int ALUResult;
+} Shadow_MEMWB, MEMWB;
+    
+    
+
 //Type Determination 
 #define     rtype           0x00000000
 #define     itype           0x00000001
@@ -30,6 +71,7 @@
 #define     immed16_mask    0x0000FFFF
 #define     immed26_mask    0x03FFFFFF
 #define     br_coprocessor  0x00030000
+#define     trap_mask       0x001F0000
 
 
 //Opcodes for every MIPS function
@@ -62,13 +104,8 @@
 #define     swl_opcode      0b101010
 #define     swr_opcode      0b101110
 #define     sc_opcode       0b111000
-//#define     bclf_opcode     0b010001
-//#define     bclt_opcode     0b
-//#define     bgez_opcode
 #define     bgtz_opcode     0b000111
 #define     blez_opcode     0b000110
-//#define     bltzal          0b
-//#define     bltz            0b
 #define     
 
 
@@ -116,6 +153,19 @@
 #define     special_opcode2 0b010001
 #define     bclt_func       0b000001
 #define     bclf_func       0b000000
+
+#define     special_opcode3 0b000001
+#define     bgez_func       0b000001
+#define     bgezal_func     0b010001
+#define     bltzal_func     0b010000
+#define     bltz_func       0b000000
+#define     teqi_func       0b01100
+#define     tnei_func       0b01110
+#define     tgei_func       0b01000
+#define     tgeiu_func      0b01001
+#define     tlti_func       0b01010
+#define     tltiu_func      0b01011
+
 
 
 #endif /* IF_hpp */
