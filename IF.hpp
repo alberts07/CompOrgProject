@@ -25,8 +25,7 @@ struct ifid {
   int opcode
   int func;
   int shamt;
-  unsigned int instr;
-  
+  unsigned int instr; 
 }Shadow_IFID, IFID;
 
 struct idex {
@@ -144,13 +143,14 @@ struct memwb {
 #define     break_func      0b001101
 #define     jr_func         0b001000
 #define     jalrs_func      0b001001
+/*
 #define     teq_func        0b110100
 #define     tne_func        0b110110
 #define     tge_func        0b110000
 #define     tgeu_func       0b110001
 #define     tlt_func        0b110010
 #define     tltu_func       0b110011
-
+*/
 //Special Functions 
 /*
 #define     special_opcode1 0b011100    
