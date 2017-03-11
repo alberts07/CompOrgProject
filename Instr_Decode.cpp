@@ -296,6 +296,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 }
             }
         }
+        /*
         if(format[0] == special_opcode1l)
         {
             Shadow_IDEX.Rs = find_rs(Shadow_IFID.instr);
@@ -423,7 +424,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
                     break;
                 }    
             }
-        }
+        }*/
     }
 }
         
