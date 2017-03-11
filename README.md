@@ -5,7 +5,6 @@ CompOrgProject
 ## TODO Need to put in all the #DEFINEs
 ## TODO Define rtype as 0 itype as 1 jtype as 2 
 ## TODO Test Vector implementations
-## TODO all instructions addu addi addiu and andi clo clz div divu mult multu mul madd maddu msub msubu (Check this naming convention with Drew) nor or ori sll sllv sra srav srl srlv sub subu xor xori lui slt sltu slti sltiu bclf bclt beq bgez bgezal bgtz blez bltzal bltz bne j jal jalr jr teq teqi tnq (check with Drew) teqi tge tgeu tgei tgeiu tlt tltu tlti tltiu lb lbu lh lhu lw lwcl lwl lwr ll sb sh sw swcl sdcl swl swr sc mfhi
 
 functions all lower case
 variables all lower case
