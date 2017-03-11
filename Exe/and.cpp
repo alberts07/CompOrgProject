@@ -1,5 +1,4 @@
-# What type is this?
 void and()
 {
-    Shadow_IDEX.ALUResult = Shadow_IDEX.RtValue && Shadow_IDEX.RsValue 
+    Shadow_IDEX.ALUResult = Shadow_IDEX.RtValue & Shadow_IDEX.RsValue 
 }
