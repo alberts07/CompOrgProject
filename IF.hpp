@@ -68,9 +68,9 @@ struct memwb {
 #define     rtype               0x00000000
 #define     itype               0x00000001
 #define     jtype               0x00000010
-#define     special_opcode1l    0x00000011
-#define     special_opcode2l    0x00000100
-#define     special_opcode3l    0x00000101
+//#define     special_opcode1l    0x00000011
+//#define     special_opcode2l    0x00000100
+//#define     special_opcode3l    0x00000101
 
 
 //Masks for Determining Values
@@ -82,8 +82,8 @@ struct memwb {
 #define     shamt_mask              0x000007C0
 #define     immed16_mask            0x0000FFFF
 #define     immed26_mask            0x03FFFFFF
-#define     br_coprocessor          0x00030000
-#define     spec_opcode3_mask       0x001F0000
+//#define     br_coprocessor          0x00030000
+//#define     spec_opcode3_mask       0x001F0000
 
 
 //Opcodes for every MIPS function
@@ -117,8 +117,7 @@ struct memwb {
 #define     swr_opcode      0b101110
 #define     sc_opcode       0b111000
 #define     bgtz_opcode     0b000111
-#define     blez_opcode     0b000110
-#define     
+#define     blez_opcode     0b000110    
 
 
 //Fucntions for R-format MIPS
@@ -153,7 +152,7 @@ struct memwb {
 #define     tltu_func       0b110011
 
 //Special Functions 
-
+/*
 #define     special_opcode1 0b011100    
 #define     clo_func        0b100001
 #define     clz_func        0b100000
@@ -178,7 +177,7 @@ struct memwb {
 #define     tgeiu_func      0b01001
 #define     tlti_func       0b01010
 #define     tltiu_func      0b01011
-
+*/
 
 
 #endif /* IF_hpp */
