@@ -1,41 +1,16 @@
 ## TODO
 
-  addu
-  addi
   addiu
-  and
-  andi
-  clo
-  clz
   div
   divu
   mult
   multu
-  mul
-  madd
-  maddu
-  msub
-  msubu (Check this naming convention with Drew)
-  nor
-  or
-  ori
-  sll
-  sllv
   sra
   srav
-  srl
   srlv
-  sub
-  subu
-  xor
   xori
   lui
-  slt
-  sltu
-  slti
   sltiu
-  bclf
-  bclt
   beq
   bgez
   bgezal
@@ -48,18 +23,6 @@
   jal
   jalr
   jr
-  teq
-  teqi
-  tnq (check with Drew)
-  teqi
-  tge
-  tgeu
-  tgei
-  tgeiu
-  tlt
-  tltu
-  tlti
-  tltiu
   lb
   lbu
   lh
@@ -68,7 +31,6 @@
   lwcl
   lwl
   lwr
-  ll
   sb
   sh
   sw
@@ -76,5 +38,3 @@
   sdcl
   swl
   swr
-  sc
-  mfhi
