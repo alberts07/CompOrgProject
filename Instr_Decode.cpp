@@ -119,6 +119,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 multu();
                 break;
             }
+                /*
             case: mul_func
             {
                 mul();      
@@ -144,6 +145,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 msubu();      
                 break;
             }
+            */
             case: jr_func:
             {
                 jr();
