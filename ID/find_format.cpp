@@ -16,6 +16,7 @@ std::vector<int> find_format(unsigned int instr)
     {
         return std::vector<int> format({jtype, Shadow_IDEX.opcode, 0});
     }
+                                        /*
     if(opcode == special_opcode1)                                  
     {
         Shadow_IDEX.func = find_func(instr);
@@ -28,6 +29,7 @@ std::vector<int> find_format(unsigned int instr)
     if(opcode == special_opcode3)
     {
         return std::vector<int> format({special_opcode3l, Shadow_IDEX.opcode, (Shadow_IFID.instr && spec_opcode3_mask) >> 16});
-
+    }
+*/
                                    
 }
