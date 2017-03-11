@@ -154,6 +154,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
                 jalr();
                 break;
             }
+                /*
             case: teq_func
             {
                 teq();
@@ -183,7 +184,7 @@ std::vector<int> Instr_Decode(unsigned int instr)
             {
                 tltu();
                 break;
-            }
+            }*/
         }
     }
     if(format[0] == itype)
