@@ -12,12 +12,12 @@
 #include <stdio.h>
 
 
-
+void Instr_IF(unsigned int);
 
 struct ifid {
-  short immed16;
-  unsigned int pcplus1;
-  unsigned int instr; 
+    short immed16;
+    unsigned int pcplus1;
+    unsigned int instr; 
 }Shadow_IFID, IFID;
 
 struct idex {
