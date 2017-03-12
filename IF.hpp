@@ -62,6 +62,7 @@ struct memwb {
     bool RegWrite;
     bool MemtoReg;
     int ALUResult;
+    unsigned int pcplus1;
 } Shadow_MEMWB, MEMWB;
     
     
