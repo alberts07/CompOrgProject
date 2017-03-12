@@ -1,4 +1,4 @@
 void andi()
 {
-    Shadow_IDEX.ALUResult = Shadow_IDEX.RsValue & Shadow_IDEX.immed16;
+    Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue & Shadow_IDEX.immed16;
 }
