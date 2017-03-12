@@ -5,12 +5,12 @@ void lh()
     {
         case 0: 
         {
-            Shadow_IDEX.ALUResult = halfword & 0xFFFF0000;
+            Shadow_EXMEM.ALUResult = halfword & 0xFFFF0000;
             break;
         }
         case 1: 
         {
-            Shadow_IDEX.ALUResult = halfword & 0x0000FFFF;            
+            Shadow_EXMEM.ALUResult = halfword & 0x0000FFFF;            
             break;
         }
     }
