@@ -12,6 +12,6 @@
 #include <vector>
 #include <iostream>
 
-std::vector<int> Instr_Decode(int);
+int Instr_Decode(void);
 
 #endif /* Single_Cycle_hpp */
