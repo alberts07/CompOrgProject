@@ -8,7 +8,15 @@
 
 void Instr_Mem()
 {
-        if(Shadow_EXMEM.MemRead || Shadow_EXMEM.MemWrite)
+        if(Shadow_EXMEM.MemRead)
+        {
+                        
+        }
+        else if (Shadow_EXMEM.MemWrite)
+        {
+                
+        }
+        else
         {
         
         }
