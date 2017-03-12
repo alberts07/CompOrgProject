@@ -6,16 +6,12 @@
 //
 //
 
-void Instr_Mem(int format)
+void Instr_Mem()
 {
-    if(format == itype)
-    {
         if(Shadow_EXMEM.MemRead || Shadow_EXMEM.MemWrite)
         {
         
-            
         }
-    }
 }
     
     
