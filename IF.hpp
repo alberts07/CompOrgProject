@@ -25,6 +25,7 @@ struct ifid {
   int opcode
   int func;
   int shamt;
+  unsigned int pcplus1;
   unsigned int instr; 
 }Shadow_IFID, IFID;
 
@@ -45,6 +46,7 @@ struct idex {
     int opcode
     int func;
     int shamt;
+    unsigned int pcplus1;
 } Shadow_IDEX, IDEX;
 
 struct exmem {
@@ -53,6 +55,7 @@ struct exmem {
     bool MemWrite;
     bool MemtoReg;
     int ALUResult;
+    unsigned int pcplus1;
 } Shadow_EXMEM, EXMEM;
 
 struct memwb {
