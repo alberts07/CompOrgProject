@@ -11,4 +11,6 @@
 
 #include <stdio.h>
 
+void Instr_Exe(int);
+
 #endif /* Instr_Exe_hpp */
