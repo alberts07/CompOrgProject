@@ -4,7 +4,7 @@ int $pc = 0x00000000;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 
-#include "IF.hpp"
+#include "Instr_IF.hpp"
 
 int main()
 {
