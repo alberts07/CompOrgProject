@@ -1,6 +1,6 @@
 void lbu()
 {
-    unsigned int byte = ((unsigned int)Shadow_IFEX.RsValue + (unsigned int)Shadow_IFEX.immed16) >> 2
+    unsigned int byte = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2
         switch (byte % 4){
             case 0:
                 {
