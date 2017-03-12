@@ -4,11 +4,13 @@ void lhu()
         switch (byte % 2){
             case 0:
                 {
-                    Shadow_IDEX.ALUResult = 0xFFFF0000 & byte    
+                    Shadow_IDEX.ALUResult = 0xFFFF0000 & byte;
+                    break;
                 }
             case 1:
                 {
-                    Shadow_IDEX.ALUResult = 0x0000FFFF & byte    
+                    Shadow_IDEX.ALUResult = 0x0000FFFF & byte;
+                    break;
                 }
         }
 }
