@@ -16,15 +16,6 @@
 
 struct ifid {
   short immed16;
-  int Rs;
-  int Rd;
-  int Rt;
-  int RtValue;
-  short immed16;
-  int immed26;
-  int opcode
-  int func;
-  int shamt;
   unsigned int pcplus1;
   unsigned int instr; 
 }Shadow_IFID, IFID;
