@@ -8,7 +8,7 @@
 
 #include "Pipeline_Ex.hpp"
 
-void ex_pipe(int instr)
+void ex_pipe(format)
 {
      if(format[0] == rtype)
      {
