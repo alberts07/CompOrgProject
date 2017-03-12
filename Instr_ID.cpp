@@ -8,7 +8,7 @@
 #include "Instr_ID.hpp"
 #include "Instr_IF.hpp"
 
-int Instr_Decode()
+int Instr_ID()
 {
     Shadow_IDEX.instr = Shadow_IFID.instr;
     Shadow_IDEX.pcplus1 = Shadow_IFID.pcplus1;
