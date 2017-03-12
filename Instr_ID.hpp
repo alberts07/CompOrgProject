@@ -12,6 +12,6 @@
 #include <vector>
 #include <iostream>
 
-int Instr_Decode(void);
+int Instr_ID(void);
 
 #endif /* Single_Cycle_hpp */
