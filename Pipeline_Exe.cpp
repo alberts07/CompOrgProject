@@ -114,7 +114,7 @@ void ex_pipe(format)
                    multu();
                    break;
                }
-               *
+               /*
                case: mul_func
                {
                    mul();      
