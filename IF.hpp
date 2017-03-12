@@ -47,6 +47,7 @@ struct idex {
     int func;
     int shamt;
     unsigned int pcplus1;
+    unsigned int instr;
 } Shadow_IDEX, IDEX;
 
 struct exmem {
