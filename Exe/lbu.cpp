@@ -1,4 +1,22 @@
 void lbu()
 {
-    (unsigned int)Shadow_IFEX.ALUResult = (unsigned int)Shadow_IFEX.RsValue + (unsigned int)Shadow_IFEX.immed16 
+    unsigned int byte = ((unsigned int)Shadow_IFEX.RsValue + (unsigned int)Shadow_IFEX.immed16) >> 2
+        switch (byte % 4){
+            case 0:
+                {
+                    Shadow_IDEX.ALUResult = 0xFF000000 & byte    
+                }
+            case 1:
+                {
+                    Shadow_IDEX.ALUResult = 0x00FF0000 & byte    
+                }
+            case 2:
+                {
+                    Shadow_IDEX.ALUResult = 0x0000FF00 & byte    
+                }
+            case 3:
+                {
+                    Shadow_IDEX.ALUResult = 0x000000FF & byte    
+                }
+        }
 }
