@@ -187,11 +187,11 @@ void Instr_Exe(int format)
     
    else if(format == itype){
        
-       Shadow_IDEX.ALUSrc = ;
-       Shadow_IDEX.MemtoReg = ;
-       Shadow_IDEX.RegWrite = ;
-       Shadow_IDEX.MemRead = ;
-       Shadow_IDEX.MemWrite = ;
+       Shadow_IDEX.ALUSrc = true ;
+       Shadow_IDEX.MemtoReg = false;
+       Shadow_IDEX.RegWrite = true;
+       Shadow_IDEX.MemRead = false;
+       Shadow_IDEX.MemWrite = false;
        
        switch(Shadow_IDEX.opcode)
        {
