@@ -8,11 +8,11 @@
 
 #include "Instr_Exe.hpp"
 
-void ex_pipe(format)
+void ex_pipe(int format)
 {
-    if(format[0] == rtype)
+    if(format == rtype)
     {
-       switch(format[3])
+       switch(Shadow_IDEX.func)
            {
                case: add_func
                {
@@ -185,9 +185,9 @@ void ex_pipe(format)
            }
    }
     
-   if(format[0] == itype){
+   else if(format == itype){
         
-       switch(format[1])
+       switch(Shadow_IDEX.opcode)
        {
            case: lw_opcode
            {
@@ -277,9 +277,9 @@ void ex_pipe(format)
        }
    }
     
-   if(format[0] == jtype)
+   else if(format == jtype)
    {
-        switch(format[1])
+        switch(Shadow_IDEX.opcode)
            {
                case: j_opcode
                {
@@ -292,5 +292,9 @@ void ex_pipe(format)
                    break;
                }
            }
+   }
+   else
+   {
+       std::cout("The format given did not match any message type");
    }
 }
