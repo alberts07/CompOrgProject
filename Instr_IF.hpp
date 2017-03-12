@@ -48,8 +48,8 @@ struct exmem {
     bool MemtoReg;
     int ALUResult;
     unsigned int pcplus1;
-    int byte;
-    int half;
+    int mem;
+    bool half;
 } Shadow_EXMEM, EXMEM;
 
 struct memwb {
