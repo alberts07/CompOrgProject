@@ -186,11 +186,23 @@ void ex_pipe(int format)
    }
     
    else if(format == itype){
-        
+       
+       Shadow_IDEX.ALUSrc = ;
+       Shadow_IDEX.MemtoReg = ;
+       Shadow_IDEX.RegWrite = ;
+       Shadow_IDEX.MemRead = ;
+       Shadow_IDEX.MemWrite = ;
+       
        switch(Shadow_IDEX.opcode)
        {
            case: lw_opcode
            {
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = true;
+               Shadow_IDEX.RegWrite = true;
+               Shadow_IDEX.MemRead = true;
+               Shadow_IDEX.MemWrite = false;
+         
                lw();
                break;
            }
@@ -201,6 +213,13 @@ void ex_pipe(int format)
            }
            case: sw_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = false;
+               Shadow_IDEX.RegWrite = false;
+               Shadow_IDEX.MemRead = false;
+               Shadow_IDEX.MemWrite = true;
+               
                sw();
                break;
            }
@@ -226,6 +245,12 @@ void ex_pipe(int format)
            }
            case: lui_opcode
            {
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = true;
+               Shadow_IDEX.RegWrite = true;
+               Shadow_IDEX.MemRead = true;
+               Shadow_IDEX.MemWrite = false;
+               
                lui();
                break;
            }
@@ -241,36 +266,84 @@ void ex_pipe(int format)
            }
            case: lb_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = true;
+               Shadow_IDEX.RegWrite = true;
+               Shadow_IDEX.MemRead = true;
+               Shadow_IDEX.MemWrite = false;
+               
                lb();
                break;
            }
            case: lh_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = true;
+               Shadow_IDEX.RegWrite = true;
+               Shadow_IDEX.MemRead = true;
+               Shadow_IDEX.MemWrite = false;
+               
                lh();
                break;
            }
            case: sb_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = false;
+               Shadow_IDEX.RegWrite = false;
+               Shadow_IDEX.MemRead = false;
+               Shadow_IDEX.MemWrite = true;
+               
                sb();
                break;
            }
            case: sh_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = false;
+               Shadow_IDEX.RegWrite = false;
+               Shadow_IDEX.MemRead = false;
+               Shadow_IDEX.MemWrite = true;
+               
                sh();
                break;
            }
            case: beq_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = false;
+               Shadow_IDEX.MemtoReg = false;
+               Shadow_IDEX.RegWrite = false;
+               Shadow_IDEX.MemRead = false;
+               Shadow_IDEX.MemWrite = false;
+               
                beq();
                break;
            }
            case: bne_opcode
            {
+               Shadow_IDEX.ALUSrc = false;
+               Shadow_IDEX.MemtoReg = false;
+               Shadow_IDEX.RegWrite = false;
+               Shadow_IDEX.MemRead = false;
+               Shadow_IDEX.MemWrite = false;
+               
                bne();
                break;
            }
            case: lhu_opcode
            {
+               
+               Shadow_IDEX.ALUSrc = true;
+               Shadow_IDEX.MemtoReg = true;
+               Shadow_IDEX.RegWrite = true;
+               Shadow_IDEX.MemRead = true;
+               Shadow_IDEX.MemWrite = false;
+               
                lhu();
                break;
            }
