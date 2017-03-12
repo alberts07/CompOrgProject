@@ -6,15 +6,12 @@ int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 int main()
 {
-    int i = 0;
-    for($pc = 0; $pc < 0x50000000; $pc = $pc+1)
+    for(;;)
     {
-        memory[$pc] = holder[i];
-        i++;
-    }
-    
-    for($pc = 0; $pc < 0x50000000; $pc = $pc + 1)
-    {
-        ex(memory[$pc]);
+        Instr_IF();
+        Instr_WB();
+        Instr_ID();
+        Instr_Exe();
+        Instr_Mem();
     }
 }
