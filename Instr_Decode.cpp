@@ -36,7 +36,6 @@ int Instr_Decode()
          
     if(format[0] == itype)
     { 
-        Shadow_IDEX.ALUSrc = true;
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shaodw_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
