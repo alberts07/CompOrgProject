@@ -8,7 +8,7 @@
 
 #include "Instr_Exe.hpp"
 
-void ex_pipe(int format)
+void Instr_Exe(int format)
 {
     if(format == rtype)
     {
