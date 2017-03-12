@@ -1,12 +1,12 @@
 //
-//  Pipeline_Exe.cpp
+//  Exe.cpp
 //  
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
 
-#include "Pipeline_Exe.hpp"
+#include "Exe.hpp"
 
 void ex_pipe(format)
 {
