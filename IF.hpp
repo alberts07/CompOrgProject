@@ -1,13 +1,13 @@
 //
-//  IF.hpp
+//  Instr_IF.hpp
 //  
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
 
-#ifndef IF_hpp
-#define IF_hpp
+#ifndef Instr_IF_hpp
+#define Instr_IF_hpp
 
 #include <stdio.h>
 
