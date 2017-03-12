@@ -13,5 +13,6 @@ int main()
         Instr_ID();
         Instr_Exe();
         Instr_Mem();
+        Update_State()
     }
 }
