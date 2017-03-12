@@ -85,6 +85,7 @@ struct memwb {
 #define     shamt_mask              0x000007C0
 #define     immed16_mask            0x0000FFFF
 #define     immed26_mask            0x03FFFFFF
+#define     jump_mask               0xF0000000             
 //#define     br_coprocessor          0x00030000
 //#define     spec_opcode3_mask       0x001F0000
 
