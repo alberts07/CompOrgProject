@@ -34,7 +34,7 @@ struct idex {
     int RtValue;
     int immed16;
     int immed26;
-    int opcode
+    int opcode;
     int func;
     int shamt;
     unsigned int pcplus1;
