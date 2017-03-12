@@ -5,8 +5,8 @@
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
-#include "Instr_Decode.hpp"
-#include "IF.hpp"
+#include "Instr_ID.hpp"
+#include "Instr_IF.hpp"
 
 int Instr_Decode()
 {
