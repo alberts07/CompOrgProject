@@ -1,10 +1,11 @@
-//
-//  Instr_MEM.cpp
-//  
-//
-//  Created by Austin Alberts on 3/11/17.
-//
-//
+
+#include "Instr_ID_hpp"
+#include "Instr_IF_hpp"
+
+extern struct idex Shadow_IDEX;
+extern struct memwb Shadow_MEMWB;
+extern struct exmem Shadow_EXMEM;
+
 void Instr_Mem()
 {
     if(Shadow_EXMEM.MemRead)
@@ -12,11 +13,11 @@ void Instr_Mem()
         Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
         Shadow_MEMWB.Rd = Shadow_IDEX.Rd;
         Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
-        if(Shadow_EXMEM.half == true) 
-        {   
+        if(Shadow_EXMEM.half == true)
+        {
             switch(Shadow_EXMEM.mem)
             {
-                case 0: 
+                case 0:
                 {
                     Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) >> 16;
                     break;
@@ -32,7 +33,7 @@ void Instr_Mem()
         {
             switch(Shadow_EXMEM.mem)
             {
-                case 0: 
+                case 0:
                 {
                     Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
                     break;
@@ -42,7 +43,7 @@ void Instr_Mem()
                     Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0x00FF0000) >> 16;
                     break;
                 }
-                case 2: 
+                case 2:
                 {
                     Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0x0000FF00) >> 8;
                     break;
@@ -52,27 +53,27 @@ void Instr_Mem()
                     Shadow_MEMWB.RtValue = memory[Shadow_EXMEM.ALUResult] & 0x000000FF;
                     break;
                 }
-                case 4: 
+                case 4:
                 {
                     Shadow_MEMWB.RtValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                     break;
                 }
-            } 
+            }
         }
     }
-               
+
         }
         else if (Shadow_EXMEM.MemWrite)
         {
             Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
             Shadow_MEMWB.Rd = Shadow_IDEX.Rd;
             Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
-            (Shadow_EXMEM.half == true) 
+            (Shadow_EXMEM.half == true)
             {
                 switch(Shadow_EXMEM.mem)
                 {
-                    case 0:    
-                    {    
+                    case 0:
+                    {
                         memory[Shadow_EXMEM.ALUResult] = 0xFFFF0000 & (Shadow_MEMWB.RsValue << 16);
                         break;
                     }
@@ -87,8 +88,8 @@ void Instr_Mem()
             {
                 switch(Shadow_EXMEM.mem)
                 {
-                    case 0:    
-                    {    
+                    case 0:
+                    {
                         memory[Shadow_EXMEM.ALUResult] = 0xFF000000 & (Shadow_MEMWB.RsValue << 24);
                         break;
                     }
@@ -97,8 +98,8 @@ void Instr_Mem()
                         memory[Shadow_EXMEM.ALUResult] = 0x00FF0000 & (Shadow_MEMWB.RsValue << 16);
                         break;
                     }
-                    case 2:    
-                    {    
+                    case 2:
+                    {
                         memory[Shadow_EXMEM.ALUResult] = 0x0000FF00 & (Shadow_MEMWB.RsValue << 8);
                         break;
                     }
@@ -111,14 +112,12 @@ void Instr_Mem()
                     {
                         memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_MEMWB.RsValue;
                         break;
-                    }    
-                }      
+                    }
+                }
             }
         }
         else
         {
-        
+
         }
 }
-    
-    

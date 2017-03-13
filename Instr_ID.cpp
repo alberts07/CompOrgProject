@@ -1,28 +1,33 @@
 //
 //  Single_Cycle.cpp
-//  
+//
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
 #include "Instr_ID.hpp"
 #include "Instr_IF.hpp"
+#include <vector>
+#include <iostream>
+
+extern struct ifid Shadow_IFID;
+extern struct idex Shadow_IDEX;
 
 int Instr_ID()
 {
     Shadow_IDEX.instr = Shadow_IFID.instr;
     Shadow_IDEX.pcplus1 = Shadow_IFID.pcplus1;
-    
+
     std::vector<int> format = find_format(Shadow_IDEX.instr);
     if(format[0] == rtype)
     {
-        
+
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
-        Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];      
+        Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
         Shadow_IDEX.Rd = find_rd(Shadow_IDEX.instr);
-        Shadow_IDEX.RdValue = Reg[Shadow_IDEX.Rd]; 
+        Shadow_IDEX.RdValue = Reg[Shadow_IDEX.Rd];
         Shadow_IDEX.shamt = find_shamt(Shadow_IDEX.instr);
         Shadow_IDEX.RegWrite = true;
         Shadow_IDEX.MemWrite = false;
@@ -32,10 +37,10 @@ int Instr_ID()
         Shadow_IDEX.opcode = format[1];
         Shadow_IDEX.func = format[2];
         return rtype;
-    } 
-         
+    }
+
     if(format[0] == itype)
-    { 
+    {
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shaodw_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
@@ -43,7 +48,7 @@ int Instr_ID()
         Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
         Shadow_IDEX.opcode = format[1];
         return itype;
-    }  
+    }
     if(format[0] == jtype)
     {
         Shadow_IDEX.RegWrite = false;
@@ -62,18 +67,18 @@ int Instr_ID()
         Shadow_IDEX.Rt = find_rt(Shadow_IFID.instr);
         Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
         Shadow_IDEX.Rd = find_rd(Shadow_IFID.instr);
-        Shadow_IDEX.RdValue = Reg[Shadow_IDEX.Rd];             
-        Shadow_IDEX.shamt = find_shamt();       
+        Shadow_IDEX.RdValue = Reg[Shadow_IDEX.Rd];
+        Shadow_IDEX.shamt = find_shamt();
         switch(format[2])
         {
             case: clo_func
             {
-                clo();      
+                clo();
                 break;
             }
             case: clz_func
             {
-                clz();      
+                clz();
                 break;
             }
             case: mul_func
@@ -88,7 +93,7 @@ int Instr_ID()
             }
             case: maddu_func
             {
-                maddu();      
+                maddu();
                 break;
             }
             case: msub_func
@@ -102,13 +107,13 @@ int Instr_ID()
                 break;
             }
         }
-    } 
+    }
     if(format[0] == special_opcode2l)
     {
         Shadow_IFID.immed16 = find_immed16(Shadow_IFID.instr);
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shadow_IDEX.Rs = find_rs(Shadow_IFID.instr);
-        Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];  
+        Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         switch(format[2])
         {
             case: bclt_func
@@ -128,7 +133,7 @@ int Instr_ID()
         Shadow_IFID.immed16 = find_immed16(Shadow_IFID.instr);
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shadow_IDEX.Rs = find_rs(Shadow_IFID.instr);
-        Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];   
+        Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         switch(format[2])
         {
             case: bgez_func
@@ -160,7 +165,7 @@ int Instr_ID()
             {
                 tnei();
                 break;
-            }  
+            }
             case: tgei_func
             {
                 tgei();
@@ -170,7 +175,7 @@ int Instr_ID()
             {
                 tgeiu();
                 break;
-            }    
+            }
             case: tlti_func
             {
                 tlti();
@@ -180,16 +185,8 @@ int Instr_ID()
             {
                 tltiu();
                 break;
-            }    
+            }
         }
     }*/
     }
 }
-        
-        
-    
-        
-
-                
- 
- 

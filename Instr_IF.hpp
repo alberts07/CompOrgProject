@@ -1,6 +1,6 @@
 //
 //  Instr_IF.hpp
-//  
+//
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
@@ -17,7 +17,7 @@ void Instr_IF(unsigned int);
 struct ifid {
     short immed16;
     unsigned int pcplus1;
-    unsigned int instr; 
+    unsigned int instr;
 }Shadow_IFID, IFID;
 
 struct idex {
@@ -64,10 +64,10 @@ struct memwb {
     int Rt;
     unsigned int pcplus1;
 } Shadow_MEMWB, MEMWB;
-    
-    
 
-//Type Determination 
+
+
+//Type Determination
 #define     rtype               0x00000000
 #define     itype               0x00000001
 #define     jtype               0x00000010
@@ -85,7 +85,7 @@ struct memwb {
 #define     shamt_mask              0x000007C0
 #define     immed16_mask            0x0000FFFF
 #define     immed26_mask            0x03FFFFFF
-#define     jump_mask               0xF0000000             
+#define     jump_mask               0xF0000000
 //#define     br_coprocessor          0x00030000
 //#define     spec_opcode3_mask       0x001F0000
 
@@ -121,7 +121,7 @@ struct memwb {
 #define     swr_opcode      0b101110
 #define     sc_opcode       0b111000
 #define     bgtz_opcode     0b000111
-#define     blez_opcode     0b000110    
+#define     blez_opcode     0b000110
 
 
 //Fucntions for R-format MIPS
@@ -156,9 +156,9 @@ struct memwb {
 #define     tlt_func        0b110010
 #define     tltu_func       0b110011
 */
-//Special Functions 
+//Special Functions
 /*
-#define     special_opcode1 0b011100    
+#define     special_opcode1 0b011100
 #define     clo_func        0b100001
 #define     clz_func        0b100000
 #define     mul_func        0b000010

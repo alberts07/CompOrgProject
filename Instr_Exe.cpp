@@ -1,6 +1,6 @@
 //
 //  Instr_Exe.cpp
-//  
+//
 //
 //  Created by Drew Lockwood on 3/1/17.
 //
@@ -16,7 +16,7 @@ void Instr_Exe(int format)
            {
                case: add_func
                {
-                   add();      
+                   add();
                    break;
                }
                case: addu_func
@@ -117,27 +117,27 @@ void Instr_Exe(int format)
                /*
                case: mul_func
                {
-                   mul();      
+                   mul();
                    break;
                }
                case: madd_func
                {
-                   madd();      
+                   madd();
                    break;
                }
                case: maddu_func
                {
-                   maddu();      
+                   maddu();
                    break;
                }
                case: msub_func
                {
-                   msub();      
+                   msub();
                    break;
                }
                case: msubu_func
                {
-                   msubu();      
+                   msubu();
                    break;
                }
                */
@@ -184,15 +184,15 @@ void Instr_Exe(int format)
                }*/
            }
    }
-    
+
    else if(format == itype){
-       
+
        Shadow_IDEX.ALUSrc = true ;
        Shadow_IDEX.MemtoReg = false;
        Shadow_IDEX.RegWrite = true;
        Shadow_IDEX.MemRead = false;
        Shadow_IDEX.MemWrite = false;
-       
+
        switch(Shadow_IDEX.opcode)
        {
            case: lw_opcode
@@ -202,7 +202,7 @@ void Instr_Exe(int format)
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-         
+
                lw();
                break;
            }
@@ -213,13 +213,13 @@ void Instr_Exe(int format)
            }
            case: sw_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = false;
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = true;
-               
+
                sw();
                break;
            }
@@ -250,7 +250,7 @@ void Instr_Exe(int format)
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-               
+
                lui();
                break;
            }
@@ -266,61 +266,61 @@ void Instr_Exe(int format)
            }
            case: lb_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = true;
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-               
+
                lb();
                break;
            }
            case: lh_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = true;
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-               
+
                lh();
                break;
            }
            case: sb_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = false;
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = true;
-               
+
                sb();
                break;
            }
            case: sh_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = false;
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = true;
-               
+
                sh();
                break;
            }
            case: beq_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = false;
                Shadow_IDEX.MemtoReg = false;
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = false;
-               
+
                beq();
                break;
            }
@@ -331,25 +331,25 @@ void Instr_Exe(int format)
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = false;
-               
+
                bne();
                break;
            }
            case: lhu_opcode
            {
-               
+
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = true;
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-               
+
                lhu();
                break;
            }
        }
    }
-    
+
    else if(format == jtype)
    {
         switch(Shadow_IDEX.opcode)
