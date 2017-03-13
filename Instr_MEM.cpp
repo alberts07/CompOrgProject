@@ -11,7 +11,6 @@ void Instr_Mem()
     if(Shadow_EXMEM.MemRead)
     {
         Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
-        Shadow_MEMWB.Rd = Shadow_IDEX.Rd;
         Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
         if(Shadow_EXMEM.half == true)
         {
@@ -66,7 +65,6 @@ void Instr_Mem()
         else if (Shadow_EXMEM.MemWrite)
         {
             Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
-            Shadow_MEMWB.Rd = Shadow_IDEX.Rd;
             Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
             (Shadow_EXMEM.half == true)
             {
