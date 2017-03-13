@@ -5,7 +5,8 @@
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
-
+#include <iostream>
+#include <stdio>
 #include "Instr_Exe.hpp"
 
 void Instr_Exe(int format)

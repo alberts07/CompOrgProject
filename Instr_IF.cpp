@@ -2,6 +2,7 @@ extern unsigned int $pc;
 extern int memory[10000];
 #include "Instr_IF.hpp"
 
+extern struct ifid Shadow_IFID;
 
 void Instr_IF(unsigned int instruction)
 {
