@@ -1,9 +1,7 @@
 # CompOrgProject
 CompOrgProject
 
-## TODO Create the Shadow_IFEX function to create global lookup
 ## TODO Need to put in all the #DEFINEs
-## TODO Define rtype as 0 itype as 1 jtype as 2
 ## TODO Test Vector implementations
 
 functions all lower case
