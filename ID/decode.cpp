@@ -1,8 +1,6 @@
 
 #include <vector>
-#include <iostream>
 #include <Instr_IF.hpp>
-#include <Instr_ID.hpp>
 #include <decode.hpp>
 
 extern struct idex Shadow_IDEX;
