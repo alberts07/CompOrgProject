@@ -60,7 +60,6 @@ struct memwb {
     bool RegWrite;
     bool MemtoReg;
     int ALUResult;
-    int RdValue;
     int Rd;
     int RtValue;
     int Rt;
