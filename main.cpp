@@ -1,16 +1,15 @@
-#include <iostream>
-#include <vector>
 #include <Instr_IF_hpp>
 #include <Instr_ID_hpp>
 #include <Instr_WB_hpp>
 #include <Instr_MEM_hpp>
 #include <Instr_Exe_hpp>
 #include <Update_State_hpp>
+#include <iostream>
 
-int holder[4] = {0x00004020, 0x2009000F, 0x0800000C, 0x00095080};
+int holder[4] = {0x00004020, 0x2009000F, 0x08000004, 0x00095080};
 //0x00004020 = add $t0, 0, 0
 //0x2009000F = addi t1, zero, 15
-//0x08000004 = j 0x00C
+//0x08000004 = j 0x004
 //0x00095080 = sll t2, t1, 2
 
 int memory[0x50000000];
@@ -23,6 +22,7 @@ int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 int main()
 {
+    unsigned int clock_cycles = 0;
     int format = 0;
     for(int i = 0; i < 4; i++)
     {
@@ -38,5 +38,7 @@ int main()
         Instr_Exe(format);
         Instr_MEM();
         Update_State();
+        clock_cycles++;
     }
+    std::cout >> clock_cycles;
 }
