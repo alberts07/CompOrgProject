@@ -1,10 +1,15 @@
-//
-//  Update_State.cpp
-//
-//
-//  Created by Austin Alberts on 3/11/17.
-//
-//
+
+#include <Instr_IF_hpp>
+
+extern struct ifid Shadow_IFID;
+extern struct ifid IFID;
+extern struct idex Shadow_IDEX;
+extern struct idex IDEX;
+extern struct exmem Shadow_EXMEM;
+extern struct exmem EXMEM;
+extern struct memwb Shadow_MEMWB;
+extern struct memwb MEMWB;
+
 void Update_State()
 {
     IFID = Shadow_IFID;
