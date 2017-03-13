@@ -23,6 +23,7 @@ int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 int main()
 {
+    int format = 0;
     for(int i = 0; i < 4; i++)
     {
         memory[$pc] = holder[i];
@@ -33,9 +34,9 @@ int main()
     {
         Instr_IF(memory[$pc]);
         Instr_WB();
-        Instr_ID();
-        Instr_Exe();
-        Instr_Mem();
+        format = Instr_ID();
+        Instr_Exe(format);
+        Instr_MEM();
         Update_State();
     }
 }

@@ -9,7 +9,7 @@
 #define Instr_MEM_hpp
 
 
-void Instr_Mem(void);
+void Instr_MEM(void);
 
 
 #endif

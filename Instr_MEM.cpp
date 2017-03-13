@@ -6,7 +6,7 @@ extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
 
-void Instr_Mem()
+void Instr_MEM()
 {
     if(Shadow_EXMEM.MemRead)
     {
