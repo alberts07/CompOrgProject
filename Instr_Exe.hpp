@@ -9,7 +9,6 @@
 #ifndef Instr_Exe_hpp
 #define Instr_Exe_hpp
 
-#include <stdio.h>
 
 void Instr_Exe(int);
 

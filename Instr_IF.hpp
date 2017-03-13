@@ -9,7 +9,6 @@
 #ifndef Instr_IF_hpp
 #define Instr_IF_hpp
 
-#include <stdio.h>
 
 
 void Instr_IF(unsigned int);
