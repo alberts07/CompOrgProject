@@ -9,6 +9,9 @@
 #include <stdio>
 #include "Instr_Exe.hpp"
 
+extern struct idex Shadow_IDEX;
+extern struct exmem Shadow_EXMEM;
+
 void Instr_Exe(int format)
 {
     if(format == rtype)
