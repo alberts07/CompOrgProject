@@ -3,9 +3,6 @@
 
 
 #include <vector>
-#include <iostream>
-#include <Instr_IF.hpp>
-#include <Instr_ID.hpp>
 
 std::vector<int> find_format(unsigned int);
 int find_func(unsigned int);
