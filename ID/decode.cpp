@@ -1,7 +1,7 @@
 
 #include <vector>
-#include <Instr_IF.hpp>
-#include <decode.hpp>
+#include "Instr_IF.h"
+#include "decode.h"
 
 extern struct idex Shadow_IDEX;
 

@@ -1,5 +1,5 @@
-#ifndef decode_hpp
-#define decode_hpp
+#ifndef decode_h
+#define decode_h
 
 
 #include <vector>
