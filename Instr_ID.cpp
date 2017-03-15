@@ -9,7 +9,7 @@
 #include "Instr_IF.hpp"
 #include <vector>
 #include <iostream>
-#include <decode.hpp>
+#include "decode.hpp"
 
 extern struct ifid Shadow_IFID;
 extern struct idex Shadow_IDEX;

@@ -1,9 +1,9 @@
-#include <Instr_IF_hpp>
-#include <Instr_ID_hpp>
-#include <Instr_WB_hpp>
-#include <Instr_MEM_hpp>
-#include <Instr_Exe_hpp>
-#include <Update_State_hpp>
+#include "Instr_IF.hpp"
+#include "Instr_ID.hpp"
+#include "Instr_WB.hpp"
+#include "Instr_MEM.hpp"
+#include "Instr_Exe.hpp"
+#include "Update_State.hpp"
 #include <iostream>
 
 int holder[4] = {0x00004020, 0x2009000F, 0x08000004, 0x00095080};
@@ -33,7 +33,10 @@ int main()
     for($pc = 0; $pc < 4; $pc++)
     {
         Instr_IF(memory[$pc]);
-        Instr_WB();
+        if($pc != 0)
+        {
+            Instr_WB(format);
+        }
         format = Instr_ID();
         Instr_Exe(format);
         Instr_MEM();
