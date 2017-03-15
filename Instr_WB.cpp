@@ -1,5 +1,5 @@
-#include "Instr_IF.hpp"
-#include "Instr_ID.hpp"
+#include "Instr_IF.h"
+#include "Instr_ID.h"
 
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;

@@ -1,9 +1,9 @@
-#include "Instr_IF.hpp"
-#include "Instr_ID.hpp"
-#include "Instr_WB.hpp"
-#include "Instr_MEM.hpp"
-#include "Instr_Exe.hpp"
-#include "Update_State.hpp"
+#include "Instr_IF.h"
+#include "Instr_ID.h"
+#include "Instr_WB.h"
+#include "Instr_MEM.h"
+#include "Instr_Exe.h"
+#include "Update_State.h"
 #include <iostream>
 
 int holder[4] = {0x00004020, 0x2009000F, 0x08000004, 0x00095080};

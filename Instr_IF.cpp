@@ -1,6 +1,6 @@
 extern unsigned int $pc;
 extern int memory[10000];
-#include "Instr_IF.hpp"
+#include "Instr_IF.h"
 
 extern struct ifid Shadow_IFID;
 

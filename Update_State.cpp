@@ -1,6 +1,6 @@
 
-#include "Instr_IF.hpp"
-#include "Update_State.hpp"
+#include "Instr_IF.h"
+#include "Update_State.h"
 
 extern struct ifid Shadow_IFID;
 extern struct ifid IFID;

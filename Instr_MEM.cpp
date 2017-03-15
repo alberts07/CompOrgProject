@@ -1,6 +1,6 @@
 
-#include "Instr_ID.hpp"
-#include "Instr_IF.hpp"
+#include "Instr_ID.h"
+#include "Instr_IF.h"
 
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;

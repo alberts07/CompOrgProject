@@ -5,11 +5,11 @@
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
-#include "Instr_ID.hpp"
-#include "Instr_IF.hpp"
+#include "Instr_ID.h"
+#include "Instr_IF.h"
 #include <vector>
 #include <iostream>
-#include "decode.hpp"
+#include "decode.h"
 
 extern struct ifid Shadow_IFID;
 extern struct idex Shadow_IDEX;

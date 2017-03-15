@@ -1,6 +1,6 @@
 
-#ifndef Instr_ID_hpp
-#define Instr_ID_hpp
+#ifndef Instr_ID_h
+#define Instr_ID_h
 
 int Instr_ID(void);
 
