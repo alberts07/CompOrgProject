@@ -14,9 +14,4 @@ int find_rt(unsigned int);
 int find_rs(unsigned int);
 int find_shamt(unsigned int);
 
-
-
-
-
-
 #endif
