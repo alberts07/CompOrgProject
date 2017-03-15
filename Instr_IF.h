@@ -6,8 +6,8 @@
 //
 //
 
-#ifndef Instr_IF_hpp
-#define Instr_IF_hpp
+#ifndef Instr_IF_h
+#define Instr_IF_h
 
 
 

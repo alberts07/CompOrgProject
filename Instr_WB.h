@@ -5,8 +5,8 @@
 //  Created by Austin Alberts on 3/11/17.
 //
 //
-#ifndef Instr_WB_hpp
-#define Instr_WB_hpp
+#ifndef Instr_WB_h
+#define Instr_WB_h
 
 
 void Instr_WB(int);

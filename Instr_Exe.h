@@ -6,10 +6,10 @@
 //
 //
 
-#ifndef Instr_Exe_hpp
-#define Instr_Exe_hpp
+#ifndef Instr_Exe_h
+#define Instr_Exe_h
 
 
 void Instr_Exe(int);
 
-#endif /* Instr_Exe_hpp */
+#endif /* Instr_Exe_h */
