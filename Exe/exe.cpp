@@ -1,6 +1,6 @@
-#include <exe.hpp>
-#include <Instr_IF.hpp>
-#include <Instr_ID.hpp>
+#include "exe.h"
+#include "Instr_IF.h"
+#include "Instr_ID.h"
 #include <iostream>
 
 extern int Reg[31];

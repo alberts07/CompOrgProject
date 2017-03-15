@@ -1,5 +1,5 @@
-#ifndef exe_hpp
-#define exe_hpp
+#ifndef exe_h
+#define exe_h
 
 void add(void);
 void addi(void);
