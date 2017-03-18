@@ -60,6 +60,8 @@ struct memwb {
     bool MemtoReg;
     int ALUResult;
     int Rd;
+    int Rs;
+    int RsValue;
     int RtValue;
     int Rt;
     unsigned int pcplus1;

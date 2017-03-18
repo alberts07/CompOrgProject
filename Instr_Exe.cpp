@@ -6,7 +6,6 @@
 //
 //
 #include <iostream>
-#include <stdio>
 #include "Instr_Exe.h"
 
 extern struct idex Shadow_IDEX;

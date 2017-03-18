@@ -5,6 +5,7 @@
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
+extern memory[0x50000000];
 
 void Instr_MEM()
 {
@@ -66,7 +67,7 @@ void Instr_MEM()
         {
             Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
             Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
-            (Shadow_EXMEM.half == true)
+            if(Shadow_EXMEM.half == true)
             {
                 switch(Shadow_EXMEM.mem)
                 {
@@ -118,4 +119,5 @@ void Instr_MEM()
         {
 
         }
+      }
 }

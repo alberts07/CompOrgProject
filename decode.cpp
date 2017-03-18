@@ -40,7 +40,7 @@ std::vector<int> find_format(unsigned int instr)
 
 int find_func(unsigned int instr)
 {
-    return instr & func_mask;
+    return instr & function_mask;
 }
 
 
@@ -52,39 +52,39 @@ short find_immed16(unsigned int instr)
 
 int find_immed26(unsigned int instr)
 {
-    return instr && immed26_mask;
+    return instr & immed26_mask;
 }
 
 int find_opcode(unsigned int instr)
 {
-    int opcode = instr && opcode_mask;
+    int opcode = instr & opcode_mask;
     return opcode >> 26;
 }
 
 
 int find_rd(unsigned int instr)
 {
-    int rd = instr && rd_mask;
+    int rd = instr & rd_mask;
     rd = rd >> 11;
     return rd;
 }
 
 int find_rs(unsigned int instr)
 {
-    int rs = instr && rs_mask;
+    int rs = instr & rs_mask;
     rs = rs >> 21;
     return rs;
 }
 
 int find_rt(unsigned int instr)
 {
-    int rt = instr && rt_mask;
+    int rt = instr & rt_mask;
     rt = rt >> 16;
     return rt;
 }
 
 int find_shamt(unsigned int instr)
 {
-    int shamt = instr && shamt_mask;
+    int shamt = instr & shamt_mask;
     return shamt >> 6;
 }
