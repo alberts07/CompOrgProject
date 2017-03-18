@@ -381,7 +381,7 @@ void Instr_Exe(int format)
    }
    else
    {
-       std::cout >> "The format given did not match any message type";
+       std::cout << "The format given did not match any message type";
    }
    Shadow_EXMEM.MemtoReg = Shadow_IDEX.MemtoReg;
    Shadow_EXMEM.RegWrite = Shadow_IDEX.RegWrite;
