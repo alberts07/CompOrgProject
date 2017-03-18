@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Instr_Exe.h"
 #include "Instr_IF.h"
+#include "exe.h"
 
 extern struct idex Shadow_IDEX;
 extern struct exmem Shadow_EXMEM;
