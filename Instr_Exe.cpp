@@ -30,7 +30,7 @@ void Instr_Exe(int format)
                }
                case: and_func
                {
-                   and();
+                   andd();
                    break;
                }
                case: nor_func
@@ -40,7 +40,7 @@ void Instr_Exe(int format)
                }
                case: or_func
                {
-                   or();
+                   orr();
                    break;
                }
                case: slt_func
@@ -65,7 +65,7 @@ void Instr_Exe(int format)
                }
                case: xor_func
                {
-                   xor();
+                   xorr();
                    break;
                }
                case: sll_func
