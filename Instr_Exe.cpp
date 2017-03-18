@@ -84,21 +84,26 @@ void Instr_Exe(int format)
                    sllv();
                    break;
                }
+/*
                case srav_func:
                {
                    srav();
                    break;
                }
+               */
                case srlv_func:
                {
                    srlv();
                    break;
                }
+               /*
                case sra_func:
                {
                    sra();
                    break;
                }
+               */
+               /*
                case div_func:
                {
                    div();
@@ -118,7 +123,7 @@ void Instr_Exe(int format)
                {
                    multu();
                    break;
-               }
+               }*/
                /*
                case: mul_func
                {
@@ -151,11 +156,12 @@ void Instr_Exe(int format)
                    jr();
                    break;
                }
+               /*
                case jalr_func:
                {
                    jalr();
                    break;
-               }
+               }*/
                    /*
                case: teq_func
                {
@@ -248,6 +254,7 @@ void Instr_Exe(int format)
                andi();
                break;
            }
+           /*
            case lui_opcode:
            {
                Shadow_IDEX.ALUSrc = true;
@@ -259,6 +266,7 @@ void Instr_Exe(int format)
                lui();
                break;
            }
+           */
            case ori_opcode:
            {
                ori();
@@ -373,7 +381,7 @@ void Instr_Exe(int format)
    }
    else
    {
-       std::cout("The format given did not match any message type");
+       std::cout >> "The format given did not match any message type";
    }
    Shadow_EXMEM.MemtoReg = Shadow_IDEX.MemtoReg;
    Shadow_EXMEM.RegWrite = Shadow_IDEX.RegWrite;

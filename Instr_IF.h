@@ -139,8 +139,8 @@ struct memwb {
 #define     xor_func        0b100110
 #define     sll_func        0b000000
 #define     sllv_func       0b000100
-#define     srl_func        0b100010
-#define     srlv_func       0b100110
+#define     srl_func        0b000010
+#define     srlv_func       0b000110
 #define     sra_func        0b100011
 #define     srav_func       0b100111
 #define     div_func        0b100010
