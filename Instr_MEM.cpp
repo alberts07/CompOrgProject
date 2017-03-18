@@ -5,7 +5,7 @@
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
-extern memory[0x50000000];
+extern int memory[0x50000000];
 
 void Instr_MEM()
 {
@@ -62,62 +62,60 @@ void Instr_MEM()
         }
     }
 
-        }
-        else if (Shadow_EXMEM.MemWrite)
+    else if (Shadow_EXMEM.MemWrite)
+    {
+        Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
+        Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
+        if(Shadow_EXMEM.half == true)
         {
-            Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
-            Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
-            if(Shadow_EXMEM.half == true)
+            switch(Shadow_EXMEM.mem)
             {
-                switch(Shadow_EXMEM.mem)
+                case 0:
                 {
-                    case 0:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0xFFFF0000 & (Shadow_MEMWB.RsValue << 16);
-                        break;
-                    }
-                    case 1:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = (0x0000FFFF & Shadow_MEMWB.RsValue);
-                        break;
-                    }
+                    memory[Shadow_EXMEM.ALUResult] = 0xFFFF0000 & (Shadow_MEMWB.RsValue << 16);
+                    break;
                 }
-            }
-            if(Shadow_EXMEM.half == false)
-            {
-                switch(Shadow_EXMEM.mem)
+                case 1:
                 {
-                    case 0:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0xFF000000 & (Shadow_MEMWB.RsValue << 24);
-                        break;
-                    }
-                    case 1:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0x00FF0000 & (Shadow_MEMWB.RsValue << 16);
-                        break;
-                    }
-                    case 2:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0x0000FF00 & (Shadow_MEMWB.RsValue << 8);
-                        break;
-                    }
-                    case 3:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0x0000FFFF & Shadow_MEMWB.RsValue;
-                        break;
-                    }
-                    case 4:
-                    {
-                        memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_MEMWB.RsValue;
-                        break;
-                    }
+                    memory[Shadow_EXMEM.ALUResult] = (0x0000FFFF & Shadow_MEMWB.RsValue);
+                    break;
                 }
             }
         }
-        else
+        if(Shadow_EXMEM.half == false)
         {
+            switch(Shadow_EXMEM.mem)
+            {
+                case 0:
+                {
+                    memory[Shadow_EXMEM.ALUResult] = 0xFF000000 & (Shadow_MEMWB.RsValue << 24);
+                    break;
+                }
+                case 1:
+                {
+                    memory[Shadow_EXMEM.ALUResult] = 0x00FF0000 & (Shadow_MEMWB.RsValue << 16);
+                    break;
+                }
+                case 2:
+                {
+                    memory[Shadow_EXMEM.ALUResult] = 0x0000FF00 & (Shadow_MEMWB.RsValue << 8);
+                    break;
+                }
+                case 3:
+                {
+                    memory[Shadow_EXMEM.ALUResult] = 0x0000FFFF & Shadow_MEMWB.RsValue;
+                    break;
+                }
+                case 4:
+                {
+                    memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_MEMWB.RsValue;
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
 
-        }
-      }
+    }
 }
