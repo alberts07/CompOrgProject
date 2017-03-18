@@ -3,7 +3,7 @@
 #include "Instr_ID.h"
 #include <iostream>
 
-extern int Reg[31];
+extern int Reg[32];
 extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
 extern unsigned int $pc;
@@ -141,8 +141,8 @@ void lh()
 void lhu()
 {
     Shadow_EXMEM.ALUResult = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2;
-    Shadow_EXEMEM.mem = Shadow_EXMEM.ALUResult % 2;
-    Shadow_EXEMEM.half = true;
+    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 2;
+    Shadow_EXMEM.half = true;
 }
 
 void lw()
@@ -154,7 +154,7 @@ void lw()
 
 void nor()
 {
-    Shadow_EXMEM.RdValue= ~(Shadow_IDEX.RsValue | Shadow_IDEX.RtValue);
+    Shadow_EXMEM.ALUResult = ~(Shadow_IDEX.RsValue | Shadow_IDEX.RtValue);
 }
 
 void or()
@@ -250,7 +250,7 @@ void sw()
     Shadow_EXMEM.half = false;
 }
 
-void xor()
+void xor(void)
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue ^ Shadow_IDEX.RtValue;
 }
