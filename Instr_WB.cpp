@@ -3,6 +3,7 @@
 
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
+extern int Reg[32];
 
 void Instr_WB(int format)
 {
