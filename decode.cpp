@@ -10,7 +10,7 @@ std::vector<int> find_format(unsigned int instr)
     Shadow_IDEX.opcode = find_opcode(instr);
     if(Shadow_IDEX.opcode == 0)
     {
-        Shadow_IDEX.func = find_func(instr)
+        Shadow_IDEX.func = find_func(instr);
         return std::vector<int> format ({rtype, Shadow_IDEX.opcode, Shadow_IDEX.func});
     }
     if(((Shadow_IDEX.opcode >= 0x5) && (Shadow_IDEX.opcode <= 0xF)) || (Shadow_IDEX.opcode == 4) || ((Shadow_IDEX.opcode >= 0x20) && (Shadow_IDEX.opcode <= 0x26)) || ((Shadow_IDEX.opcode >= 0x28) && (Shadow_IDEX.opcode <= 0x2B)) || (Shadow_IDEX.opcode == 0x2E) || (Shadow_IDEX.opcode == 0x30) || (Shadow_IDEX.opcode == 0x31) || (Shadow_IDEX.opcode == 0x38) || (Shadow_IDEX.opcode == 0x3D))

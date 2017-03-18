@@ -28,7 +28,7 @@ void addu()
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.RtValue;
 }
 
-void and()
+void andd()
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue & Shadow_IDEX.RsValue;
 }
@@ -157,7 +157,7 @@ void nor()
     Shadow_EXMEM.ALUResult = ~(Shadow_IDEX.RsValue | Shadow_IDEX.RtValue);
 }
 
-void or()
+void orr()
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue | Shadow_IDEX.RtValue;
 }
@@ -250,7 +250,7 @@ void sw()
     Shadow_EXMEM.half = false;
 }
 
-void xor(void)
+void xorr(void)
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue ^ Shadow_IDEX.RtValue;
 }
