@@ -18,102 +18,102 @@ void Instr_Exe(int format)
     {
        switch(Shadow_IDEX.func)
            {
-               case: add_func
+               case add_func:
                {
                    add();
                    break;
                }
-               case: addu_func
+               case addu_func:
                {
                    addu();
                    break;
                }
-               case: and_func
+               case and_func:
                {
                    andd();
                    break;
                }
-               case: nor_func
+               case nor_func:
                {
                    nor();
                    break;
                }
-               case: or_func
+               case or_func:
                {
                    orr();
                    break;
                }
-               case: slt_func
+               case slt_func:
                {
                    slt();
                    break;
                }
-               case: sltu_func
+               case sltu_func:
                {
                    sltu();
                    break;
                }
-               case: sub_func
+               case sub_func:
                {
                    sub();
                    break;
                }
-               case: subu_func
+               case subu_func:
                {
                    subu();
                    break;
                }
-               case: xor_func
+               case xor_func:
                {
                    xorr();
                    break;
                }
-               case: sll_func
+               case sll_func:
                {
                    sll();
                    break;
                }
-               case: srl_func
+               case srl_func:
                {
                    srl();
                    break;
                }
-               case: sllv_func
+               case sllv_func:
                {
                    sllv();
                    break;
                }
-               case: srav_func
+               case srav_func:
                {
                    srav();
                    break;
                }
-               case: srlv_func
+               case srlv_func:
                {
                    srlv();
                    break;
                }
-               case: sra_func
+               case sra_func:
                {
                    sra();
                    break;
                }
-               case: div_func
+               case div_func:
                {
                    div();
                    break;
                }
-               case: divu_func
+               case divu_func:
                {
                    divu();
                    break;
                }
-               case: mult_func
+               case mult_func:
                {
                    mult();
                    break;
                }
-               case: mutlu_func:
+               case mutlu_func:
                {
                    multu();
                    break;
@@ -145,12 +145,12 @@ void Instr_Exe(int format)
                    break;
                }
                */
-               case: jr_func:
+               case jr_func:
                {
                    jr();
                    break;
                }
-               case: jalr_func:
+               case jalr_func:
                {
                    jalr();
                    break;
@@ -199,7 +199,7 @@ void Instr_Exe(int format)
 
        switch(Shadow_IDEX.opcode)
        {
-           case: lw_opcode
+           case lw_opcode:
            {
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = true;
@@ -210,12 +210,12 @@ void Instr_Exe(int format)
                lw();
                break;
            }
-           case: addi_opcode
+           case addi_opcode:
            {
                addi();
                break;
            }
-           case: sw_opcode
+           case sw_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -227,27 +227,27 @@ void Instr_Exe(int format)
                sw();
                break;
            }
-           case: slti_opcode
+           case slti_opcode:
            {
                slti();
                break;
            }
-           case: sltiu_opcode
+           case sltiu_opcode:
            {
                sltiu();
                break;
            }
-           case: addiu_opcode
+           case addiu_opcode:
            {
                addiu();
                break;
            }
-           case: andi_opcode
+           case andi_opcode:
            {
                andi();
                break;
            }
-           case: lui_opcode
+           case lui_opcode:
            {
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = true;
@@ -258,17 +258,17 @@ void Instr_Exe(int format)
                lui();
                break;
            }
-           case: ori_opcode
+           case ori_opcode:
            {
                ori();
                break;
            }
-           case: xori_opcode
+           case xori_opcode:
            {
                xori();
                break;
            }
-           case: lb_opcode
+           case lb_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -280,7 +280,7 @@ void Instr_Exe(int format)
                lb();
                break;
            }
-           case: lh_opcode
+           case lh_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -292,7 +292,7 @@ void Instr_Exe(int format)
                lh();
                break;
            }
-           case: sb_opcode
+           case sb_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -304,7 +304,7 @@ void Instr_Exe(int format)
                sb();
                break;
            }
-           case: sh_opcode
+           case sh_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -316,7 +316,7 @@ void Instr_Exe(int format)
                sh();
                break;
            }
-           case: beq_opcode
+           case beq_opcode:
            {
 
                Shadow_IDEX.ALUSrc = false;
@@ -328,7 +328,7 @@ void Instr_Exe(int format)
                beq();
                break;
            }
-           case: bne_opcode
+           case bne_opcode:
            {
                Shadow_IDEX.ALUSrc = false;
                Shadow_IDEX.MemtoReg = false;
@@ -339,7 +339,7 @@ void Instr_Exe(int format)
                bne();
                break;
            }
-           case: lhu_opcode
+           case lhu_opcode:
            {
 
                Shadow_IDEX.ALUSrc = true;
@@ -358,12 +358,12 @@ void Instr_Exe(int format)
    {
         switch(Shadow_IDEX.opcode)
            {
-               case: j_opcode
+               case j_opcode:
                {
                    j();
                    break;
                }
-               case: jal_opcode
+               case jal_opcode:
                {
                    jal();
                    break;
