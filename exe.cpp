@@ -7,6 +7,7 @@ extern int Reg[32];
 
 extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
+extern struct ifid  Shadow_IFID;
 
 extern unsigned int $pc;
 
@@ -112,6 +113,7 @@ void bne()
 
 void j()
 {
+    Shadow_IFID.pcplus1 = 0;
     $pc = (($pc & jump_mask) >> 2) | Shadow_IDEX.immed26;
 }
 
