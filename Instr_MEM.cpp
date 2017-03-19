@@ -1,11 +1,11 @@
 
 #include "Instr_ID.h"
 #include "Instr_IF.h"
-/*
+
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
-*/
+
 extern int memory[0x50000000];
 
 void Instr_MEM()

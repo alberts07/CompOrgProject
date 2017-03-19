@@ -10,9 +10,9 @@
 #include <vector>
 #include <iostream>
 #include "decode.h"
-/*
+
 extern struct  ifid Shadow_IFID;
-extern struct  idex Shadow_IDEX;*/
+extern struct  idex Shadow_IDEX;
 extern int Reg[31];
 
 int Instr_ID()

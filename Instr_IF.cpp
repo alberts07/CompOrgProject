@@ -3,7 +3,7 @@
 
 extern unsigned int $pc;
 extern int memory[10000];
-//extern struct ifid Shadow_IFID;
+extern struct ifid Shadow_IFID;
 
 void Instr_IF(unsigned int instruction)
 {

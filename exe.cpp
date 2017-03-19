@@ -4,10 +4,10 @@
 #include <iostream>
 
 extern int Reg[32];
-/*
+
 extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
-*/
+
 extern unsigned int $pc;
 
 void add()
