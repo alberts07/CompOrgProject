@@ -18,59 +18,14 @@ unsigned int $fp = 0x00000000;
 unsigned int $gp = 0x00000000;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-struct ifid {
-    short immed16;
-    unsigned int pcplus1;
-    unsigned int instr;
-}Shadow_IFID, IFID;
-
-struct idex {
-    bool RegWrite;
-    bool MemRead;
-    bool MemWrite;
-    bool MemtoReg;
-    bool ALUSrc;
-    int Rs;
-    int RsValue;
-    int Rd;
-    int RdValue;
-    int Rt;
-    int RtValue;
-    int immed16;
-    int immed26;
-    int opcode;
-    int func;
-    int shamt;
-    unsigned int pcplus1;
-    unsigned int instr;
-}, Shadow_IDEX, IDEX;
-
-struct exmem {
-    bool RegWrite;
-    bool MemRead;
-    bool MemWrite;
-    bool MemtoReg;
-    int Rt;
-    int Rs;
-    int Rd;
-    int RsValue;
-    int ALUResult;
-    unsigned int pcplus1;
-    int mem;
-    bool half;
-}Shadow_EXMEM, EXMEM;
-
-struct memwb {
-    bool RegWrite;
-    bool MemtoReg;
-    int ALUResult;
-    int Rd;
-    int Rs;
-    int RsValue;
-    int RtValue;
-    int Rt;
-    unsigned int pcplus1;
-}Shadow_MEMWB, MEMWB;
+struct ifid Shadow_IFID;
+struct ifid IFID;
+struct idex Shadow_IDEX;
+struct idex IDEX;
+struct exmem Shadow_EXMEM;
+struct exmem EXMEM;
+struct memwb Shadow_MEMWB;
+struct memwb MEMWB;
 
 
 
