@@ -3,7 +3,7 @@
 #include "Instr_IF.h"
 #include "decode.h"
 
-extern struct idex Shadow_IDEX;
+//extern struct idex Shadow_IDEX;
 
 std::vector<int> find_format(unsigned int instr)
 {

@@ -1,16 +1,12 @@
 
 #include "Instr_IF.h"
 #include "Update_State.h"
-
-extern struct ifid Shadow_IFID;
-extern struct ifid IFID;
-extern struct idex Shadow_IDEX;
-extern struct idex IDEX;
-extern struct exmem Shadow_EXMEM;
-extern struct exmem EXMEM;
-extern struct memwb Shadow_MEMWB;
-extern struct memwb MEMWB;
-
+/*
+extern struct ifid Shadow_IFID, IFID;
+extern struct idex Shadow_IDEX, IDEX;
+extern struct exmem Shadow_EXMEM, EXMEM;
+extern struct memwb Shadow_MEMWB, MEMWB;
+*/
 void Update_State()
 {
     IFID = Shadow_IFID;

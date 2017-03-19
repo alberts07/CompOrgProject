@@ -17,7 +17,7 @@ struct ifid {
     short immed16;
     unsigned int pcplus1;
     unsigned int instr;
-};
+}Shadow_IFID, IFID;
 
 struct idex {
     bool RegWrite;
@@ -38,7 +38,7 @@ struct idex {
     int shamt;
     unsigned int pcplus1;
     unsigned int instr;
-};
+}, Shadow_IDEX, IDEX;
 
 struct exmem {
     bool RegWrite;
@@ -53,7 +53,7 @@ struct exmem {
     unsigned int pcplus1;
     int mem;
     bool half;
-};
+}Shadow_EXMEM, EXMEM;
 
 struct memwb {
     bool RegWrite;
@@ -65,7 +65,7 @@ struct memwb {
     int RtValue;
     int Rt;
     unsigned int pcplus1;
-};
+}Shadow_MEMWB, MEMWB;
 
 
 

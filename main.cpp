@@ -18,7 +18,6 @@ unsigned int $fp = 0x00000000;
 unsigned int $gp = 0x00000000;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-struct ifid Shadow_IFID, IFID;
 
 
 
