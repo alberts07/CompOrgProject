@@ -6,12 +6,20 @@
 #include "Update_State.h"
 #include <iostream>
 
-unsigned int holder[3] = {0x00004020, 0x2009000F, 0x00095080};
+unsigned int holder[] = {0x00004020, 0x2129000F, 0x00095080, 0x01495822, 0x3529001F, 0x21080002, 0x010b682a, 0x31290010};
 //0x00004020 = add $t0, 0, 0
-//0x2009000F = addi t1, zero, 15
+//0x2009000F = addi $t1, $t1, 15
 //0x00095080 = sll t2, t1, 2
+//0x01495822 = sub t3, t2, t1
+//0x3529001f = ori t1, t1, 31
+//0x21080002 = addi t0, t0, 2
+//0x010b682a = slt t5, t0, t3
+//0x31290010 = andi t1, t1, 0x10
 
-unsigned int memory[4];
+//Every time one is added to holder, change the for loop size
+
+
+unsigned int memory[1000];
 unsigned int $pc = 0x00000000;
 unsigned int $fp = 0x00000000;
 unsigned int $gp = 0x00000000;
@@ -31,31 +39,31 @@ struct memwb MEMWB;
 
 int main()
 {
+    $pc = 0;
     unsigned int clock_cycles = 0;
-    int format = 0;
-    for(int i = 0; i < 4; i++)
+    int format = 10;
+    int i = 0;
+    for(i = 0; i < (sizeof(holder)/sizeof(*holder)); i++)
     {
         memory[$pc] = holder[i];
         $pc++;
     }
     $pc = 0;
-    Instr_IF(memory[1]);
-/*
-    if($pc != 0)
+    for(i  = 0; i < (sizeof(holder)/sizeof(*holder)) ; i++)
     {
+        Instr_IF(memory[$pc]);
+        format = Instr_ID();
+        Instr_Exe(format);
+        Instr_MEM();
         Instr_WB(format);
-    }*/
-    format = Instr_ID();
-    std::cout << "Type: ";
-    std::cout << format;
-    std::cout << "    ";
-    Instr_Exe(format);
-    Instr_MEM();
-    Update_State();
-    clock_cycles++;
-    std::cout << "ALU Result: ";
-    std::cout << Shadow_EXMEM.ALUResult;
-    std::cout << "   ";
-    /*std::cout << clock_cycles;
-    std::cout << clock_cycles/4;*/
+        $pc++;
+        Update_State();
+        clock_cycles++;
+        std::cout << "ALU Result # ";
+        std::cout << $pc;
+        std::cout << ":  ";
+        std::cout << Reg[Shadow_EXMEM.DstReg];
+        std::cout << "   ";
+        std::cout << std::endl;
+    }
 }

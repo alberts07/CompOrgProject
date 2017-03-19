@@ -40,6 +40,7 @@ int Instr_ID()
 
     if(format == itype)
     {
+        Shadow_IFID.immed16 = find_immed16(Shadow_IDEX.instr);
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];

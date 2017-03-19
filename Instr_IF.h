@@ -45,9 +45,8 @@ struct exmem {
     bool MemRead;
     bool MemWrite;
     bool MemtoReg;
-    int Rt;
     int Rs;
-    int Rd;
+    int DstReg;
     int RsValue;
     int ALUResult;
     unsigned int pcplus1;
