@@ -7,11 +7,11 @@ extern struct idex Shadow_IDEX;
 
 std::vector<int> find_format(unsigned int instr)
 {
+    std::vector<int> v(3);
     Shadow_IDEX.opcode = find_opcode(instr);
     if(Shadow_IDEX.opcode == 0)
     {
         Shadow_IDEX.func = find_func(instr);
-        std::vector<int> v(3);
         v[1] = rtype;
         v[2] = Shadow_IDEX.opcode;
         v[3] = Shadow_IDEX.func;
@@ -20,7 +20,6 @@ std::vector<int> find_format(unsigned int instr)
     }
     if(((Shadow_IDEX.opcode >= 0x5) && (Shadow_IDEX.opcode <= 0xF)) || (Shadow_IDEX.opcode == 4) || ((Shadow_IDEX.opcode >= 0x20) && (Shadow_IDEX.opcode <= 0x26)) || ((Shadow_IDEX.opcode >= 0x28) && (Shadow_IDEX.opcode <= 0x2B)) || (Shadow_IDEX.opcode == 0x2E) || (Shadow_IDEX.opcode == 0x30) || (Shadow_IDEX.opcode == 0x31) || (Shadow_IDEX.opcode == 0x38) || (Shadow_IDEX.opcode == 0x3D))
     {
-        std::vector<int> v(3);
         v[1] = itype;
         v[2] = Shadow_IDEX.opcode;
         v[3] = 0;
@@ -28,7 +27,6 @@ std::vector<int> find_format(unsigned int instr)
     }
     if((Shadow_IDEX.opcode == 2) || (Shadow_IDEX.opcode == 3))
     {
-      std::vector<int> v(3);
       v[1] = jtype;
       v[2] = Shadow_IDEX.opcode;
       v[3] = 0;
@@ -49,6 +47,7 @@ std::vector<int> find_format(unsigned int instr)
         return std::vector<int> format({special_opcode3l, Shadow_IDEX.opcode, (Shadow_IFID.instr && spec_opcode3_mask) >> 16});
     }
 */
+return v;
 }
 
 int find_func(unsigned int instr)

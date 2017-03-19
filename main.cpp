@@ -43,5 +43,6 @@ int main()
         Update_State();
         clock_cycles++;
     }
-    std::cout >> clock_cycles;
+    std::cout << clock_cycles;
+    std::cout << clock_cycles/4;
 }
