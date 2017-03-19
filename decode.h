@@ -4,7 +4,7 @@
 
 #include <vector>
 
-std::vector<int> find_format(unsigned int);
+int find_format(unsigned int);
 int find_func(unsigned int);
 int find_immed26(unsigned int);
 short find_immed16(unsigned int);

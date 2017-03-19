@@ -20,10 +20,9 @@ int Instr_ID()
     Shadow_IDEX.instr = Shadow_IFID.instr;
     Shadow_IDEX.pcplus1 = Shadow_IFID.pcplus1;
 
-    std::vector<int> format = find_format(Shadow_IDEX.instr);
-    if(format[0] == rtype)
+    int format = find_format(Shadow_IDEX.instr);
+    if(format == rtype)
     {
-
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
@@ -36,22 +35,19 @@ int Instr_ID()
         Shadow_IDEX.MemRead = false;
         Shadow_IDEX.MemtoReg = false;
         Shadow_IDEX.ALUSrc = true;
-        Shadow_IDEX.opcode = format[1];
-        Shadow_IDEX.func = format[2];
         return rtype;
     }
 
-    if(format[0] == itype)
+    if(format == itype)
     {
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
         Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
-        Shadow_IDEX.opcode = format[1];
         return itype;
     }
-    if(format[0] == jtype)
+    if(format == jtype)
     {
         Shadow_IDEX.RegWrite = false;
         Shadow_IDEX.MemWrite = false;
@@ -190,5 +186,5 @@ int Instr_ID()
             }
         }
     }*/
-    return 0 ;
+    return 2;
 }
