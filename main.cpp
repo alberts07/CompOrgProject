@@ -9,7 +9,7 @@
 
 unsigned int holder[] = {
   0x00004020,  //0x00004020 = add $t0, $zero, $zero
-  0x21290FFF,  //0x2009000F = addi $t1, $t1, 0x0FFF
+  0x21290FFF,  //0x20090FFF = addi $t1, $t1, 0x0FFF
   0x00095080,  //0x00095080 = sll $t2, $t1, 2
   0x01495822,  //0x01495822 = sub $t3, $t2, $t1
   0x3529F000,  //0x3529001f = ori $t1, $t1, 0xF000
@@ -32,7 +32,7 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "add $t0, $zero, $zero",
  "addi $t1, $t1, 0x0FFF",
  "sll $t2, $t1, 2",
- "sub sub $t3, $t2, $t1",
+ "sub $t3, $t2, $t1",
  "ori $t1, $t1, 0xF000",
  "addi $t0, $t0, 2",
  "slt $t5, $t0, $t3",

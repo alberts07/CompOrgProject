@@ -207,12 +207,12 @@ void sll()
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue << Shadow_IDEX.shamt;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
-
+/*
 void sllv()
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue << Shadow_IDEX.RsValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
-}
+}*/
 
 void slt()
 {
@@ -256,12 +256,12 @@ void srl()
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue >> Shadow_IDEX.shamt;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
-
+/*
 void srlv()
 {
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue >> Shadow_IDEX.RsValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
-}
+}*/
 
 void sub()
 {
