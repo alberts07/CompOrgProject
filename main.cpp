@@ -41,7 +41,7 @@ struct memwb MEMWB;
 
 int main()
 {
-    
+
     $pc = 0;
     unsigned int clock_cycles = 0;
     int format = 10;
@@ -64,9 +64,9 @@ int main()
         std::cout << "ALU Result # ";
         std::cout << $pc;
         std::cout << ":  ";
-        std::cout << Reg[Shadow_EXMEM.DstReg];
+        std::cout << Reg[EXMEM.DstReg];
         std::cout << "   ";
         std::cout << std::endl;
-        $pc = $pc + Shadow_IFID.pcplus1;
+        $pc = $pc + IFID.pcplus1;
     }
 }
