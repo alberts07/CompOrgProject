@@ -79,31 +79,30 @@ void Instr_Exe(int format)
                    srl();
                    break;
                }
+               /*
                case sllv_func:
                {
                    sllv();
                    break;
                }
-/*
                case srav_func:
                {
                    srav();
                    break;
                }
-               */
+
                case srlv_func:
                {
                    srlv();
                    break;
                }
-               /*
+
                case sra_func:
                {
                    sra();
                    break;
                }
-               */
-               /*
+
                case div_func:
                {
                    div();
@@ -123,8 +122,7 @@ void Instr_Exe(int format)
                {
                    multu();
                    break;
-               }*/
-               /*
+               }
                case: mul_func
                {
                    mul();
