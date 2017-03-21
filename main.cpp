@@ -6,12 +6,12 @@
 #include "Update_State.h"
 #include <iostream>
 
-unsigned int holder[] = {0x00004020, 0x2129000F, 0x00095080, 0x01495822, 0x3529001F, 0x21080002, 0x010B682A, 0x31290010, 0x000948C2};
+unsigned int holder[] = {0x00004020, 0x21290FFF, 0x00095080, 0x01495822, 0x3529F000, 0x21080002, 0x010B682A, 0x31290010, 0x000948C2};
 //0x00004020 = add $t0, 0, 0
-//0x2009000F = addi $t1, $t1, 15
+//0x2009000F = addi $t1, $t1, 0x0FFF
 //0x00095080 = sll t2, t1, 2
 //0x01495822 = sub t3, t2, t1
-//0x3529001f = ori t1, t1, 31
+//0x3529001f = ori t1, t1, 0xF000
 //0x21080002 = addi t0, t0, 2
 //0x010b682A = slt t5, t0, t3
 //0x31290010 = andi t1, t1, 0x10
@@ -41,6 +41,7 @@ struct memwb MEMWB;
 
 int main()
 {
+    
     $pc = 0;
     unsigned int clock_cycles = 0;
     int format = 10;
