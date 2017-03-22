@@ -23,8 +23,13 @@ unsigned int holder[] = {
   0x29290006,  //0x29290006 = slti  $t1, $t1, 0x6
   0x2d29FFF0,  //0x2d29FFFF = sltiu $t1, $t1, 0xFFF0
   0x3508F00F,  //0x3508000F = ori $t0, $t0, 0xF00F
-  0x3529FF0F,  //0x3529FFFF = ori $t1, $t1, 0xFF0F
-  0x01284823  //0x01284823 = subu $t1, $t1, $t0
+  0x3529F00F,  //0x3529FFFF = ori $t1, $t1, 0xF00F
+  0x01284823,  //0x01284823 = subu $t1, $t1, $t0
+  0x00004020,  //0x00004020 = add $t0, $zero, $zero
+  0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
+  0x01094827,  //0x01094825 = nor $t1, $t0, $t1
+  0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
+  0x01094825  //0x01094825 = or $t1, $t0, $t1
 };
 
 
@@ -45,7 +50,13 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "sltiu $t1, $t1, 0xFFF0",
  "ori $t0, $t0, 0xF00F",
  "ori $t1, $t1, 0xFF0F",
- "subu $t1, $t1, $t0"
+ "subu $t1, $t1, $t0",
+ "add $t0, $zero, $zero",
+ "addi $t0, $t0, 0xFFFF",
+ "nor $t1, $t0, $t1",
+ "addi $t0, $t0, 0xFFFF",
+ "or $t1, $t0, $t1"
+
 };
 
 //Every time one is added to holder, change the for loop size
