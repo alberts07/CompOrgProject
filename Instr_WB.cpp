@@ -8,18 +8,16 @@ extern int Reg[32];
 
 void Instr_WB(int format)
 {
-    //if((Shadow_MEMWB.RegWrite == true) && (format == itype) && (Shadow_MEMWB.MemtoReg == false))
-    if(format == itype)
+    if((Shadow_MEMWB.RegWrite == true) && (format == itype) && (Shadow_MEMWB.MemtoReg == false))
     {
-        Reg[Shadow_EXMEM.DstReg] = Shadow_EXMEM.ALUResult;
+        Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
     }
     if((Shadow_MEMWB.RegWrite == true) && (format == itype) && (Shadow_MEMWB.MemtoReg == true))
     {
-        Reg[Shadow_EXMEM.DstReg] = Shadow_MEMWB.RtValue;
+        Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.DstRegValue;
     }
-    //if((Shadow_MEMWB.RegWrite == true) && (format == rtype))
-    if(format == rtype)
+    if((Shadow_MEMWB.RegWrite == true) && (format == rtype))
     {
-        Reg[Shadow_EXMEM.DstReg] = Shadow_EXMEM.ALUResult;
+        Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
     }
 }

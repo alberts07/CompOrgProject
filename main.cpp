@@ -23,14 +23,18 @@ unsigned int holder[] = {
   0x39290004,  //0x35290004 = xori $t1, $t1, 0x4
   0x29290006,  //0x29290006 = slti  $t1, $t1, 0x6
   0x2d29FFF0,  //0x2d29FFFF = sltiu $t1, $t1, 0xFFF0
-  0x3508F00F,  //0x3508000F = ori $t0, $t0, 0xF00F
-  0x3529F00F,  //0x3529FFFF = ori $t1, $t1, 0xF00F
+  0x3508F00F,  //0x3508F00F = ori $t0, $t0, 0xF00F
+  0x3529F00F,  //0x3529F00F = ori $t1, $t1, 0xF00F
   0x01284823,  //0x01284823 = subu $t1, $t1, $t0
   0x00004020,  //0x00004020 = add $t0, $zero, $zero
   0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
   0x01094827,  //0x01094825 = nor $t1, $t0, $t1
   0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
-  0x01094825  //0x01094825 = or $t1, $t0, $t1
+  0x01094825,  //0x01094825 = or $t1, $t0, $t1
+  0x00005820,  //0x00005820 = add $t3, $zero, $zero
+  0x216B0004,  //0x216B0001 = addi, $t3, $t3, 0x4
+  0xAD690000,  //0xAD690000 = sw $t1, 0($t3)
+  0x8D680000  //0x8D680000 = lw $t0, 0($t3)
 };
 
 
@@ -50,14 +54,17 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "slti  $t1, $t1, 0x6",
  "sltiu $t1, $t1, 0xFFF0",
  "ori $t0, $t0, 0xF00F",
- "ori $t1, $t1, 0xFF0F",
+ "ori $t1, $t1, 0xF00F",
  "subu $t1, $t1, $t0",
  "add $t0, $zero, $zero",
  "addi $t0, $t0, 0xFFFF",
  "nor $t1, $t0, $t1",
  "addi $t0, $t0, 0xFFFF",
- "or $t1, $t0, $t1"
-
+ "or $t1, $t0, $t1",
+ "add $t3, $zero, $zero",
+ "addi, $t3, $t3, 0x4",
+ "sw $t1, 0($t3)",
+ "lw $t0, 0($t3)"
 };
 
 //Every time one is added to holder, change the for loop size
@@ -103,11 +110,7 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-        std::cout << names[$pc];
-        std::cout << ":  ";
-        std::cout << Reg[EXMEM.DstReg];
-        std::cout << "   ";
-        std::cout << std::endl;
+        std::cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << std::endl;
         $pc = $pc + IFID.pcplus1;
     }
 }

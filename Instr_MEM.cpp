@@ -10,22 +10,26 @@ extern int memory[0x50000000];
 
 void Instr_MEM()
 {
+    Shadow_MEMWB.RegWrite = Shadow_EXMEM.RegWrite;
+    Shadow_MEMWB.MemtoReg = Shadow_EXMEM.MemtoReg;
+    Shadow_MEMWB.DstReg = Shadow_EXMEM.DstReg;
+    Shadow_MEMWB.ALUResult = Shadow_EXMEM.ALUResult;
+    Shadow_MEMWB.pcplus1 = Shadow_EXMEM.pcplus1;
+
     if(Shadow_EXMEM.MemRead)
     {
-        Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
-        Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
         if(Shadow_EXMEM.half == true)
         {
             switch(Shadow_EXMEM.mem)
             {
                 case 0:
                 {
-                    Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) >> 16;
+                    Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) >> 16;
                     break;
                 }
                 case 1:
                 {
-                    Shadow_MEMWB.RtValue = memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF;
+                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF;
                     break;
                 }
             }
@@ -36,27 +40,27 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                    Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+                    Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
                     break;
                 }
                 case 1:
                 {
-                    Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0x00FF0000) >> 16;
+                    Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0x00FF0000) >> 16;
                     break;
                 }
                 case 2:
                 {
-                    Shadow_MEMWB.RtValue = (memory[Shadow_EXMEM.ALUResult] & 0x0000FF00) >> 8;
+                    Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0x0000FF00) >> 8;
                     break;
                 }
                 case 3:
                 {
-                    Shadow_MEMWB.RtValue = memory[Shadow_EXMEM.ALUResult] & 0x000000FF;
+                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x000000FF;
                     break;
                 }
                 case 4:
                 {
-                    Shadow_MEMWB.RtValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
+                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                     break;
                 }
             }
@@ -65,20 +69,18 @@ void Instr_MEM()
 
     else if (Shadow_EXMEM.MemWrite)
     {
-        Shadow_MEMWB.Rt = Shadow_IDEX.Rt;
-        Shadow_MEMWB.RsValue = Shadow_IDEX.RsValue;
         if(Shadow_EXMEM.half == true)
         {
             switch(Shadow_EXMEM.mem)
             {
                 case 0:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0xFFFF0000 & (Shadow_MEMWB.RsValue << 16);
+                    memory[Shadow_EXMEM.ALUResult] = 0xFFFF0000 & (Shadow_EXMEM.RtValue << 16);
                     break;
                 }
                 case 1:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = (0x0000FFFF & Shadow_MEMWB.RsValue);
+                    memory[Shadow_EXMEM.ALUResult] = (0x0000FFFF & Shadow_EXMEM.RtValue);
                     break;
                 }
             }
@@ -89,27 +91,27 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0xFF000000 & (Shadow_MEMWB.RsValue << 24);
+                    memory[Shadow_EXMEM.ALUResult] = 0xFF000000 & (Shadow_EXMEM.RtValue << 24);
                     break;
                 }
                 case 1:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0x00FF0000 & (Shadow_MEMWB.RsValue << 16);
+                    memory[Shadow_EXMEM.ALUResult] = 0x00FF0000 & (Shadow_EXMEM.RtValue << 16);
                     break;
                 }
                 case 2:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0x0000FF00 & (Shadow_MEMWB.RsValue << 8);
+                    memory[Shadow_EXMEM.ALUResult] = 0x0000FF00 & (Shadow_EXMEM.RtValue << 8);
                     break;
                 }
                 case 3:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0x0000FFFF & Shadow_MEMWB.RsValue;
+                    memory[Shadow_EXMEM.ALUResult] = 0x0000FFFF & Shadow_EXMEM.RtValue;
                     break;
                 }
                 case 4:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_MEMWB.RsValue;
+                    memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
                     break;
                 }
             }
