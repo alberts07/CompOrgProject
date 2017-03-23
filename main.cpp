@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 
+int nop_instr = 0x00000000;
 unsigned int holder[] = {
   0x00004020,  //0x00004020 = add $t0, $zero, $zero
   0x21290FFF,  //0x20090FFF = addi $t1, $t1, 0x0FFF
