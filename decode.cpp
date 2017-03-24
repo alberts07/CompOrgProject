@@ -76,6 +76,7 @@ int find_format(unsigned int instr)
       ||(Shadow_IDEX.opcode == sc_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
       ||(Shadow_IDEX.opcode == blez_opcode))
     {
+        std::cout << "I-Type" <<std::endl;
         return itype;
     }
     if((Shadow_IDEX.opcode == 2) || (Shadow_IDEX.opcode == 3))
