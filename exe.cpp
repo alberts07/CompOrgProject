@@ -167,6 +167,8 @@ void lw()
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
+    std::cout << Shadow_EXMEM.ALUResult << std::endl;
+    std::cout << Shadow_EXMEM.DstReg << std::endl;
 
 }
 
@@ -190,10 +192,11 @@ void ori()
 
 void sb()
 {
-    Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2);
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
+    std:: cout << Shadow_EXMEM.ALUResult << std::endl;
 }
 
 void sh()
@@ -202,6 +205,7 @@ void sh()
     Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
+    std:: cout << Shadow_EXMEM.ALUResult << std::endl;
 }
 
 void sll()
@@ -283,6 +287,8 @@ void sw()
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
+    std::cout << Shadow_EXMEM.ALUResult << std::endl;
+    std::cout << Shadow_EXMEM.DstReg << std::endl;
 }
 
 void xorr(void)

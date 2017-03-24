@@ -2,6 +2,7 @@
 #include <vector>
 #include "Instr_IF.h"
 #include "decode.h"
+#include <iostream>
 
 extern struct idex Shadow_IDEX;
 /*
@@ -58,7 +59,22 @@ int find_format(unsigned int instr)
         Shadow_IDEX.func = find_func(instr);
         return rtype;
     }
-    if(((Shadow_IDEX.opcode >= 0x5) && (Shadow_IDEX.opcode <= 0xF)) || (Shadow_IDEX.opcode == 4) || ((Shadow_IDEX.opcode >= 0x20) && (Shadow_IDEX.opcode <= 0x26)) || ((Shadow_IDEX.opcode >= 0x28) && (Shadow_IDEX.opcode <= 0x2B)) || (Shadow_IDEX.opcode == 0x2E) || (Shadow_IDEX.opcode == 0x30) || (Shadow_IDEX.opcode == 0x31) || (Shadow_IDEX.opcode == 0x38) || (Shadow_IDEX.opcode == 0x3D))
+    if((Shadow_IDEX.opcode == sw_opcode) || (Shadow_IDEX.opcode == andi_opcode)\
+      || (Shadow_IDEX.opcode == lw_opcode) || (Shadow_IDEX.opcode == addi_opcode)\
+      || (Shadow_IDEX.opcode == slti_opcode) || (Shadow_IDEX.opcode == sltiu_opcode)\
+      || (Shadow_IDEX.opcode == addiu_opcode) || (Shadow_IDEX.opcode == lui_opcode)\
+      || (Shadow_IDEX.opcode == ori_opcode) || (Shadow_IDEX.opcode == xori_opcode)\
+      || (Shadow_IDEX.opcode == lb_opcode) || (Shadow_IDEX.opcode == lbu_opcode)\
+      ||(Shadow_IDEX.opcode == lh_opcode) || (Shadow_IDEX.opcode == sb_opcode)\
+      ||(Shadow_IDEX.opcode == sh_opcode) || (Shadow_IDEX.opcode == beq_opcode)\
+      ||(Shadow_IDEX.opcode == bne_opcode) || (Shadow_IDEX.opcode == j_opcode)\
+      ||(Shadow_IDEX.opcode == jal_opcode) || (Shadow_IDEX.opcode == lhu_opcode)\
+      ||(Shadow_IDEX.opcode == lwcl_opcode) || (Shadow_IDEX.opcode == lwl_opcode)\
+      ||(Shadow_IDEX.opcode == lwr_opcode) || (Shadow_IDEX.opcode == ll_opcode)\
+      ||(Shadow_IDEX.opcode == swcl_opcode) || (Shadow_IDEX.opcode == sdcl_opcode)\
+      ||(Shadow_IDEX.opcode == swl_opcode) || (Shadow_IDEX.opcode == swr_opcode)\
+      ||(Shadow_IDEX.opcode == sc_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
+      ||(Shadow_IDEX.opcode == blez_opcode))
     {
         return itype;
     }

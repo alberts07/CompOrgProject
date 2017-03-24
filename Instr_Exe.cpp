@@ -198,8 +198,8 @@ void Instr_Exe(int format)
            }
    }
 
-   else if(format == itype){
-
+   else if(format == itype)
+   {
        Shadow_IDEX.ALUSrc = true ;
        Shadow_IDEX.MemtoReg = false;
        Shadow_IDEX.RegWrite = true;
@@ -215,7 +215,6 @@ void Instr_Exe(int format)
                Shadow_IDEX.RegWrite = true;
                Shadow_IDEX.MemRead = true;
                Shadow_IDEX.MemWrite = false;
-
                lw();
                break;
            }
@@ -226,13 +225,11 @@ void Instr_Exe(int format)
            }
            case sw_opcode:
            {
-
                Shadow_IDEX.ALUSrc = true;
                Shadow_IDEX.MemtoReg = false;
                Shadow_IDEX.RegWrite = false;
                Shadow_IDEX.MemRead = false;
                Shadow_IDEX.MemWrite = true;
-
                sw();
                break;
            }
