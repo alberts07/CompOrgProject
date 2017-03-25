@@ -194,6 +194,7 @@ void sb()
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
+
 }
 
 void sh()
@@ -202,7 +203,6 @@ void sh()
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
-    std:: cout << Shadow_EXMEM.ALUResult << std::endl;
 }
 
 void sll()
