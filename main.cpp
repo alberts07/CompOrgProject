@@ -34,7 +34,10 @@ unsigned int holder[] = {
   0x00005820,  //0x00005820 = add $t3, $zero, $zero
   0x216B0004,  //0x216B0001 = addi, $t3, $t3, 0x4
   0xAD690000,  //0xAD690000 = sw $t1, 0($t3)
-  0x8D680000  //0x8D680000 = lw $t0, 0($t3)
+  0x8D680000,  //0x8D680000 = lw $t0, 0($t3)
+  0x00004020,  //0x00004020 = add $t0, $zero, $zero
+  0xA1680002,  //0xA1680002 = sb $t0, 2($t3)
+  0x81690002  //0x81690002 = lb $t1, 2($t3)
 };
 
 
@@ -64,7 +67,10 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "add $t3, $zero, $zero",
  "addi, $t3, $t3, 0x4",
  "sw $t1, 0($t3)",
- "lw $t0, 0($t3)"
+ "lw $t0, 0($t3)",
+ "add $t0, $zero, $zero",
+ "sb $t0, 2($t3)",
+ "lb $t1, 2($t3)"
 };
 
 //Every time one is added to holder, change the for loop size
@@ -110,7 +116,11 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-        std::cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << std::endl;
+        if(i != 24 && i > 20 && i != 27)
+            std::cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << std::endl;
+        else if (i == 24 || i == 27)
+            std::cout << names[$pc] << std::endl;
+        else{}
         $pc = $pc + IFID.pcplus1;
     }
 }

@@ -130,15 +130,15 @@ void jr()
 
 void lb()
 {
-    Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2);
-    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 4;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue) >> 2;
+    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 void lbu()
 {
      Shadow_EXMEM.ALUResult = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2;
-     Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 4;
+     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
      Shadow_EXMEM.half = false;
      Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -146,7 +146,7 @@ void lbu()
 void lh()
 {
     Shadow_EXMEM.ALUResult  = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 2;
+    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 
@@ -156,7 +156,7 @@ void lh()
 void lhu()
 {
     Shadow_EXMEM.ALUResult = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 2;
+    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -167,8 +167,6 @@ void lw()
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
-    std::cout << Shadow_EXMEM.ALUResult << std::endl;
-    std::cout << Shadow_EXMEM.DstReg << std::endl;
 
 }
 
@@ -192,17 +190,16 @@ void ori()
 
 void sb()
 {
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 4;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue) >> 2;
+    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
-    std:: cout << Shadow_EXMEM.ALUResult << std::endl;
 }
 
 void sh()
 {
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_EXMEM.ALUResult % 2;
+    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
     std:: cout << Shadow_EXMEM.ALUResult << std::endl;
@@ -287,8 +284,6 @@ void sw()
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
-    std::cout << Shadow_EXMEM.ALUResult << std::endl;
-    std::cout << Shadow_EXMEM.DstReg << std::endl;
 }
 
 void xorr(void)

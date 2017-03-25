@@ -15,6 +15,10 @@ extern struct exmem Shadow_EXMEM;
 
 void Instr_Exe(int format)
 {
+    Shadow_EXMEM.MemtoReg = Shadow_IDEX.MemtoReg;
+    Shadow_EXMEM.RegWrite = Shadow_IDEX.RegWrite;
+    Shadow_EXMEM.MemRead = Shadow_IDEX.MemRead;
+    Shadow_EXMEM.MemWrite = Shadow_IDEX.MemWrite;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
     Shadow_EXMEM.pcplus1 = Shadow_IDEX.pcplus1;
     Shadow_EXMEM.RtValue = Shadow_IDEX.RtValue;
@@ -359,6 +363,10 @@ void Instr_Exe(int format)
                lhu();
                break;
            }
+           default:
+           {
+              std::cout << "Did not find function" << std::endl;
+           }
        }
    }
 
@@ -382,8 +390,4 @@ void Instr_Exe(int format)
    {
        std::cout << "The format given did not match any message type";
    }
-   Shadow_EXMEM.MemtoReg = Shadow_IDEX.MemtoReg;
-   Shadow_EXMEM.RegWrite = Shadow_IDEX.RegWrite;
-   Shadow_EXMEM.MemRead = Shadow_IDEX.MemRead;
-   Shadow_EXMEM.MemWrite = Shadow_IDEX.MemWrite;
 }

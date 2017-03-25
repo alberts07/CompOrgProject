@@ -106,7 +106,7 @@ void Instr_MEM()
                 }
                 case 3:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0x0000FFFF & Shadow_EXMEM.RtValue;
+                    memory[Shadow_EXMEM.ALUResult] = 0x000000FF & Shadow_EXMEM.RtValue;
                     break;
                 }
                 case 4:

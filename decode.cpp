@@ -5,51 +5,6 @@
 #include <iostream>
 
 extern struct idex Shadow_IDEX;
-/*
-std::vector<int> find_format(unsigned int instr)
-{
-    std::vector<int> v(3);
-    Shadow_IDEX.opcode = find_opcode(instr);
-    if(Shadow_IDEX.opcode == 0)
-    {
-        Shadow_IDEX.func = find_func(instr);
-        v[1] = rtype;
-        v[2] = Shadow_IDEX.opcode;
-        v[3] = Shadow_IDEX.func;
-        return v;
-      //   = {rtype, Shadow_IDEX.opcode, Shadow_IDEX.func};
-    }
-    if(((Shadow_IDEX.opcode >= 0x5) && (Shadow_IDEX.opcode <= 0xF)) || (Shadow_IDEX.opcode == 4) || ((Shadow_IDEX.opcode >= 0x20) && (Shadow_IDEX.opcode <= 0x26)) || ((Shadow_IDEX.opcode >= 0x28) && (Shadow_IDEX.opcode <= 0x2B)) || (Shadow_IDEX.opcode == 0x2E) || (Shadow_IDEX.opcode == 0x30) || (Shadow_IDEX.opcode == 0x31) || (Shadow_IDEX.opcode == 0x38) || (Shadow_IDEX.opcode == 0x3D))
-    {
-        v[1] = itype;
-        v[2] = Shadow_IDEX.opcode;
-        v[3] = 0;
-        return v;
-    }
-    if((Shadow_IDEX.opcode == 2) || (Shadow_IDEX.opcode == 3))
-    {
-      v[1] = jtype;
-      v[2] = Shadow_IDEX.opcode;
-      v[3] = 0;
-      return v;
-    }
-    if(opcode == special_opcode1)
-    {
-        Shadow_IDEX.func = find_func(instr);
-        return std::vector<int> format({special_opcode1l, Shadow_IDEX.opcode, Shadow_IDEX.func)};
-    }
-    if(opcode == special_opcode2)
-    {
-        return std::vector<int> format({special_opcode2l, Shadow_IDEX.opcode, (Shadow_IFID.instr && br_coprocessor_mask)>> 16});
-    }
-    if(opcode == special_opcode3)
-    {
-        return std::vector<int> format({special_opcode3l, Shadow_IDEX.opcode, (Shadow_IFID.instr && spec_opcode3_mask) >> 16});
-    }
-
-return v;
-}
-*/
 
 int find_format(unsigned int instr)
 {
@@ -59,7 +14,12 @@ int find_format(unsigned int instr)
         Shadow_IDEX.func = find_func(instr);
         return rtype;
     }
-    if((Shadow_IDEX.opcode == sw_opcode) || (Shadow_IDEX.opcode == andi_opcode)\
+    if((Shadow_IDEX.opcode == 0x2) || (Shadow_IDEX.opcode == 0x3))
+    {
+      return jtype;
+    }
+
+     if((Shadow_IDEX.opcode == sw_opcode) || (Shadow_IDEX.opcode == andi_opcode)\
       || (Shadow_IDEX.opcode == lw_opcode) || (Shadow_IDEX.opcode == addi_opcode)\
       || (Shadow_IDEX.opcode == slti_opcode) || (Shadow_IDEX.opcode == sltiu_opcode)\
       || (Shadow_IDEX.opcode == addiu_opcode) || (Shadow_IDEX.opcode == lui_opcode)\
@@ -75,14 +35,9 @@ int find_format(unsigned int instr)
       ||(Shadow_IDEX.opcode == swl_opcode) || (Shadow_IDEX.opcode == swr_opcode)\
       ||(Shadow_IDEX.opcode == sc_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
       ||(Shadow_IDEX.opcode == blez_opcode))
-    {
-        std::cout << "I-Type" <<std::endl;
+      {
         return itype;
-    }
-    if((Shadow_IDEX.opcode == 2) || (Shadow_IDEX.opcode == 3))
-    {
-      return jtype;
-    }
+      }
                                         /*
     if(opcode == special_opcode1)
     {
@@ -98,7 +53,7 @@ int find_format(unsigned int instr)
         return std::vector<int> format({special_opcode3l, Shadow_IDEX.opcode, (Shadow_IFID.instr && spec_opcode3_mask) >> 16});
     }
 */
-return 0;
+return -1;
 }
 
 
@@ -122,7 +77,7 @@ int find_immed26(unsigned int instr)
 int find_opcode(unsigned int instr)
 {
     int opcode = instr & opcode_mask;
-    return opcode >> 26;
+    return (unsigned int)opcode >> 26;
 }
 
 
