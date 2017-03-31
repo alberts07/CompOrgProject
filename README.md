@@ -2,7 +2,6 @@
 CompOrgProject
 
 ## TODO Need to put in all the #DEFINEs
-## TODO Test Vector implementations
 
 functions all lower case
 variables all lower case
