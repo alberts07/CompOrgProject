@@ -38,21 +38,6 @@ int find_format(unsigned int instr)
       {
         return itype;
       }
-                                        /*
-    if(opcode == special_opcode1)
-    {
-        Shadow_IDEX.func = find_func(instr);
-        return std::vector<int> format({special_opcode1l, Shadow_IDEX.opcode, Shadow_IDEX.func)};
-    }
-    if(opcode == special_opcode2)
-    {
-        return std::vector<int> format({special_opcode2l, Shadow_IDEX.opcode, (Shadow_IFID.instr && br_coprocessor_mask)>> 16});
-    }
-    if(opcode == special_opcode3)
-    {
-        return std::vector<int> format({special_opcode3l, Shadow_IDEX.opcode, (Shadow_IFID.instr && spec_opcode3_mask) >> 16});
-    }
-*/
 return -1;
 }
 

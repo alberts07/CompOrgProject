@@ -86,120 +86,7 @@ void Instr_Exe(int format)
                    srl();
                    break;
                }
-               /*
-               case sllv_func:
-               {
-                   sllv();
-                   break;
-               }
-               case srav_func:
-               {
-                   srav();
-                   break;
-               }
-
-               case srlv_func:
-               {
-                   srlv();
-                   break;
-               }
-
-               case sra_func:
-               {
-                   sra();
-                   break;
-               }
-
-               case div_func:
-               {
-                   div();
-                   break;
-               }
-               case divu_func:
-               {
-                   divu();
-                   break;
-               }
-               case mult_func:
-               {
-                   mult();
-                   break;
-               }
-               case mutlu_func:
-               {
-                   multu();
-                   break;
-               }
-               case: mul_func
-               {
-                   mul();
-                   break;
-               }
-               case: madd_func
-               {
-                   madd();
-                   break;
-               }
-               case: maddu_func
-               {
-                   maddu();
-                   break;
-               }
-               case: msub_func
-               {
-                   msub();
-                   break;
-               }
-               case: msubu_func
-               {
-                   msubu();
-                   break;
-               }
-               */
-               case jr_func:
-               {
-                    Shadow_EXMEM.RegWrite = false;
-                    jr();
-                    break;
-               }
-               /*
-               case jalr_func:
-               {
-                   jalr();
-                   break;
-               }*/
-                   /*
-               case: teq_func
-               {
-                   teq();
-                   break;
-               }
-               case: tne_func
-               {
-                   tne();
-                   break;
-               }
-               case: tge_func
-               {
-                   tge();
-                   break;
-               }
-               case: tgeu_func
-               {
-                   tgeu();
-                   break;
-               }
-               case: tlt_func
-               {
-                   tlt();
-                   break;
-               }
-               case: tltu_func
-               {
-                   tltu();
-                   break;
-               }*/
-           }
+         }
    }
 
    else if(format == itype)
@@ -214,11 +101,10 @@ void Instr_Exe(int format)
        {
            case lw_opcode:
            {
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = true;
-               Shadow_IDEX.RegWrite = true;
-               Shadow_IDEX.MemRead = true;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = true;
+               Shadow_EXMEM.RegWrite = true;
+               Shadow_EXMEM.MemRead = true;
+               Shadow_EXMEM.MemWrite = false;
                lw();
                break;
            }
@@ -229,11 +115,10 @@ void Instr_Exe(int format)
            }
            case sw_opcode:
            {
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = false;
-               Shadow_IDEX.RegWrite = false;
-               Shadow_IDEX.MemRead = false;
-               Shadow_IDEX.MemWrite = true;
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = true;
                sw();
                break;
            }
@@ -257,19 +142,6 @@ void Instr_Exe(int format)
                andi();
                break;
            }
-           /*
-           case lui_opcode:
-           {
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = true;
-               Shadow_IDEX.RegWrite = true;
-               Shadow_IDEX.MemRead = true;
-               Shadow_IDEX.MemWrite = false;
-
-               lui();
-               break;
-           }
-           */
            case ori_opcode:
            {
                ori();
@@ -282,83 +154,69 @@ void Instr_Exe(int format)
            }
            case lb_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = true;
-               Shadow_IDEX.RegWrite = true;
-               Shadow_IDEX.MemRead = true;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = true;
+               Shadow_EXMEM.RegWrite = true;
+               Shadow_EXMEM.MemRead = true;
+               Shadow_EXMEM.MemWrite = false;
 
                lb();
                break;
            }
            case lh_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = true;
-               Shadow_IDEX.RegWrite = true;
-               Shadow_IDEX.MemRead = true;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = true;
+               Shadow_EXMEM.RegWrite = true;
+               Shadow_EXMEM.MemRead = true;
+               Shadow_EXMEM.MemWrite = false;
 
                lh();
                break;
            }
            case sb_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = false;
-               Shadow_IDEX.RegWrite = false;
-               Shadow_IDEX.MemRead = false;
-               Shadow_IDEX.MemWrite = true;
-
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = true;
                sb();
                break;
            }
            case sh_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = false;
-               Shadow_IDEX.RegWrite = false;
-               Shadow_IDEX.MemRead = false;
-               Shadow_IDEX.MemWrite = true;
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = true;
 
                sh();
                break;
            }
            case beq_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = false;
-               Shadow_IDEX.MemtoReg = false;
-               Shadow_IDEX.RegWrite = false;
-               Shadow_IDEX.MemRead = false;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = false;
 
                beq();
                break;
            }
            case bne_opcode:
            {
-               Shadow_IDEX.ALUSrc = false;
-               Shadow_IDEX.MemtoReg = false;
-               Shadow_IDEX.RegWrite = false;
-               Shadow_IDEX.MemRead = false;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = false;
 
                bne();
                break;
            }
            case lhu_opcode:
            {
-
-               Shadow_IDEX.ALUSrc = true;
-               Shadow_IDEX.MemtoReg = true;
-               Shadow_IDEX.RegWrite = true;
-               Shadow_IDEX.MemRead = true;
-               Shadow_IDEX.MemWrite = false;
+               Shadow_EXMEM.MemtoReg = true;
+               Shadow_EXMEM.RegWrite = true;
+               Shadow_EXMEM.MemRead = true;
+               Shadow_EXMEM.MemWrite = false;
 
                lhu();
                break;

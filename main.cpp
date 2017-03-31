@@ -30,15 +30,14 @@ unsigned int holder[] = {
   0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
   0x01094827,  //0x01094825 = nor $t1, $t0, $t1
   0x2108FFFF,  //0x20090FFF = addi $t0, $t0, 0xFFFF
-  0x01094825,  //0x01094825 = or $t1, $t0, $t1
   0x00005820,  //0x00005820 = add $t3, $zero, $zero
   0x216B0004,  //0x216B0001 = addi, $t3, $t3, 0x4
-  0xAD690000,  //0xAD690000 = sw $t1, 0($t3)
+  0xAD6B0000,  //0xAD6B0000 = sw $t3, 0($t3)
   0x8D680000,  //0x8D680000 = lw $t0, 0($t3)
   0x00004020,  //0x00004020 = add $t0, $zero, $zero
-  0x00005820,  //0x216B0003 = add $t3, $zero, $zero
-  0xA1680000,  //0xA1680002 = sb $t0, 0($t3)
-  0x81690000  //0x81690002 = lb $t1, 0($t3)
+  0x016B5820,  //0x016B5820 = add $t3, $t3, $t3
+  0xA16B0022,  //0xA16B0000 = sb $t3, 22($t3)
+  0x81690022  //0x81690002 = lb $t1, 22($t3)
 };
 
 
@@ -64,18 +63,16 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "addi $t0, $t0, 0xFFFF",
  "nor $t1, $t0, $t1",
  "addi $t0, $t0, 0xFFFF",
- "or $t1, $t0, $t1",
  "add $t3, $zero, $zero",
  "addi, $t3, $t3, 0x4",
- "sw $t1, 0($t3)",
+ "sw $t3, 0($t3)",
  "lw $t0, 0($t3)",
  "add $t0, $zero, $zero",
- "add $t3, $zero, zero",
- "sb $t0, 0($t3)",
- "lb $t1, 0($t3)"
+ "add $t3, $t3, $t3",
+ "sb $t3, 0x22($t3)",
+ "lb $t1, 0x22($t3)"
 };
 
-//Every time one is added to holder, change the for loop size
 
 
 unsigned int memory[1000];
@@ -92,8 +89,6 @@ struct exmem Shadow_EXMEM;
 struct exmem EXMEM;
 struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
-
-
 
 
 int main()
@@ -118,9 +113,9 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-        if(i != 24 && i > 19 && i != 28)
+        if(i != 23 && i > 10 && i != 27)
             std::cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << std::endl;
-        else if (i == 24 || i == 28)
+        else if (i == 23 || i == 27)
             std::cout << names[$pc] << std::endl;
         else{}
         $pc = $pc + IFID.pcplus1;

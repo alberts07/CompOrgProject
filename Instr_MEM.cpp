@@ -1,6 +1,7 @@
 
 #include "Instr_ID.h"
 #include "Instr_IF.h"
+#include <iostream>
 
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
@@ -15,6 +16,7 @@ void Instr_MEM()
     Shadow_MEMWB.DstReg = Shadow_EXMEM.DstReg;
     Shadow_MEMWB.ALUResult = Shadow_EXMEM.ALUResult;
     Shadow_MEMWB.pcplus1 = Shadow_EXMEM.pcplus1;
+
 
     if(Shadow_EXMEM.MemRead)
     {
@@ -119,6 +121,5 @@ void Instr_MEM()
     }
     else
     {
-
     }
 }
