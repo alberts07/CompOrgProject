@@ -29,63 +29,73 @@ void Instr_Exe(int format)
            {
                case add_func:
                {
-                   add();
-                   break;
+                    add();
+                    break;
                }
                case addu_func:
                {
-                   addu();
-                   break;
+                    addu();
+                    break;
                }
                case and_func:
                {
-                   andd();
-                   break;
+                    andd();
+                    break;
                }
                case nor_func:
                {
-                   nor();
-                   break;
+                    nor();
+                    break;
                }
                case or_func:
                {
-                   orr();
-                   break;
+                    orr();
+                    break;
                }
                case slt_func:
                {
-                   slt();
-                   break;
+                    slt();
+                    break;
                }
                case sltu_func:
                {
-                   sltu();
-                   break;
+                    sltu();
+                    break;
                }
                case sub_func:
                {
-                   sub();
-                   break;
+                    sub();
+                    break;
                }
                case subu_func:
                {
-                   subu();
-                   break;
+                    subu();
+                    break;
                }
                case xor_func:
                {
-                   xorr();
-                   break;
+                    xorr();
+                    break;
                }
                case sll_func:
                {
-                   sll();
-                   break;
+                    sll();
+                    break;
                }
                case srl_func:
                {
-                   srl();
-                   break;
+                    srl();
+                    break;
+               }
+               case movn_func:
+               {
+                    movn();
+                    break;
+               }
+               case movz_func:
+               {
+                    movz();
+                    break;
                }
          }
    }
@@ -188,7 +198,6 @@ void Instr_Exe(int format)
                Shadow_EXMEM.RegWrite = false;
                Shadow_EXMEM.MemRead = false;
                Shadow_EXMEM.MemWrite = true;
-
                sh();
                break;
            }
@@ -198,7 +207,6 @@ void Instr_Exe(int format)
                Shadow_EXMEM.RegWrite = false;
                Shadow_EXMEM.MemRead = false;
                Shadow_EXMEM.MemWrite = false;
-
                beq();
                break;
            }
@@ -208,8 +216,25 @@ void Instr_Exe(int format)
                Shadow_EXMEM.RegWrite = false;
                Shadow_EXMEM.MemRead = false;
                Shadow_EXMEM.MemWrite = false;
-
                bne();
+               break;
+           }
+           case bgtz_opcode:
+           {
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = false;
+               bgtz();
+               break;
+           }
+           case blez_opcode:
+           {
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = false;
+               blez();
                break;
            }
            case lhu_opcode:
@@ -218,8 +243,16 @@ void Instr_Exe(int format)
                Shadow_EXMEM.RegWrite = true;
                Shadow_EXMEM.MemRead = true;
                Shadow_EXMEM.MemWrite = false;
-
                lhu();
+               break;
+           }
+           case lbu_opcode:
+           {
+               Shadow_EXMEM.MemtoReg = true;
+               Shadow_EXMEM.RegWrite = true;
+               Shadow_EXMEM.MemRead = true;
+               Shadow_EXMEM.MemWrite = false;
+               lbu();
                break;
            }
            default:

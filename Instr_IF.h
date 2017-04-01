@@ -123,6 +123,7 @@ struct memwb {
 #define     blez_opcode     0b000110
 
 
+
 //Fucntions for R-format MIPS
 #define     add_func        0b100000
 #define     addu_func       0b100001
@@ -147,6 +148,8 @@ struct memwb {
 #define     break_func      0b001101
 #define     jr_func         0b001000
 #define     jalrs_func      0b001001
+#define     movn_func       0b001011
+#define     movz_func       0b001010
 /*
 #define     teq_func        0b110100
 #define     tne_func        0b110110

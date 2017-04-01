@@ -41,4 +41,6 @@ void subu(void);
 void sw(void);
 void xorr(void);
 void xori(void);
+void movn(void);
+void movz(void);
 #endif

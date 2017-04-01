@@ -298,3 +298,21 @@ void xori()
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue ^ Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
+
+void movn()
+{
+    if(Shadow_IDEX.RtValue != 0)
+    {
+        Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
+        Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    }
+}
+
+void movz()
+{
+    if(Shadow_IDEX.RtValue == 0)
+    {
+        Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
+        Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    }
+}
