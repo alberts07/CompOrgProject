@@ -6,6 +6,7 @@
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
+using namespace std;
 
 extern int memory[0x50000000];
 

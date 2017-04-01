@@ -6,6 +6,7 @@
 #include "Update_State.h"
 #include <iostream>
 #include <string>
+using namespace std;
 
 int nop_instr = 0x00000000;
 // This holder array contains the machine code functions that we test.
@@ -40,7 +41,9 @@ unsigned int holder[] = {
   0x00004020,  //add $t0, $zero, $zero
   0x016B5820,  //add $t3, $t3, $t3
   0xA16B0022,  //sb $t3, 22($t3)
-  0x81690022  //lb $t1, 22($t3)
+  0x81690022,  //lb $t1, 22($t3)
+  0x218C000C,  //addi $t4, $t4, 0xC
+  0x85890002  //lh $t1, 2($t4)
 };
 
 //This array contains the functions so that the user can visially
@@ -75,7 +78,9 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "add $t0, $zero, $zero",
  "add $t3, $t3, $t3",
  "sb $t3, 0x22($t3)",
- "lb $t1, 0x22($t3)"
+ "lb $t1, 0x22($t3)",
+ "addi $t4, $t4, 0xC",
+ "lh $t1, 2($t4)"
 };
 
 
@@ -121,10 +126,11 @@ int main()
         Update_State();
         clock_cycles++;
         if(i != 23  && i != 27) //Print out all except stores
-            std::cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << std::endl;
+            cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << endl;
         else if (i == 23 || i == 27)
-            std::cout << names[$pc] << std::endl;
+            cout << names[$pc] << endl;
         else{}
         $pc = $pc + IFID.pcplus1;
     }
+
 }

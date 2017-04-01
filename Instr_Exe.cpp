@@ -9,6 +9,7 @@
 #include "Instr_Exe.h"
 #include "Instr_IF.h"
 #include "exe.h"
+using namespace std;
 
 extern struct idex Shadow_IDEX;
 extern struct exmem Shadow_EXMEM;
@@ -223,7 +224,7 @@ void Instr_Exe(int format)
            }
            default:
            {
-              std::cout << "Did not find function" << std::endl;
+              cout << "Did not find function" << endl;
            }
        }
    }
@@ -246,6 +247,6 @@ void Instr_Exe(int format)
    }
    else
    {
-       std::cout << "The format given did not match any message type";
+       cout << "The format given did not match any message type" << endl;
    }
 }

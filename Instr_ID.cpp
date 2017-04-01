@@ -9,6 +9,7 @@
 #include "Instr_IF.h"
 #include <iostream>
 #include "decode.h"
+using namespace std;
 
 extern struct  ifid Shadow_IFID;
 extern struct  idex Shadow_IDEX;

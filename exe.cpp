@@ -2,6 +2,7 @@
 #include "Instr_IF.h"
 #include "Instr_ID.h"
 #include <iostream>
+using namespace std;
 
 extern int Reg[32];
 
