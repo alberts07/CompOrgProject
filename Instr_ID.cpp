@@ -5,10 +5,10 @@
 //  Created by Drew Lockwood on 3/1/17.
 //
 //
-#include "Instr_ID.h"
-#include "Instr_IF.h"
+#include "Instr_ID.hpp"
+#include "Instr_IF.hpp"
 #include <iostream>
-#include "decode.h"
+#include "decode.hpp"
 using namespace std;
 
 extern struct  ifid Shadow_IFID;

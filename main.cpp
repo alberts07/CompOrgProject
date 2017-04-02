@@ -1,9 +1,9 @@
-#include "Instr_IF.h"
-#include "Instr_ID.h"
-#include "Instr_WB.h"
-#include "Instr_MEM.h"
-#include "Instr_Exe.h"
-#include "Update_State.h"
+#include "Instr_IF.hpp"
+#include "Instr_ID.hpp"
+#include "Instr_WB.hpp"
+#include "Instr_MEM.hpp"
+#include "Instr_Exe.hpp"
+#include "Update_State.hpp"
 #include <iostream>
 #include <string>
 using namespace std;

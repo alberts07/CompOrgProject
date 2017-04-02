@@ -6,9 +6,9 @@
 //
 //
 #include <iostream>
-#include "Instr_Exe.h"
-#include "Instr_IF.h"
-#include "exe.h"
+#include "Instr_Exe.hpp"
+#include "Instr_IF.hpp"
+#include "exe.hpp"
 using namespace std;
 
 extern struct idex Shadow_IDEX;

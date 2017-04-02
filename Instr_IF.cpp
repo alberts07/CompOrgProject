@@ -1,5 +1,5 @@
 
-#include "Instr_IF.h"
+#include "Instr_IF.hpp"
 #include <iostream>
 
 extern unsigned int $pc;

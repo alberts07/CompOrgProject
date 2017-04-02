@@ -1,6 +1,6 @@
-#include "exe.h"
-#include "Instr_IF.h"
-#include "Instr_ID.h"
+#include "exe.hpp"
+#include "Instr_IF.hpp"
+#include "Instr_ID.hpp"
 #include <iostream>
 using namespace std;
 

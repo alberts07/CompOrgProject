@@ -1,6 +1,6 @@
 
-#include "Instr_ID.h"
-#include "Instr_IF.h"
+#include "Instr_ID.hpp"
+#include "Instr_IF.hpp"
 #include <iostream>
 
 extern struct idex Shadow_IDEX;
