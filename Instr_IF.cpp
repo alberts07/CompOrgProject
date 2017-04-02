@@ -1,9 +1,11 @@
 
 #include "Instr_IF.h"
+#include <iostream>
 
 extern unsigned int $pc;
 extern int memory[10000];
 extern struct ifid Shadow_IFID;
+using namespace std;
 
 void Instr_IF(unsigned int instruction)
 {

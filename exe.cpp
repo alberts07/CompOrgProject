@@ -120,6 +120,7 @@ void j()
 
 void jal()
 {
+    Shadow_IFID.pcplus1 = 0;
     Reg[31] = $pc+2;
     $pc = ((jump_mask & $pc) >> 2) | Shadow_IDEX.immed26;
 }

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
+#define   j_test    0
+#define   jr_test   1
 
 int nop_instr = 0x00000000;
 // This holder array contains the machine code functions that we test.
@@ -26,7 +28,7 @@ unsigned int holder[] = {
   0x01284826,  //xor $t1, $t1, $t0
   0x39290004,  //xori $t1, $t1, 0x4
   0x29290006,  //slti  $t1, $t1, 0x6
-  0x2d29FFF0,  //sltiu $t1, $t1, 0xFFF0
+  0x2D29FFF0,  //sltiu $t1, $t1, 0xFFF0
   0x3508F00F,  //ori $t0, $t0, 0xF00F
   0x3529F00F,  //ori $t1, $t1, 0xF00F
   0x01284823,  //subu $t1, $t1, $t0
@@ -43,7 +45,14 @@ unsigned int holder[] = {
   0xA16B0022,  //sb $t3, 22($t3)
   0x81690022,  //lb $t1, 22($t3)
   0x218C000C,  //addi $t4, $t4, 0xC
-  0x85890002  //lh $t1, 2($t4)
+  0x85890002,  //lh $t1, 2($t4)
+  0x0128780A,  //movz $t7, $t1, $t0
+  0x0109780B,  //movn $t7, $t0, $t1
+//  0x08000004,  //j 0x04
+//  0x01800008  //jr $t4
+  0x0C000005  //jal 0x05
+
+
 };
 
 //This array contains the functions so that the user can visially
@@ -80,12 +89,17 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "sb $t3, 0x22($t3)",
  "lb $t1, 0x22($t3)",
  "addi $t4, $t4, 0xC",
- "lh $t1, 2($t4)"
+ "lh $t1, 2($t4)",
+ "movz $t7, $t1, $t0",
+ "movn $t7, $t0, $t1",
+ //"j 0x04",
+// "jr $t4"
+  "jal 0x05"
 };
 
 
 
-unsigned int memory[1000];
+unsigned int memory[2000];
 unsigned int $pc = 0x00000000;
 unsigned int $fp = 0x00000000;
 unsigned int $gp = 0x00000000;
@@ -125,12 +139,14 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-        if(i != 23  && i != 27) //Print out all except stores
-            cout << names[$pc] << ":  " << Reg[MEMWB.DstReg] << endl;
+        if(i != 23  && i != 27 && i != 33 && i != 34) //Print out all except stores
+            cout << names[i] << ":  " << Reg[MEMWB.DstReg] << endl;
         else if (i == 23 || i == 27)
-            cout << names[$pc] << endl;
-        else{}
+            cout << names[i] << endl;
+        else
+        {
+          cout << names[i] << " $pc: " << $pc << " ra: "<< Reg[31] <<  endl;
+        }
         $pc = $pc + IFID.pcplus1;
     }
-
 }

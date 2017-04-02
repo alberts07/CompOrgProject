@@ -30,11 +30,22 @@ int Instr_ID()
         Shadow_IDEX.Rd = find_rd(Shadow_IDEX.instr);
         Shadow_IDEX.RdValue = Reg[Shadow_IDEX.Rd];
         Shadow_IDEX.shamt = find_shamt(Shadow_IDEX.instr);
-        Shadow_IDEX.RegWrite = true;
-        Shadow_IDEX.MemWrite = false;
-        Shadow_IDEX.MemRead = false;
-        Shadow_IDEX.MemtoReg = false;
-        Shadow_IDEX.ALUSrc = true;
+        if(Shadow_IDEX.func != jr_func)
+        {
+            Shadow_IDEX.RegWrite = true;
+            Shadow_IDEX.MemWrite = false;
+            Shadow_IDEX.MemRead = false;
+            Shadow_IDEX.MemtoReg = false;
+            Shadow_IDEX.ALUSrc = true;
+        }
+        else
+        {
+            Shadow_IDEX.RegWrite = false;
+            Shadow_IDEX.MemWrite = false;
+            Shadow_IDEX.MemRead = false;
+            Shadow_IDEX.MemtoReg = false;
+            Shadow_IDEX.ALUSrc = true;
+        }
         return rtype;
     }
 
@@ -58,5 +69,5 @@ int Instr_ID()
         Shadow_IDEX.immed26 = find_immed26(Shadow_IDEX.instr);
         return jtype;
     }
-    return 2;
+    return -1;
 }

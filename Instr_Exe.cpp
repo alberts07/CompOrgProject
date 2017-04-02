@@ -97,9 +97,18 @@ void Instr_Exe(int format)
                     movz();
                     break;
                }
+               case jr_func:
+               {
+                    jr();
+                    break;
+               }
+               default:
+               {
+                    cout << "Instr_Exe: Did not find R-Type function" << endl;
+                    break;
+               }
          }
    }
-
    else if(format == itype)
    {
        Shadow_IDEX.ALUSrc = true ;
@@ -257,7 +266,7 @@ void Instr_Exe(int format)
            }
            default:
            {
-              cout << "Did not find function" << endl;
+              cout << "Instr_Exe: Did not find I-Type Opcode" << endl;
            }
        }
    }
@@ -275,6 +284,10 @@ void Instr_Exe(int format)
                {
                    jal();
                    break;
+               }
+               default:
+               {
+                    cout << "Instr_Exe: Did not find J-Type Opcode" << endl;
                }
            }
    }
