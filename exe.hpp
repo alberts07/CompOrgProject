@@ -19,6 +19,7 @@ void j(void);
 void jal(void);
 void jr(void);
 void lb(void);
+void lui(void);
 void lbu(void);
 void lh(void);
 void lhu(void);

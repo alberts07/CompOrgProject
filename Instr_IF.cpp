@@ -10,5 +10,5 @@ using namespace std;
 void Instr_IF(unsigned int instruction)
 {
     Shadow_IFID.instr = instruction;
-    Shadow_IFID.pcplus1 = 1;
+    Shadow_IFID.pcplus1 = $pc + 1;
 }

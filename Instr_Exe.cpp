@@ -119,6 +119,15 @@ void Instr_Exe(int format)
 
        switch(Shadow_IDEX.opcode)
        {
+           case lui_opcode:
+           {
+              Shadow_EXMEM.MemtoReg = false;
+              Shadow_EXMEM.RegWrite = true;
+              Shadow_EXMEM.MemRead = false;
+              Shadow_EXMEM.MemWrite = false;
+              lui();
+              break;
+           }
            case lw_opcode:
            {
                Shadow_EXMEM.MemtoReg = true;
@@ -244,6 +253,15 @@ void Instr_Exe(int format)
                Shadow_EXMEM.MemRead = false;
                Shadow_EXMEM.MemWrite = false;
                blez();
+               break;
+           }
+           case bltz_opcode:
+           {
+               Shadow_EXMEM.MemtoReg = false;
+               Shadow_EXMEM.RegWrite = false;
+               Shadow_EXMEM.MemRead = false;
+               Shadow_EXMEM.MemWrite = false;
+               bltz();
                break;
            }
            case lhu_opcode:

@@ -51,14 +51,23 @@ void andi()
 void beq()
 {
     if(Shadow_IDEX.RsValue == Shadow_IDEX.RtValue)
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
 }
+/*
 
+void bltzal()
+{
+    if (Shadow_IDEX.RsValue < 0)
+    {
+        Reg[31]= $pc + 2;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+    }
+}
 void bgez()
 {
     if(Shadow_IDEX.RsValue >= 0)
     {
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1+Shadow_IDEX.immed16;
+        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -67,15 +76,15 @@ void bgezal()
     if(Shadow_IDEX.RsValue >= 0)
     {
         Reg[31] = $pc + 2;
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
-
+*/
 void bgtz()
 {
     if(Shadow_IDEX.RsValue > 0)
     {
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1+Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -83,7 +92,7 @@ void blez()
 {
     if(Shadow_IDEX.RsValue <= 0)
     {
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -91,16 +100,7 @@ void bltz()
 {
     if(Shadow_IDEX.RsValue < 0)
     {
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
-    }
-}
-
-void bltzal()
-{
-    if (Shadow_IDEX.RsValue < 0)
-    {
-        Reg[31]= $pc + 2;
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -108,21 +108,20 @@ void bne()
 {
     if(Shadow_IDEX.RsValue != 0)
     {
-        Shadow_EXMEM.ALUResult = Shadow_IDEX.pcplus1+Shadow_IDEX.immed16;
+        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+
     }
 }
 
 void j()
 {
-    Shadow_IFID.pcplus1 = 0;
-    $pc = (($pc & jump_mask) >> 2) | Shadow_IDEX.immed26;
+    $pc = ((Shadow_IFID.pcplus1 & jump_mask) >> 2) | Shadow_IDEX.immed26;
 }
 
 void jal()
 {
-    Shadow_IFID.pcplus1 = 0;
     Reg[31] = $pc+2;
-    $pc = ((jump_mask & $pc) >> 2) | Shadow_IDEX.immed26;
+    $pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
 }
 
 void jr()
@@ -151,8 +150,11 @@ void lh()
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
-
-
+}
+void lui()
+{
+  Shadow_EXMEM.ALUResult  =  Shadow_IDEX.immed16 << 16;
+  Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
 void lhu()

@@ -121,6 +121,7 @@ struct memwb {
 #define     sc_opcode       0b111000
 #define     bgtz_opcode     0b000111
 #define     blez_opcode     0b000110
+#define     bltz_opcode     0b000001
 
 
 
