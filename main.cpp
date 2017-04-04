@@ -12,7 +12,7 @@ int nop_instr = 0x00000000;
 // This holder array contains the machine code functions that we test.
 //To add a function, put it at the bottom of this, with the function
 //next to it
-/*
+
 unsigned int holder[] = {
   0x00004020,  //add $t0, $zero, $zero
   0x21290FFF,  //addi $t1, $t1, 0x0FFF
@@ -49,8 +49,26 @@ unsigned int holder[] = {
   0x0109780B,  //movn $t7, $t0, $t1
 //  0x08000004,  //j 0x04
 //  0x01800008  //jr $t4
-  0x0C000005  //jal 0x05
-*/
+  0x1000000E,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x00000000,
+  0x240D8000, //addiu $t5, $zero, 0x8000 43
+  0x05A00001, //if less than zero, fail, go to 46 in an endless loop
+  0x08000032, //else jump to end
+  0x1D20FFFC, //go back 3 instructions
+  0x19E0FFFE, //testing branches
+  0x152FFFFE, //48
+  0x00000000,
+  0x00000000  //50
+};
+/*
 unsigned int holder[] = {
 0x00000bb8,	//	$sp = 3000
 0x00000bb8,	//	$fp = 3000
@@ -545,8 +563,8 @@ unsigned int holder[] = {
 0x00f0f000,
 0x0f0f0000,
 0x0000e000,
-};
-
+};*/
+/*
 //This array contains the functions so that the user can visially
 //debug each function. Once you add machine code to the top,
 //add the function to the bottom of this array.
@@ -586,9 +604,27 @@ std::string names[(sizeof(holder)/sizeof(*holder))] = {
  "movn $t7, $t0, $t1",
  //"j 0x04",
 // "jr $t4"
-  "jal 0x05"
+  //"jal 0x05"
+  "beq $zero, $zero, 0xE",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "nop",
+  "j 0x32",
+  "bgtz $t1, 0xFFFE",
+  "blez $t7, 0xFFFE",
+  "bne $t1, $t7, 0xFFFE",
+  "nop",
+  "nop"
 };
-
+*/
 unsigned int memory[10000];
 unsigned int $pc = 0x00000000;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -605,7 +641,6 @@ struct memwb MEMWB;
 
 int main()
 {
-
     unsigned int clock_cycles = 0;
     int format = -1;
     int i = 0;
@@ -614,11 +649,11 @@ int main()
     {
         memory[i] = holder[i];
     }
-    $pc = memory[5];
-    Reg[29] = memory[0];
-    Reg[30] = memory[1];
+    //$pc = memory[5];
+    //Reg[29] = memory[0];
+    //Reg[30] = memory[1];
     //Run pipeline
-    while($pc != 0)
+    while($pc != 50)
     {
         Instr_IF(memory[$pc]);
         format = Instr_ID();
@@ -627,27 +662,12 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-/*        if(i != 23  && i != 27 && i != 33) //Print out all except stores and jumps
-            cout << names[i] << ":  " << Reg[MEMWB.DstReg] << endl;
-        else if (i == 23 || i == 27)
-            cout << names[i] << endl;
-        else
-        {
-          cout << names[i] << " $pc: " << $pc << " ra: "<< Reg[31] <<  endl;
-          beq
-          bne
-          bgtz
-          bltz
-          blez
-        }*/
-        if((format == rtype && IDEX.func != jr_func) || format == itype)
-        {
-          $pc = IFID.pcplus1;
-        }
+        $pc = EXMEM.pcplus1;
         cout << $pc << endl;
     }
+    /*
     cout << "Answer: "<< memory[6] << endl;
     cout << "Bubble Passes: "<< memory[7] << endl;
     cout << "Insertion Passes: "<< memory[8] << endl;
-    cout << "Identical: "<< memory[9] << endl;
+    cout << "Identical: "<< memory[9] << endl;*/
 }

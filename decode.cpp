@@ -27,13 +27,8 @@ int find_format(unsigned int instr)
       || (Shadow_IDEX.opcode == lb_opcode) || (Shadow_IDEX.opcode == lbu_opcode)\
       ||(Shadow_IDEX.opcode == lh_opcode) || (Shadow_IDEX.opcode == sb_opcode)\
       ||(Shadow_IDEX.opcode == sh_opcode) || (Shadow_IDEX.opcode == beq_opcode)\
-      ||(Shadow_IDEX.opcode == bne_opcode) || (Shadow_IDEX.opcode == j_opcode)\
-      ||(Shadow_IDEX.opcode == jal_opcode) || (Shadow_IDEX.opcode == lhu_opcode)\
-      ||(Shadow_IDEX.opcode == lwcl_opcode) || (Shadow_IDEX.opcode == lwl_opcode)\
-      ||(Shadow_IDEX.opcode == lwr_opcode) || (Shadow_IDEX.opcode == ll_opcode)\
-      ||(Shadow_IDEX.opcode == swcl_opcode) || (Shadow_IDEX.opcode == sdcl_opcode)\
-      ||(Shadow_IDEX.opcode == swl_opcode) || (Shadow_IDEX.opcode == swr_opcode)\
-      ||(Shadow_IDEX.opcode == sc_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
+      ||(Shadow_IDEX.opcode == bne_opcode) ||(Shadow_IDEX.opcode == bgtz_opcode)\
+      || (Shadow_IDEX.opcode == lhu_opcode) ||(Shadow_IDEX.opcode == bltz_opcode)\
       ||(Shadow_IDEX.opcode == blez_opcode))
       {
         return itype;

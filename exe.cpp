@@ -51,7 +51,11 @@ void andi()
 void beq()
 {
     if(Shadow_IDEX.RsValue == Shadow_IDEX.RtValue)
-        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+    {
+        $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
+        //$pc = $pc  + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = $pc;
+    }
 }
 /*
 
@@ -84,15 +88,19 @@ void bgtz()
 {
     if(Shadow_IDEX.RsValue > 0)
     {
-        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
+        //$pc = $pc  + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = $pc;
     }
 }
 
 void blez()
 {
-    if(Shadow_IDEX.RsValue <= 0)
+    if(Shadow_IDEX.RsValue == 0 || ((Shadow_IDEX.RsValue & 0x80000000) >> 31) == 1)
     {
-        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
+        //$pc = $pc  + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = $pc;
     }
 }
 
@@ -100,33 +108,39 @@ void bltz()
 {
     if(Shadow_IDEX.RsValue < 0)
     {
-        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
+        $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
+        //$pc = $pc  + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = $pc;
     }
 }
 
 void bne()
 {
-    if(Shadow_IDEX.RsValue != 0)
+    if(Shadow_IDEX.RsValue != Shadow_IDEX.RtValue)
     {
-        $pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
-
+        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        //$pc = $pc  + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = $pc;
     }
 }
 
 void j()
 {
     $pc = ((Shadow_IFID.pcplus1 & jump_mask) >> 2) | Shadow_IDEX.immed26;
+    Shadow_EXMEM.pcplus1 = $pc;
 }
 
 void jal()
 {
     Reg[31] = $pc+2;
     $pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
+    Shadow_EXMEM.pcplus1 = $pc;
 }
 
 void jr()
 {
     $pc = Shadow_IDEX.RsValue;
+    Shadow_EXMEM.pcplus1 = $pc;
 }
 
 void lb()

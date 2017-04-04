@@ -53,6 +53,10 @@ int Instr_ID()
     {
         Shadow_IFID.immed16 = find_immed16(Shadow_IDEX.instr);
         Shadow_IDEX.immed16 = Shadow_IFID.immed16;
+        if(Shadow_IDEX.opcode == addiu_opcode)
+        {
+            Shadow_IDEX.immed16 = Shadow_IDEX.immed16 & 0x0000FFFF;
+        }
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);

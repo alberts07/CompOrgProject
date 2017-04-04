@@ -8,6 +8,7 @@ extern int Reg[32];
 
 void Instr_WB(int format)
 {
+
     if((Shadow_MEMWB.RegWrite == true) && (format == itype) && (Shadow_MEMWB.MemtoReg == false))
     {
         Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
