@@ -14,18 +14,21 @@ extern unsigned int $pc;
 
 void add()
 {
+    cout << "add" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue + Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
 
 void addi()
 {
+    cout << "addi" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue + Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
 void addiu()
 {
+    cout << "addiu" <<endl;
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -34,22 +37,26 @@ void addu()
 {
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    cout <<"addu: " <<Shadow_EXMEM.ALUResult << endl;
 }
 
 void andd()
 {
+    cout << "and" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue & Shadow_IDEX.RsValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
 
 void andi()
 {
+    cout << "andi" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue & Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
 void beq()
 {
+    cout << "beq" << endl;
     if(Shadow_IDEX.RsValue == Shadow_IDEX.RtValue)
     {
         $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
@@ -86,6 +93,7 @@ void bgezal()
 */
 void bgtz()
 {
+    cout << "bgtz" << endl;
     if(Shadow_IDEX.RsValue > 0)
     {
         $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
@@ -96,6 +104,7 @@ void bgtz()
 
 void blez()
 {
+    cout << "blez" << endl;
     if(Shadow_IDEX.RsValue == 0 || ((Shadow_IDEX.RsValue & 0x80000000) >> 31) == 1)
     {
         $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
@@ -106,6 +115,7 @@ void blez()
 
 void bltz()
 {
+    cout << "bltz" << endl;
     if(Shadow_IDEX.RsValue < 0)
     {
         $pc = Shadow_EXMEM.pcplus1  + Shadow_IDEX.immed16;
@@ -116,6 +126,7 @@ void bltz()
 
 void bne()
 {
+    cout << "bne" << endl;
     if(Shadow_IDEX.RsValue != Shadow_IDEX.RtValue)
     {
         $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
@@ -126,12 +137,14 @@ void bne()
 
 void j()
 {
+    cout << "j" << endl;
     $pc = ((Shadow_IFID.pcplus1 & jump_mask) >> 2) | Shadow_IDEX.immed26;
     Shadow_EXMEM.pcplus1 = $pc;
 }
 
 void jal()
 {
+    cout << "jal" << endl;
     Reg[31] = $pc+2;
     $pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
     Shadow_EXMEM.pcplus1 = $pc;
@@ -139,12 +152,14 @@ void jal()
 
 void jr()
 {
+    cout << "jr" << endl;
     $pc = Shadow_IDEX.RsValue;
     Shadow_EXMEM.pcplus1 = $pc;
 }
 
 void lb()
 {
+    cout << "lb" << endl;
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
@@ -152,6 +167,7 @@ void lb()
 }
 void lbu()
 {
+    cout << "lbu" << endl;
      Shadow_EXMEM.ALUResult = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2;
      Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
      Shadow_EXMEM.half = false;
@@ -160,6 +176,7 @@ void lbu()
 
 void lh()
 {
+    cout << "lh" << endl;
     Shadow_EXMEM.ALUResult  = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
@@ -167,12 +184,14 @@ void lh()
 }
 void lui()
 {
+  cout << "lui" << endl;
   Shadow_EXMEM.ALUResult  =  Shadow_IDEX.immed16 << 16;
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
 void lhu()
 {
+    cout << "lhu"  << endl;
     Shadow_EXMEM.ALUResult = ((unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
@@ -181,6 +200,7 @@ void lhu()
 
 void lw()
 {
+    cout << "lw" << endl;
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
@@ -190,12 +210,14 @@ void lw()
 
 void nor()
 {
+    cout << "nor" << endl;
     Shadow_EXMEM.ALUResult = ~(Shadow_IDEX.RsValue | Shadow_IDEX.RtValue);
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
 
 void orr()
 {
+    cout << "or" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue | Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
@@ -208,6 +230,7 @@ void ori()
 
 void sb()
 {
+    cout << "sb" << endl;
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
@@ -217,6 +240,7 @@ void sb()
 
 void sh()
 {
+    cout << "sh" << endl;
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
@@ -292,12 +316,15 @@ void sub()
 
 void subu()
 {
+
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue - (unsigned int)Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    cout << "subu: "<< Shadow_EXMEM.ALUResult << endl;
 }
 
 void sw()
 {
+    cout << "sw" << endl;
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
