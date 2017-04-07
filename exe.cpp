@@ -35,9 +35,9 @@ void addiu()
 
 void addu()
 {
+    cout << "addu" << endl;
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue + (unsigned int)Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
-    cout <<"addu: " <<Shadow_EXMEM.ALUResult << endl;
 }
 
 void andd()
@@ -249,6 +249,7 @@ void sh()
 
 void sll()
 {
+    cout << "sll" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue << Shadow_IDEX.shamt;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
@@ -261,6 +262,7 @@ void sllv()
 
 void slt()
 {
+    cout << "slt" << endl;
     if(Shadow_IDEX.RsValue < Shadow_IDEX.RtValue)
         Shadow_EXMEM.ALUResult = 1;
     else
@@ -270,6 +272,7 @@ void slt()
 
 void slti()
 {
+    cout << "slti" << endl;
     if(Shadow_IDEX.RsValue < Shadow_IDEX.immed16)
         Shadow_EXMEM.ALUResult = 1;
     else
@@ -279,6 +282,7 @@ void slti()
 
 void sltiu()
 {
+    cout << "sltiu" << endl;
     if((unsigned int)Shadow_IDEX.RsValue < (unsigned int)Shadow_IDEX.immed16)
         Shadow_EXMEM.ALUResult = 1;
     else
@@ -288,6 +292,8 @@ void sltiu()
 
 void sltu()
 {
+    cout << "sltu" << endl;
+
     if((unsigned int)Shadow_IDEX.RsValue < (unsigned int)Shadow_IDEX.RtValue)
         Shadow_EXMEM.ALUResult = 1;
     else
@@ -298,6 +304,7 @@ void sltu()
 
 void srl()
 {
+    cout << "srl " << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue >> Shadow_IDEX.shamt;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
@@ -310,16 +317,16 @@ void srlv()
 
 void sub()
 {
-  Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue - Shadow_IDEX.RtValue;
-  Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    cout << "sub" << endl;
+    Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue - Shadow_IDEX.RtValue;
+    Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
 
 void subu()
 {
-
+    cout << "subu" << endl;
     Shadow_EXMEM.ALUResult = (unsigned int)Shadow_IDEX.RsValue - (unsigned int)Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
-    cout << "subu: "<< Shadow_EXMEM.ALUResult << endl;
 }
 
 void sw()
@@ -333,18 +340,21 @@ void sw()
 
 void xorr(void)
 {
+    cout << "xor" << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue ^ Shadow_IDEX.RtValue;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 }
 
 void xori()
 {
+    cout << "xori " << endl;
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue ^ Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
 void movn()
 {
+    cout << "movn" << endl;
     if(Shadow_IDEX.RtValue != 0)
     {
         Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
@@ -354,6 +364,7 @@ void movn()
 
 void movz()
 {
+    cout << "movz" << endl;
     if(Shadow_IDEX.RtValue == 0)
     {
         Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;

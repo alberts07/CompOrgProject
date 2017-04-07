@@ -339,6 +339,7 @@ int main()
         $pc = EXMEM.pcplus1;
         cout << $pc << endl;
     }
+    //Does not execute line 45 after branch
 
     cout << "Answer: "<< memory[6] << endl;
     cout << "Bubble Passes: "<< memory[7] << endl;
