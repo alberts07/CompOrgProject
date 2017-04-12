@@ -48,7 +48,6 @@ int Instr_ID()
         }
         return rtype;
     }
-
     if(format == itype)
     {
         Shadow_IFID.immed16 = find_immed16(Shadow_IDEX.instr);
@@ -69,5 +68,19 @@ int Instr_ID()
         Shadow_IDEX.immed26 = find_immed26(Shadow_IDEX.instr);
         return jtype;
     }
+    if(format == special_opcode)
+    {
+        Shadow_IDEX.RegWrite = true;
+        Shadow_IDEX.MemWrite = false;
+        Shadow_IDEX.MemRead = false;
+        Shadow_IDEX.MemtoReg = false;
+        Shadow_IDEX.ALUSrc = true;
+        Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
+        Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
+        Shadow_IDEX.Rd = find_rd(Shadow_IDEX.instr);
+        return special_opcode;
+    }
+
+
     return -1;
 }

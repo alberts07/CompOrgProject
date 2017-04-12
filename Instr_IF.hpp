@@ -38,6 +38,7 @@ struct idex {
     int shamt;
     unsigned int pcplus1;
     unsigned int instr;
+    bool branch;
 };
 
 struct exmem {
@@ -70,7 +71,7 @@ struct memwb {
 #define     rtype               0x00000000
 #define     itype               0x00000001
 #define     jtype               0x00000010
-//#define     special_opcode1l    0x00000011
+#define     special_opcode      0x00000011
 //#define     special_opcode2l    0x00000100
 //#define     special_opcode3l    0x00000101
 
@@ -122,8 +123,7 @@ struct memwb {
 #define     bgtz_opcode     0b000111
 #define     blez_opcode     0b000110
 #define     bltz_opcode     0b000001
-
-
+#define     seb_opcode      0b011111
 
 //Fucntions for R-format MIPS
 #define     add_func        0b100000

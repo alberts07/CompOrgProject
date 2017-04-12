@@ -19,20 +19,29 @@ int find_format(unsigned int instr)
       return jtype;
     }
 
-     if((Shadow_IDEX.opcode == sw_opcode) || (Shadow_IDEX.opcode == andi_opcode)\
+   if((Shadow_IDEX.opcode == sw_opcode) || (Shadow_IDEX.opcode == andi_opcode)\
       || (Shadow_IDEX.opcode == lw_opcode) || (Shadow_IDEX.opcode == addi_opcode)\
       || (Shadow_IDEX.opcode == slti_opcode) || (Shadow_IDEX.opcode == sltiu_opcode)\
       || (Shadow_IDEX.opcode == addiu_opcode) || (Shadow_IDEX.opcode == lui_opcode)\
       || (Shadow_IDEX.opcode == ori_opcode) || (Shadow_IDEX.opcode == xori_opcode)\
       || (Shadow_IDEX.opcode == lb_opcode) || (Shadow_IDEX.opcode == lbu_opcode)\
       ||(Shadow_IDEX.opcode == lh_opcode) || (Shadow_IDEX.opcode == sb_opcode)\
-      ||(Shadow_IDEX.opcode == sh_opcode) || (Shadow_IDEX.opcode == beq_opcode)\
-      ||(Shadow_IDEX.opcode == bne_opcode) ||(Shadow_IDEX.opcode == bgtz_opcode)\
-      || (Shadow_IDEX.opcode == lhu_opcode) ||(Shadow_IDEX.opcode == bltz_opcode)\
-      ||(Shadow_IDEX.opcode == blez_opcode))
-      {
+      ||(Shadow_IDEX.opcode == sh_opcode) || (Shadow_IDEX.opcode == lhu_opcode))
+    {
         return itype;
-      }
+    }
+    if((Shadow_IDEX.opcode == bne_opcode) || (Shadow_IDEX.opcode == beq_opcode)\
+      || (Shadow_IDEX.opcode == bltz_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
+      || (Shadow_IDEX.opcode == blez_opcode))
+    {
+        Shadow_IDEX.branch = true;
+        return itype;
+
+    }
+    if(Shadow_IDEX.opcode == seb_opcode)
+    {
+        return special_opcode;
+    }
 return -1;
 }
 
