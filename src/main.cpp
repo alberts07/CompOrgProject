@@ -531,7 +531,7 @@ int main()
 {
     unsigned int clock_cycles = 0;
     int format = -1;
-    int i = 0;
+    unsigned int i = 0;
     //Transfer holder array to memory
     for(i = 0; i < (sizeof(holder)/sizeof(*holder)); i++)
     {
