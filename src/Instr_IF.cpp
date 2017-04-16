@@ -1,7 +1,7 @@
 #include "Instr_IF.hpp"
 #include <iostream>
 
-extern unsigned int $pc;
+extern unsigned int pc;
 extern struct ifid Shadow_IFID;
 using namespace std;
 
