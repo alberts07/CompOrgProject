@@ -6,12 +6,7 @@
 #include "Update_State.hpp"
 #include <iostream>
 using namespace std;
-#define testing   0
-
-int nop_instr = 0x00000000;
-// This holder array contains the machine code functions that we test.
-//To add a function, put it at the bottom of this, with the function
-//next to it
+#define testing   1
 
 unsigned int memory[5000] = {
   0x00000bb8,	//	$sp = 3000
@@ -510,6 +505,8 @@ unsigned int memory[5000] = {
 };
 
 unsigned int pc = 0x00000000;
+unsigned int clock_cycles = 0;
+unsigned int branch_pc = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 struct ifid Shadow_IFID;
@@ -536,22 +533,46 @@ int main()
         Instr_IF(memory[pc]);
         format = Instr_ID();
         Instr_Exe(format);
-      /*  if(Shadow_IDEX.branch)
+        if(Shadow_IDEX.branch == true)
         {
-            Instr_IF(memory[Shadow_IDEX.pcplus1]);
+#if testing
+            if(Shadow_IDEX.opcode == sw_opcode)
+              cout << "opcode = sw_opcode" << endl;
+            if(Shadow_IDEX.opcode == lw_opcode)
+              cout << "opcode = lw_opcode" << endl;
+            if(Shadow_IDEX.opcode == bltz_opcode)
+              cout << "opcode = bltz_opcode" << endl;
+            if(Shadow_IDEX.opcode == blez_opcode)
+              cout << "opcode = blez_opcode" << endl;
+            if(Shadow_IDEX.opcode == bgtz_opcode)
+              cout << "opcode = bgtz_opcode" << endl;
+            if(Shadow_IDEX.opcode == beq_opcode)
+              cout << "opcode = beq_opcode" << endl;
+            if(Shadow_IDEX.opcode == bne_opcode)
+              cout << "opcode = bne_opcode" << endl;
+#endif
+            branch_pc = Shadow_EXMEM.pcplus1;
+            Instr_IF(memory[Shadow_IFID.pcplus1]);
             format = Instr_ID();
             Instr_Exe(format);
             Instr_MEM();
             Instr_WB(format);
             Update_State();
             clock_cycles++;
+
             #if testing
-              cout << Shadow_IDEX.pcplus1 << endl;
+              cout << "instr after branch: "<< Shadow_IFID.pcplus1 - 2 << endl;
+
             #endif
-            Instr_IF(memory[Shadow_IDEX.pcplus1-2]);
-            format = Instr_ID();
+
+            pc = branch_pc;
+
+            #if testing
+              cout << pc << endl;
+            #endif
+
             Shadow_IDEX.branch = false;
-        }*/
+        }
         Instr_MEM();
         Instr_WB(format);
         Update_State();

@@ -111,15 +111,6 @@ struct memwb {
 #define     j_opcode        0b000010
 #define     jal_opcode      0b000011
 #define     lhu_opcode      0b100101
-#define     lwcl_opcode     0b110001
-#define     lwl_opcode      0b100010
-#define     lwr_opcode      0b100110
-#define     ll_opcode       0b110000
-#define     swcl_opcode     0b110001
-#define     sdcl_opcode     0b111101
-#define     swl_opcode      0b101010
-#define     swr_opcode      0b101110
-#define     sc_opcode       0b111000
 #define     bgtz_opcode     0b000111
 #define     blez_opcode     0b000110
 #define     bltz_opcode     0b000001
@@ -137,55 +128,11 @@ struct memwb {
 #define     subu_func       0b100011
 #define     xor_func        0b100110
 #define     sll_func        0b000000
-#define     sllv_func       0b000100
 #define     srl_func        0b000010
-#define     srlv_func       0b000110
-#define     sra_func        0b100011
-#define     srav_func       0b100111
-#define     div_func        0b100010
-#define     divu_func       0b100010
-#define     mult_func       0b100010
-#define     multu_func      0b100010
-#define     break_func      0b001101
 #define     jr_func         0b001000
-#define     jalrs_func      0b001001
 #define     movn_func       0b001011
 #define     movz_func       0b001010
-/*
-#define     teq_func        0b110100
-#define     tne_func        0b110110
-#define     tge_func        0b110000
-#define     tgeu_func       0b110001
-#define     tlt_func        0b110010
-#define     tltu_func       0b110011
-*/
-//Special Functions
-/*
-#define     special_opcode1 0b011100
-#define     clo_func        0b100001
-#define     clz_func        0b100000
-#define     mul_func        0b000010
-#define     madd_func       0b000000
-#define     maddu_func      0b000001
-#define     msub_func       0b000100
-#define     msubu_func      0b000101
 
-#define     special_opcode2 0b010001
-#define     bclt_func       0b000001
-#define     bclf_func       0b000000
-
-#define     special_opcode3 0b000001
-#define     bgez_func       0b000001
-#define     bgezal_func     0b010001
-#define     bltzal_func     0b010000
-#define     bltz_func       0b000000
-#define     teqi_func       0b01100
-#define     tnei_func       0b01110
-#define     tgei_func       0b01000
-#define     tgeiu_func      0b01001
-#define     tlti_func       0b01010
-#define     tltiu_func      0b01011
-*/
 
 
 #endif /* IF_hpp */
