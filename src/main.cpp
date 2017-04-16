@@ -13,7 +13,7 @@ int nop_instr = 0x00000000;
 //To add a function, put it at the bottom of this, with the function
 //next to it
 
-unsigned int holder[] = {
+unsigned int memory[5000] = {
   0x00000bb8,	//	$sp = 3000
   0x00000bb8,	//	$fp = 3000
   0x00000000,
@@ -509,11 +509,7 @@ unsigned int holder[] = {
   0x0000e000,
 };
 
-unsigned int memory[10000];
 unsigned int pc = 0x00000000;
-unsigned int pc_branch = 0;
-bool done = false;
-int format_next = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 struct ifid Shadow_IFID;
@@ -530,21 +526,17 @@ int main()
 {
     unsigned int clock_cycles = 0;
     int format = -1;
-    unsigned int i = 0;
-    //Transfer holder array to memory
-    for(i = 0; i < (sizeof(holder)/sizeof(*holder)); i++)
-    {
-        memory[i] = holder[i];
-    }
     pc = memory[5];
     Reg[29] = memory[0];
     Reg[30] = memory[1];
     //Run pipeline
+    Shadow_IDEX.branch = false;
     while(pc != 0)
     {
         Instr_IF(memory[pc]);
         format = Instr_ID();
-  /*      if(Shadow_IDEX.branch)
+        Instr_Exe(format);
+      /*  if(Shadow_IDEX.branch)
         {
             Instr_IF(memory[Shadow_IDEX.pcplus1]);
             format = Instr_ID();
@@ -559,9 +551,7 @@ int main()
             Instr_IF(memory[Shadow_IDEX.pcplus1-2]);
             format = Instr_ID();
             Shadow_IDEX.branch = false;
-        }
-        */
-        Instr_Exe(format);
+        }*/
         Instr_MEM();
         Instr_WB(format);
         Update_State();

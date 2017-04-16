@@ -33,7 +33,6 @@ int find_format(unsigned int instr)
       || (Shadow_IDEX.opcode == bltz_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
       || (Shadow_IDEX.opcode == blez_opcode))
     {
-        Shadow_IDEX.branch = true;
         return itype;
 
     }
