@@ -9,15 +9,11 @@
 #include <iostream>
 using namespace std;
 
-#define testing   0
-
 extern int Reg[32];
-extern int memory[10000];
 extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
 extern struct ifid  Shadow_IFID;
-
-extern unsigned int $pc;
+extern unsigned int pc;
 
 void add()
 {
@@ -80,8 +76,8 @@ void beq()
   #endif
     if(Shadow_IDEX.RsValue == Shadow_IDEX.RtValue)
     {
-        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = $pc;
+        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 void bgtz()
@@ -91,8 +87,8 @@ void bgtz()
   #endif
     if(Shadow_IDEX.RsValue > 0)
     {
-        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = $pc;
+        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 
@@ -103,9 +99,9 @@ void blez()
   #endif
     if(Shadow_IDEX.RsValue == 0 || ((Shadow_IDEX.RsValue & 0x80000000) >> 31) == 1)
     {
-        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
         //$pc = $pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = $pc;
+        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 
@@ -116,9 +112,9 @@ void bltz()
   #endif
     if(Shadow_IDEX.RsValue < 0)
     {
-        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
         //$pc = $pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = $pc;
+        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 
@@ -129,9 +125,9 @@ void bne()
   #endif
     if(Shadow_IDEX.RsValue != Shadow_IDEX.RtValue)
     {
-        $pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
         //$pc = $pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = $pc;
+        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 
@@ -140,8 +136,8 @@ void j()
   #if testing
       cout << "j" << endl;
   #endif
-    $pc = ((Shadow_IFID.pcplus1 & jump_mask) >> 2) | Shadow_IDEX.immed26;
-    Shadow_EXMEM.pcplus1 = $pc;
+    pc = ((Shadow_IFID.pcplus1 & jump_mask) >> 2) | Shadow_IDEX.immed26;
+    Shadow_EXMEM.pcplus1 = pc;
 }
 
 void jal()
@@ -149,9 +145,9 @@ void jal()
   #if testing
       cout << "jal" << endl;
   #endif
-    Reg[31] = $pc+2;
-    $pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
-    Shadow_EXMEM.pcplus1 = $pc;
+    Reg[31] = pc+2;
+    pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
+    Shadow_EXMEM.pcplus1 = pc;
 }
 
 void jr()
@@ -159,7 +155,7 @@ void jr()
   #if testing
       cout << "jr" << endl;
   #endif
-    $pc = Shadow_IDEX.RsValue;
+    pc = Shadow_IDEX.RsValue;
     Shadow_EXMEM.pcplus1 = $pc;
 }
 

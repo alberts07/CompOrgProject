@@ -5,7 +5,6 @@
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
 #include <iostream>
-#include <string>
 using namespace std;
 #define testing   0
 
@@ -20,7 +19,7 @@ unsigned int holder[] = {
   0x00000000,
   0x00000000,
   0x00000000,
-  0x0000008c,	//	$pc = 140
+  0x0000008c,	//	pc = 140
   0x00000000,
   0x00000000,
   0x00000000,
@@ -511,8 +510,8 @@ unsigned int holder[] = {
 };
 
 unsigned int memory[10000];
-unsigned int $pc = 0x00000000;
-unsigned int $pc_branch = 0;
+unsigned int pc = 0x00000000;
+unsigned int pc_branch = 0;
 bool done = false;
 int format_next = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -537,13 +536,13 @@ int main()
     {
         memory[i] = holder[i];
     }
-    $pc = memory[5];
+    pc = memory[5];
     Reg[29] = memory[0];
     Reg[30] = memory[1];
     //Run pipeline
-    while($pc != 0)
+    while(pc != 0)
     {
-        Instr_IF(memory[$pc]);
+        Instr_IF(memory[pc]);
         format = Instr_ID();
   /*      if(Shadow_IDEX.branch)
         {
@@ -567,11 +566,10 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
-        $pc = EXMEM.pcplus1;
+        pc = EXMEM.pcplus1;
         #if testing
-          cout << $pc << endl;
+          cout << pc << endl;
         #endif
-
     }
     cout << "Answer: "<< memory[6] << endl;
     cout << "Bubble Passes: "<< memory[7] << endl;
