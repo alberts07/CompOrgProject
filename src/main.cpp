@@ -216,6 +216,7 @@ int main()
         Instr_IF(memory[pc]);
         format = Instr_ID();
         Instr_Exe(format);
+/*
         if(Shadow_IDEX.branch == true)
         {
 #if testing
@@ -230,6 +231,7 @@ int main()
             if(Shadow_IDEX.opcode == bne_opcode)
               cout << "opcode = bne_opcode" << endl;
 #endif
+
             branch_pc = Shadow_EXMEM.pcplus1;
             Instr_IF(memory[Shadow_IFID.pcplus1]);
             format = Instr_ID();
@@ -250,7 +252,7 @@ int main()
             #endif
 
             Shadow_IDEX.branch = false;
-        }
+        }*/
         Instr_MEM();
         Instr_WB(format);
         Update_State();
