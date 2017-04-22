@@ -545,10 +545,6 @@ int main()
         if(Shadow_IDEX.branch == true)
         {
 #if testing
-            if(Shadow_IDEX.opcode == sw_opcode)
-              cout << "opcode = sw_opcode" << endl;
-            if(Shadow_IDEX.opcode == lw_opcode)
-              cout << "opcode = lw_opcode" << endl;
             if(Shadow_IDEX.opcode == bltz_opcode)
               cout << "opcode = bltz_opcode" << endl;
             if(Shadow_IDEX.opcode == blez_opcode)
@@ -571,7 +567,6 @@ int main()
 
             #if testing
               cout << "instr after branch: "<< Shadow_IFID.pcplus1 - 2 << endl;
-
             #endif
 
             pc = branch_pc;
