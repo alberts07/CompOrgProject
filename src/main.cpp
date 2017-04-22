@@ -4,8 +4,16 @@
 #include "Instr_MEM.hpp"
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
+#include "cache.hpp"
 #include <iostream>
 using namespace std;
+
+
+cache dcache;
+cache icache;
+
+
+
 #define testing   1
 
 unsigned int memory[5000] = {
@@ -586,4 +594,5 @@ int main()
     cout << "Bubble Passes: "<< memory[7] << endl;
     cout << "Insertion Passes: "<< memory[8] << endl;
     cout << "Identical: "<< memory[9] << endl;
+    cout << "CPI: " << clock_cycles/clock_cycles << endl; 
 }
