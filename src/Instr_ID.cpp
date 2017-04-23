@@ -13,7 +13,7 @@ using namespace std;
 
 extern struct  ifid Shadow_IFID;
 extern struct  idex Shadow_IDEX;
-extern int Reg[31];
+extern int Reg[32];
 
 int Instr_ID()
 {
@@ -56,6 +56,9 @@ int Instr_ID()
         Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
         Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
         Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
+        if (Shadow_IDEX.Rt == 29|| Shadow_IDEX.Rs == 29 ){
+          Shadow_IDEX.immed16 = Shadow_IDEX.immed16 / 4;
+        }
         return itype;
     }
     if(format == jtype)
