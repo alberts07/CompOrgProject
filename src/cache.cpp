@@ -8,6 +8,7 @@
 #include "cache.hpp"
 #include <iostream>
 #include <math.h>
+#include <string.h>
 
 // switch(STATE){
 //   case IDLE:
@@ -54,38 +55,39 @@
 cache::cache (int size, int block) {
   cache_size = size;
   block_size = block;
-  valid[cache_size] = {false};
-  dirty[cache_size] = {false};
-  data[cache_size] = {0};
-  tag[cache_size] = {0};
+  memset(valid,false,cache_size);
+  memset(dirty,false,cache_size);
+  memset(data,false,cache_size);
+  memset(tag,false,cache_size);
   DONE = false;
   cache_hit = 0;
   cache_access = 0;
   addrtag = 0;
   block_address = 0;
-  block_offset = cache_size / block_size;
-  byte_offset = 2;
+  block_offset = 0;
+  block_bits = log2(cache_size / block_size);
+  byte_bits = 2;
 }
 
-unsigned int cache::get_tag(unsigned int addr){
-  unsigned int tag_mask= 0xFFFFFFFF<<(block_offset + byte_offset);
+void cache::get_tag(unsigned int addr){
+  unsigned int tag_mask= 0xFFFFFFFF<<(block_bits + byte_bits);
   addrtag = addr & tag_mask;
 }
 
-unsigned int cache::get_block(unsigned int addr){
+void cache::get_block(unsigned int addr){
   block_address = addr /  block_size;
 }
 
-unsigned int cache::get_block_offset(unsigned int addr){
-  return get_block(addr) % block_size;
+void cache::get_block_offset(unsigned int addr){
+  block_offset = block_address % block_size;
 }
 
 bool cache::is_valid(unsigned int addr){
-  return valid[get_tag(addr)];
+  return valid[addrtag];
 }
 
 bool cache::is_dirty(unsigned int addr){
-  return dirty[get_tag(addr)];
+  return dirty[addrtag];
 }
 
 void cache::write_cache(unsigned int addr, unsigned int *blockmemdata){
@@ -96,12 +98,13 @@ void cache::write_cache(unsigned int addr, unsigned int *blockmemdata){
 }
 
 void cache::read_cache(cache, unsigned int addr, unsigned int *data){
-  if(valid[addr] && tag[block_address+block_offset] == get_tag(addr)){
-    *data = data[get_tag(addr)];
+  if(valid[addr] && tag[block_address+block_offset] == addrtag){
+    *data = data[addrtag];
     DONE = true;
     cache_hit++;
   }
-  else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
+  //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
+  else if((dirty[block_address+block_offset])){
     //write to main memory
     //write_cache(addr, ); //need to write from memory
   }

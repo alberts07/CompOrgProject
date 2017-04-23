@@ -7,7 +7,6 @@
 //
 #ifndef cache_h
 #define cache_h
-bool WRITE_BACK = 0;
 class cache{
   public:
     bool valid[];
@@ -24,11 +23,13 @@ class cache{
     int block_address;
     int block_offset;
     int byte_offset;
+    int block_bits;
+    int byte_bits;
 
     cache (int size, int block);
-    unsigned int get_tag(unsigned int addr);
-    unsigned int get_block(unsigned int addr);
-    unsigned int get_block_offset(unsigned int addr);
+    void get_tag(unsigned int addr);
+    void get_block(unsigned int addr);
+    void get_block_offset(unsigned int addr);
     bool is_valid(unsigned int addr);
     bool is_dirty(unsigned int addr);
     void read_cache(cache, unsigned int addr, unsigned int *data);
