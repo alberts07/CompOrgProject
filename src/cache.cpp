@@ -184,54 +184,102 @@
 //         //need to stall for penalty time
 // }
 
-//DEFINE cache_size
-bool valid[cache_size] = {false};
-bool dirty[cache_size] = {false};
-int data[cache_size] = {0};
-unsigned int tag[cache_size] = {0};
-enum STATE = {IDLE , SEARCH, WRITE, SET};
-unsigned int get_tag(unsigned int addr){
-    //DEFINE block_index
-  return get_block(addr) % pow(2,block_index);
-}
 
-unsigned int get_block(unsigned int addr){
-    //DEFINE block_offset
-  return addr /  pow(2,block_offset);
-}
 
-unsigned int get_index(unsigned int addr){
-    //DEFINE block_size
-  return addr % block_size;
-}
 
-bool is_valid(unsigned int addr){
-  return valid[get_tag(addr)];
-}
+// switch(STATE){
+//   case IDLE:
+//     //Need to check if there is a request
+//     if(REQUEST){
+//       STATE = SEARCH;
+//     }
+//   case SEARCH:
+//     get_tag();
+//     get_index();
+//     get_block();
+//     read_cache();
+//     if(DONE){
+//       STATE = IDLE;
+//     }
+//     if(WRITE_BACK){
+//       STATE = WRITE;
+//     }
+//   case WRITE:
+//     //More details
+//
+//   case SET:
+//
+// }
 
-bool is_dirty(unsigned int addr){
-  return dirty[get_tag(addr)];
-}
 
-read_cache(cache, unsigned int addr, unsigned int *data){
-  if(cache.is_valid[addr] && cache.tag[] == get_tag(addr)){
-    STATE = WRITE;
+
+class cache(){
+  bool valid[];
+  bool dirty[];
+  int data[];
+  unsigned int tag[];
+  enum STATE = {IDLE , SEARCH, WRITE, SET};
+  bool DONE = false;
+  int cache_hit = 0;
+  int cache_access = 0;
+  int cache_size = 0;
+  int block_size = 0;
+
+  unsigned int tag = 0;
+  int block_address = 0;
+  int block_offset = 0;
+  int byte_offset = 2;
+
+  cache::cache (int size, int block) {
+    cache_size = size;
+    block_size = block;
+    valid[cache_size] = {false};
+    dirty[cache_size] = {false};
+    data[cache_size] = {0};
+    tag[cache_size] = {0};
+
+
+
+    STATE = IDLE;
   }
-}
 
-switch(STATE){
-  case IDLE:
-    //Need to check if there is a request
+  unsigned int get_tag(unsigned int addr){
+    tag_mask= 0xFFFFFFFF<<(block_offset + byte_offset);
+    tag = addr & tag_mask;
+  }
 
-  case SEARCH:
-    get_tag();
-    get_index();
-    get_block();
-    read_cache();
-  case WRITE:
-    //More details
-    *data = cache.data[get_tag(addr)];
+  unsigned int get_block(unsigned int addr){
+    block_address = addr /  block_size;
+  }
 
-  case SET:
-    
-}
+  unsigned int get_block_offset(unsigned int addr){
+    return get_block(addr) % block_size;
+  }
+
+  bool is_valid(unsigned int addr){
+    return valid[get_tag(addr)];
+  }
+
+  bool is_dirty(unsigned int addr){
+    return dirty[get_tag(addr)];
+  }
+
+  read_cache(cache, unsigned int addr, unsigned int *data){
+    if(cache.is_valid[addr] && cache.tag[block_address+block_offset] == get_tag(addr)){
+      *data = cache.data[get_tag(addr)];
+      DONE = true;
+      cache_hit++;
+    }
+    else if((WRITE_BACK && dirty[]) || !WRITE_BACK){
+      //write to main memory
+      write_cache(addr); //need to write from memory
+    }
+    cache_access++;
+  }
+  write_cache(unsigned int addr, unsigned int *blockmemdata){
+    for(int i = 0; i < block_size; i++){
+      data[block_address+i] = blockmemdata[i];
+    //write a whole block size to the cache data
+    }
+  }
+};
