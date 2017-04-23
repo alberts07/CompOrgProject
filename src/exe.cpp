@@ -150,7 +150,7 @@ void jal()
   #if testing
       cout << "jal" << endl;
   #endif
-    Reg[31] = pc+2;
+    Reg[31] = pc+1;
     pc = ((jump_mask & Shadow_IFID.pcplus1) >> 2) | Shadow_IDEX.immed26;
     Shadow_EXMEM.pcplus1 = pc;
 }
@@ -221,6 +221,7 @@ void lw()
       cout << "lw" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
+    cout << Shadow_EXMEM.ALUResult << ' ' << Reg[31] << endl;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -368,6 +369,7 @@ void sw()
       cout << "sw" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
+    cout << Shadow_EXMEM.ALUResult << ' ' << Reg[31] << endl;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;

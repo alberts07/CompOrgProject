@@ -207,12 +207,15 @@ int main()
     unsigned int clock_cycles = 0;
     int format = -1;
     pc = memory[5];
-    Reg[29] = memory[0];
-    Reg[30] = memory[1];
+    Reg[29] = memory[0] / 4;
+    Reg[30] = memory[1] / 4;
     //Run pipeline
     Shadow_IDEX.branch = false;
     while(pc != 0)
     {
+        #if testing
+          cout << pc+1 << ' ' << Shadow_IFID.instr << endl;
+        #endif
         Instr_IF(memory[pc]);
         format = Instr_ID();
         Instr_Exe(format);
@@ -257,10 +260,9 @@ int main()
         Instr_WB(format);
         Update_State();
         clock_cycles++;
+
         pc = EXMEM.pcplus1;
-        #if testing
-          cout << pc << endl;
-        #endif
+
     }
     cout << "Answer: "<< memory[6] << endl;
     cout << "Bubble Passes: "<< memory[7] << endl;

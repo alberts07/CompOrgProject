@@ -65,7 +65,7 @@ cache::cache (int size, int block) {
   addrtag = 0;
   block_address = 0;
   block_offset = 0;
-  block_bits = log2(cache_size / block_size);
+  //block_bits = (int) log2(cache_size / block_size);
   byte_bits = 2;
 }
 
@@ -78,15 +78,15 @@ void cache::get_block(unsigned int addr){
   block_address = addr /  block_size;
 }
 
-void cache::get_block_offset(unsigned int addr){
+void cache::get_block_offset(){
   block_offset = block_address % block_size;
 }
 
-bool cache::is_valid(unsigned int addr){
+bool cache::is_valid(){
   return valid[addrtag];
 }
 
-bool cache::is_dirty(unsigned int addr){
+bool cache::is_dirty(){
   return dirty[addrtag];
 }
 
