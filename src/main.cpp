@@ -4,13 +4,13 @@
 #include "Instr_MEM.hpp"
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
-#include "cache.hpp"
+//#include "cache.hpp"
 #include <iostream>
 using namespace std;
 
 
-cache dcache(256, 16);
-cache icache(128, 16);
+//cache dcache(256, 16);
+//cache icache(128, 16);
 
 
 
@@ -589,9 +589,9 @@ int main()
         pc = EXMEM.pcplus1;
 
     }
-    cout << "Answer: "<< memory[6] << endl;
+    cout << "Result: "<< memory[6] << endl;
     cout << "Bubble Passes: "<< memory[7] << endl;
     cout << "Insertion Passes: "<< memory[8] << endl;
     cout << "Identical: "<< memory[9] << endl;
-    cout << "CPI: " << clock_cycles/clock_cycles << endl;
+    cout << "CPI: " << clock_cycles << endl;
 }
