@@ -223,7 +223,7 @@ void lw()
   #if testing
       cout << "lw" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4);
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -369,7 +369,7 @@ void sw()
   #if testing
       cout << "sw" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4);
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;

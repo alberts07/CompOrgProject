@@ -9,7 +9,7 @@
 using namespace std;
 //cache dcache(256, 16);
 //cache icache(128, 16);
-#define testing   0
+#define testing   1
 
 unsigned int memory[1200] = {
   0x00000bb8,	//	$sp = 3000
@@ -420,6 +420,7 @@ unsigned int memory[1200] = {
   0x00000033,
   0x00003300,
   0x00330000,
+  0x55000000,
   0x33000000,
   0x00000044,
   0x00004400,
@@ -428,7 +429,6 @@ unsigned int memory[1200] = {
   0x00000055,
   0x00005500,
   0x00550000,
-  0x55000000,
   0x00000066,
   0x00006600,
   0x00660000,
@@ -504,7 +504,7 @@ unsigned int memory[1200] = {
   0x000f0f00,
   0x00f0f000,
   0x0f0f0000,
-  0x0000e000
+  0x0000e000,
 };
 
 unsigned int pc = 0x00000000;
@@ -527,14 +527,16 @@ int main()
     unsigned int clock_cycles = 0;
     int format = -1;
     pc = memory[5];
-    Reg[29] = memory[0] / 4;
-    Reg[30] = memory[1] / 4;
+    memory[0] = memory[0] / 4;
+    memory[1] = memory[1] / 4;
+    Reg[29] = memory[0];
+    Reg[30] = memory[1];
     //Run pipeline
     Shadow_IDEX.branch = false;
     while(pc != 0)
     {
         #if testing
-          cout << pc+1 << ' ' << Shadow_IFID.instr << endl;
+          //cout << pc+1 << ' ' << Shadow_IFID.instr << endl;
         #endif
         Instr_IF(memory[pc]);
         format = Instr_ID();
@@ -581,40 +583,42 @@ int main()
         Update_State();
         clock_cycles++;
 
-        pc = EXMEM.pcplus1;
 
-        // cout << "$v0: " << Reg[2] << "\t";
-        // cout << "$v1: " << Reg[3] << "\t";
-        // cout << "$a0: " << Reg[4] << "\t";
-        // cout << "$a1: " << Reg[5] << "\t";
-        // cout << "$a2: " << Reg[6] << "\t";
-        // cout << "$a3: " << Reg[7] << "\t";
-        // cout << "$t0: " << Reg[8] << "\t";
-        // cout << "$t1: " << Reg[9] << "\t";
-        // cout << "$t2: " << Reg[10] << "\t";
-        // cout << "$t3: " << Reg[11] << "\t";
-        // cout << "$t4: " << Reg[12] << "\t";
-        // cout << "$t5: " << Reg[13] << "\t";
-        // cout << "$t6: " << Reg[14] << "\t";
-        // cout << "$t7: " << Reg[15] << "\t";
-        // cout << "$s0: " << Reg[16] << "\t";
-        // cout << "$s1: " << Reg[17] << "\t";
-        // cout << "$s2: " << Reg[18] << "\t";
-        // cout << "$s3: " << Reg[19] << "\t";
-        // cout << "$s4: " << Reg[20] << "\t";
-        // cout << "$s5: " << Reg[21] <<  "\t";
-        // cout << "$s6: " << Reg[22] <<  "\t";
-        // cout << "$s7: " << Reg[23] <<  "\t";
-        // cout << "$t8: " << Reg[24] <<  "\t";
-        // cout << "$t9: " << Reg[25] <<  "\t";
-        // cout << "$sp: " << Reg[29] <<  "\t";
-        // cout << "$fp: " << Reg[30] <<  "\t";
-        // cout << "$ra: " << Reg[30] <<  "\t";
+        cout << pc << ' ' << Shadow_IFID.instr << "\t";  
+        cout << "$v0: " << Reg[2] << "\t";
+        cout << "$v1: " << Reg[3] << "\t";
+        cout << "$a0: " << Reg[4] << "\t";
+        cout << "$a1: " << Reg[5] << "\t";
+        cout << "$a2: " << Reg[6] << "\t";
+        cout << "$a3: " << Reg[7] << "\t";
+        cout << "$t0: " << Reg[8] << "\t";
+        cout << "$t1: " << Reg[9] << "\t";
+        cout << "$t2: " << Reg[10] << "\t";
+        cout << "$t3: " << Reg[11] << "\t";
+        cout << "$t4: " << Reg[12] << "\t";
+        cout << "$t5: " << Reg[13] << "\t";
+        cout << "$t6: " << Reg[14] << "\t";
+        cout << "$t7: " << Reg[15] << "\t";
+        cout << "$s0: " << Reg[16] << "\t";
+        cout << "$s1: " << Reg[17] << "\t";
+        cout << "$s2: " << Reg[18] << "\t";
+        cout << "$s3: " << Reg[19] << "\t";
+        cout << "$s4: " << Reg[20] << "\t";
+        cout << "$s5: " << Reg[21] <<  "\t";
+        cout << "$s6: " << Reg[22] <<  "\t";
+        cout << "$s7: " << Reg[23] <<  "\t";
+        cout << "$t8: " << Reg[24] <<  "\t";
+        cout << "$t9: " << Reg[25] <<  "\t";
+        cout << "$sp: " << Reg[29] <<  "\t";
+        cout << "$fp: " << Reg[30] <<  "\t";
+        cout << "$ra: " << Reg[31] << endl;
+
+        pc = EXMEM.pcplus1;
     }
 
-     cout << "Result: "<< memory[6] << endl;
-     cout << "Bubble Passes: "<< memory[7] << endl;
-     cout << "Insertion Passes: "<< memory[8] << endl;
-     cout << "Identical: "<< memory[9] << endl;
-     cout << "CPI: " << clock_cycles << endl;
+      //  cout << "Result: "<< memory[6] << endl;
+      //  cout << "Bubble Passes: "<< memory[7] << endl;
+      //  cout << "Insertion Passes: "<< memory[8] << endl;
+      //  cout << "Identical: "<< memory[9] << endl;
+      //  cout << "CPI: " << clock_cycles << endl;
 }
