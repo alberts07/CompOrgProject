@@ -172,7 +172,7 @@ void lb()
   #if testing
       cout << "lb" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -182,7 +182,7 @@ void lbu()
   #if testing
       cout << "lbu" << endl;
   #endif
-     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
      Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
      Shadow_EXMEM.half = false;
      Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -193,7 +193,7 @@ void lh()
   #if testing
       cout << "lh" << endl;
   #endif
-    Shadow_EXMEM.ALUResult  = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult  = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -212,7 +212,7 @@ void lhu()
   #if testing
       cout << "lhu" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -223,7 +223,7 @@ void lw()
   #if testing
       cout << "lw" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4);
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
@@ -261,7 +261,7 @@ void sb()
   #if testing
       cout << "sb" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
@@ -273,7 +273,7 @@ void sh()
   #if testing
       cout << "sh" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4) >> 2;
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
@@ -369,7 +369,7 @@ void sw()
   #if testing
       cout << "sw" << endl;
   #endif
-    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16 / 4);
+    Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
     Shadow_EXMEM.mem = 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
