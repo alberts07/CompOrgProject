@@ -44,4 +44,5 @@ void xorr(void);
 void xori(void);
 void movn(void);
 void movz(void);
+void seb(void);
 #endif
