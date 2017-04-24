@@ -559,8 +559,8 @@ int main()
         //
         // cout << pc << ' ' << Shadow_IFID.instr << endl;
 
-/*
-        cout << pc << ' ' << Shadow_IFID.instr << "\t";
+
+        cout << pc << ' ' << "\t";
         cout << "$v0: " << Reg[2] << "\t";
         cout << "$v1: " << Reg[3] << "\t";
         cout << "$a0: " << Reg[4] << "\t";
@@ -588,13 +588,14 @@ int main()
         cout << "$sp: " << Reg[29] <<  "\t";
         cout << "$fp: " << Reg[30] <<  "\t";
         cout << "$ra: " << Reg[31] << endl;
-*/
+
         pc = EXMEM.pcplus1;
     }
-
+/*
         cout << "Result: "<< memory[6] << endl;
         cout << "Bubble Passes: "<< memory[7] << endl;
         cout << "Insertion Passes: "<< memory[8] << endl;
         cout << "Identical: "<< memory[9] << endl;
         cout << "CPI: " << clock_cycles << endl;
+*/
 }
