@@ -1,10 +1,4 @@
-//
-//  Single_Cycle.cpp
-//
-//
-//  Created by Drew Lockwood on 3/1/17.
-//
-//
+
 #include "Instr_ID.hpp"
 #include "Instr_IF.hpp"
 #include <iostream>

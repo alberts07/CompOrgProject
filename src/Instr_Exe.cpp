@@ -109,13 +109,12 @@ void Instr_Exe(int format)
                }
          }
    }
-   else if(format == itype)
+   if(format == itype)
    {
-       Shadow_IDEX.ALUSrc = true ;
-       Shadow_IDEX.MemtoReg = false;
-       Shadow_IDEX.RegWrite = true;
-       Shadow_IDEX.MemRead = false;
-       Shadow_IDEX.MemWrite = false;
+       Shadow_EXMEM.MemtoReg = false;
+       Shadow_EXMEM.RegWrite = true;
+       Shadow_EXMEM.MemRead = false;
+       Shadow_EXMEM.MemWrite = false;
 
        switch(Shadow_IDEX.opcode)
        {
@@ -289,7 +288,7 @@ void Instr_Exe(int format)
        }
    }
 
-   else if(format == jtype)
+   if(format == jtype)
    {
         switch(Shadow_IDEX.opcode)
            {
@@ -309,8 +308,27 @@ void Instr_Exe(int format)
                }
            }
    }
+
+   if(format == special_opcode)
+   {
+      switch(Shadow_IDEX.opcode)
+      {
+          case seb_opcode:
+          {
+              seb();
+              break;
+          }
+          default:
+          {
+              cout << "Did not find seb function"<< endl;
+              break;
+          }
+      }
+   }
+   /*
    else
    {
        cout << "The format given did not match any message type" << endl;
    }
+   */
 }

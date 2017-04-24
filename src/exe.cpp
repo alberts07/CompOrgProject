@@ -308,6 +308,7 @@ void slti()
         Shadow_EXMEM.ALUResult = 1;
     else
         Shadow_EXMEM.ALUResult = 0;
+    Shadow_EXMEM.RegWrite = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
@@ -415,4 +416,18 @@ void movz()
         Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
         Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
     }
+}
+
+void seb()
+{
+  #if testing
+      cout << "seb" << endl;
+  #endif
+  if((Shadow_IDEX.RtValue & 0x80000000) != 0)
+      Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RtValue & 0xFF00000) >> 24) | 0xFFFFFFFF;
+  else
+      Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RtValue & 0xFF00000) >> 24) & 0x000000FF;
+
+  Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+
 }
