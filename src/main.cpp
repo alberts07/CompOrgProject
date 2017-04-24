@@ -540,22 +540,11 @@ int main()
         Instr_WB(format);
         format = Instr_ID();
         Instr_Exe(format);
-/*
+        Instr_MEM();
+        Update_State();
+        clock_cycles++;
         if(Shadow_IDEX.branch == true)
         {
-#if testing
-            if(Shadow_IDEX.opcode == bltz_opcode)
-              cout << "opcode = bltz_opcode" << endl;
-            if(Shadow_IDEX.opcode == blez_opcode)
-              cout << "opcode = blez_opcode" << endl;
-            if(Shadow_IDEX.opcode == bgtz_opcode)
-              cout << "opcode = bgtz_opcode" << endl;
-            if(Shadow_IDEX.opcode == beq_opcode)
-              cout << "opcode = beq_opcode" << endl;
-            if(Shadow_IDEX.opcode == bne_opcode)
-              cout << "opcode = bne_opcode" << endl;
-#endif
-
             branch_pc = Shadow_EXMEM.pcplus1;
             Instr_IF(memory[Shadow_IFID.pcplus1]);
             format = Instr_ID();
@@ -564,26 +553,13 @@ int main()
             Instr_WB(format);
             Update_State();
             clock_cycles++;
-
-            #if testing
-              cout << "instr after branch: "<< Shadow_IFID.pcplus1 - 2 << endl;
-            #endif
-
-            pc = branch_pc;
-
-            #if testing
-              cout << pc << endl;
-            #endif
-
             Shadow_IDEX.branch = false;
-        }*/
-        Instr_MEM();
-        Update_State();
-        clock_cycles++;
+            EXMEM.pcplus1 = branch_pc;
+        }
         //
         // cout << pc << ' ' << Shadow_IFID.instr << endl;
 
-
+/*
         cout << pc << ' ' << Shadow_IFID.instr << "\t";
         cout << "$v0: " << Reg[2] << "\t";
         cout << "$v1: " << Reg[3] << "\t";
@@ -612,13 +588,13 @@ int main()
         cout << "$sp: " << Reg[29] <<  "\t";
         cout << "$fp: " << Reg[30] <<  "\t";
         cout << "$ra: " << Reg[31] << endl;
-
+*/
         pc = EXMEM.pcplus1;
     }
 
-      //  cout << "Result: "<< memory[6] << endl;
-      //  cout << "Bubble Passes: "<< memory[7] << endl;
-      //  cout << "Insertion Passes: "<< memory[8] << endl;
-      //  cout << "Identical: "<< memory[9] << endl;
-      //  cout << "CPI: " << clock_cycles << endl;
+        cout << "Result: "<< memory[6] << endl;
+        cout << "Bubble Passes: "<< memory[7] << endl;
+        cout << "Insertion Passes: "<< memory[8] << endl;
+        cout << "Identical: "<< memory[9] << endl;
+        cout << "CPI: " << clock_cycles << endl;
 }
