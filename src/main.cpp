@@ -900,6 +900,6 @@ int main()
         cout << "Memory[7]: "<< hex << memory[7] << endl;
         cout << "Memory[8]: "<< hex << memory[8] << endl;
         cout << "Memory[9]: "<< hex << memory[9] << endl;
-        cout << "Clock Cycles: " << clock_cycles << endl;
+        cout << "Clock Cycles: " << dec <<clock_cycles << endl;
 
 }
