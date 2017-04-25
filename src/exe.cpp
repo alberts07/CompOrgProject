@@ -202,7 +202,7 @@ void lui()
   #if testing
       cout << "lui" << endl;
   #endif
-  Shadow_EXMEM.ALUResult  =  Shadow_IDEX.immed16 << 16;
+  Shadow_EXMEM.ALUResult  =  (Shadow_IDEX.immed16 << 16);
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
@@ -319,6 +319,7 @@ void sltiu()
         Shadow_EXMEM.ALUResult = 1;
     else
         Shadow_EXMEM.ALUResult = 0;
+    Shadow_EXMEM.RegWrite = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
