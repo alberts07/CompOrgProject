@@ -9,6 +9,8 @@
 #include <iostream>
 #include <math.h>
 #include <string.h>
+#include <vector>
+using namespace std;
 
 // switch(STATE){
 //   case IDLE:
@@ -55,10 +57,17 @@
 cache::cache (int size, int block) {
   cache_size = size;
   block_size = block;
-  memset(valid,false,cache_size);
-  memset(dirty,false,cache_size);
-  memset(data,false,cache_size);
-  memset(tag,false,cache_size);
+  valid.resize(cache_size);
+  dirty.resize(cache_size);
+  data.resize(cache_size);
+  tag.resize(cache_size);
+  for(int i = 0; i < cache_size; i++)
+  {
+      valid[i] = false;
+      dirty[i] = false;
+      data[i] = 0;
+      tag[i] = 0;
+  }
   DONE = false;
   cache_hit = 0;
   cache_access = 0;

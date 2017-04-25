@@ -5,14 +5,18 @@
 //  Created by Austin Alberts on 4/16/17.
 //
 //
+
+#include <vector>
 #ifndef cache_h
 #define cache_h
+using namespace std;
 class cache{
   public:
-    bool valid[];
-    bool dirty[];
-    int data[];
-    unsigned int tag[];
+
+    vector<bool> valid;
+    vector<bool> dirty;
+    vector<int> data;
+    vector<unsigned int> tag;
     bool DONE;
     int cache_hit;
     int cache_access;

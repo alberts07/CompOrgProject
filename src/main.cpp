@@ -867,10 +867,10 @@ int main()
         pc = EXMEM.pcplus1;
     }
 
-        cout << "Result: "<< memory[6] << endl;
-        cout << "Bubble Passes: "<< memory[7] << endl;
-        cout << "Insertion Passes: "<< memory[8] << endl;
-        cout << "Identical: "<< memory[9] << endl;
+        cout << "Memory[6]: "<< memory[6] << endl;
+        cout << "Memory[7]: "<< memory[7] << endl;
+        cout << "Memory[8]: "<< memory[8] << endl;
+        cout << "Memory[9]: "<< memory[9] << endl;
         cout << "Clock Cycles: " << clock_cycles << endl;
 
 }
