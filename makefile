@@ -11,7 +11,7 @@ CC = g++
 INCLUDES = -I $(INCDIR) -I /usr/local/include
 
 # Compiler flags
-CFLAGS = -Wall -Wextra  -g $(INCLUDES) #-pthread
+CFLAGS = -Wall -Wextra -g $(INCLUDES) #-pthread
 
 # All source files
 SRCS = $(wildcard $(SRCDIR)/*.cpp)
