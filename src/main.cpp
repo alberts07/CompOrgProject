@@ -788,7 +788,7 @@ unsigned int memory[1200] = {
 0x65736172,   // 	esar
 0x00000000   // 	nop
 };
-
+/*
 
 void printMemory(){
     FILE *f = fopen("MEMORY.txt", "w");
@@ -798,7 +798,7 @@ void printMemory(){
         exit(1);
     }
 
-    /* print some text */
+    // print some text
     int index = 1;
     while(index < 1200){
         fprintf(f, "%d:  0x%08x\n", index, memory[index]);
@@ -807,7 +807,7 @@ void printMemory(){
     fclose(f);
     return;
 }
-
+*/
 
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
@@ -859,7 +859,7 @@ int main()
         //
         // cout << pc << ' ' << Shadow_IFID.instr << endl;
 
-        cout << pc << ' ' << endl;
+        cout << dec << pc << ' ' << endl;
         cout << "$v0: " << Reg[2] << endl;
         cout << "$v1: " << Reg[3] << endl;
         cout << "$a0: " << Reg[4] << endl;
@@ -921,7 +921,7 @@ int main()
         pc = EXMEM.pcplus1;
     }
 
-        printMemory();
+        //printMemory();
         cout << "Memory[6]: "<< memory[6] << endl;
         cout << "Memory[7]: "<< hex << memory[7] << endl;
         cout << "Memory[8]: "<< hex << memory[8] << endl;

@@ -115,7 +115,6 @@ void Instr_Exe(int format)
        Shadow_EXMEM.RegWrite = true;
        Shadow_EXMEM.MemRead = false;
        Shadow_EXMEM.MemWrite = false;
-
        switch(Shadow_IDEX.opcode)
        {
            case lui_opcode:

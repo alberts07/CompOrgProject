@@ -10,6 +10,7 @@
 using namespace std;
 
 extern int Reg[32];
+extern int memory[1200];
 extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
 extern struct ifid  Shadow_IFID;
@@ -168,21 +169,21 @@ void jr()
 
 void lb()
 {
-  #if testing
+  #if !testing
       cout << "lb" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_IDEX.RsValue % 4;
+    Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 void lbu()
 {
-  #if testing
+  #if !testing
       cout << "lbu" << endl;
   #endif
      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-     Shadow_EXMEM.mem = Shadow_IDEX.RsValue % 4;
+     Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 4;
      Shadow_EXMEM.half = false;
      Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -193,7 +194,7 @@ void lh()
       cout << "lh" << endl;
   #endif
     Shadow_EXMEM.ALUResult  = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_IDEX.RsValue % 2;
+    Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -212,7 +213,7 @@ void lhu()
       cout << "lhu" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_IDEX.RsValue % 2;
+    Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
@@ -257,11 +258,14 @@ void ori()
 
 void sb()
 {
-  #if testing
+  #if !testing
       cout << "sb" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_IDEX.RsValue % 4;
+    cout << "Memory Location: ";
+    cout <<  Shadow_EXMEM.ALUResult << "@ Location: "<< hex << memory[Shadow_EXMEM.ALUResult] << endl;
+    Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 4;
+    cout << "Byte: " << dec << Shadow_EXMEM.mem << endl;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
 
@@ -273,7 +277,7 @@ void sh()
       cout << "sh" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    Shadow_EXMEM.mem = Shadow_IDEX.immed16 % 2;
+    Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 2;
     Shadow_EXMEM.half = true;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
 }
@@ -429,14 +433,18 @@ void movz()
 
 void seb()
 {
+  cout << "Entered Seb function" << endl;
   #if testing
       cout << "seb" << endl;
   #endif
+  cout << dec <<"Input Reg: " << (Shadow_IDEX.Rt) << endl;
+  cout << dec << "Output Reg" << Shadow_IDEX.Rd << endl;
   if((Shadow_IDEX.RtValue & 0x80000000) != 0)
-      Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RtValue & 0xFF00000) >> 24) | 0xFFFFFFFF;
+      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RtValue >> 24) | 0xFFFFFFFF;
   else
-      Shadow_EXMEM.ALUResult = ((Shadow_IDEX.RtValue & 0xFF00000) >> 24) & 0x000000FF;
+      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RtValue >> 24) & 0x000000FF;
 
+  cout << "Result: " << hex << Shadow_EXMEM.ALUResult << endl;
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 
 }
