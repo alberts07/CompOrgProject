@@ -41,7 +41,6 @@ void addiu()
 
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue + Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
-    Shadow_EXMEM.RegWrite = true;
     // cout << Shadow_IDEX.RsValue << ' ' << Shadow_IDEX.immed16 << ' ' << Shadow_EXMEM.ALUResult  << endl;
 }
 
@@ -308,7 +307,6 @@ void slti()
         Shadow_EXMEM.ALUResult = 1;
     else
         Shadow_EXMEM.ALUResult = 0;
-    Shadow_EXMEM.RegWrite = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
