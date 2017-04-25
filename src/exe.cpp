@@ -262,10 +262,7 @@ void sb()
       cout << "sb" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
-    cout << "Memory Location: ";
-    cout <<  Shadow_EXMEM.ALUResult << "@ Location: "<< hex << memory[Shadow_EXMEM.ALUResult] << endl;
     Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 4;
-    cout << "Byte: " << dec << Shadow_EXMEM.mem << endl;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.RsValue = Shadow_IDEX.RsValue;
 
@@ -433,18 +430,15 @@ void movz()
 
 void seb()
 {
-  cout << "Entered Seb function" << endl;
   #if testing
       cout << "seb" << endl;
   #endif
-  cout << dec <<"Input Reg: " << (Shadow_IDEX.Rt) << endl;
-  cout << dec << "Output Reg" << Shadow_IDEX.Rd << endl;
-  if((Shadow_IDEX.RtValue & 0x80000000) != 0)
-      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RtValue >> 24) | 0xFFFFFFFF;
+  if((Shadow_IDEX.RtValue & 0x00000080) != 0)
+      Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue | 0xFFFFFF00;
   else
-      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RtValue >> 24) & 0x000000FF;
+      Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue & 0x000000FF;
 
-  cout << "Result: " << hex << Shadow_EXMEM.ALUResult << endl;
+  cout << "Result: " << dec << Shadow_EXMEM.ALUResult << endl;
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 
 }
