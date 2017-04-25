@@ -508,6 +508,7 @@ unsigned int memory[1200] = {
   0x0000e000,
 };
 */
+
 //Program #2  Assembly Instructions
 unsigned int memory[1200] = {
 0x00000898,	// $sp = 2200
@@ -854,36 +855,66 @@ int main()
         //
         // cout << pc << ' ' << Shadow_IFID.instr << endl;
 
-/*
-        cout << pc << ' ' << "\t";
-        cout << "$v0: " << Reg[2] << "\t";
-        cout << "$v1: " << Reg[3] << "\t";
-        cout << "$a0: " << Reg[4] << "\t";
-        cout << "$a1: " << Reg[5] << "\t";
-        cout << "$a2: " << Reg[6] << "\t";
-        cout << "$a3: " << Reg[7] << "\t";
-        cout << "$t0: " << Reg[8] << "\t";
-        cout << "$t1: " << Reg[9] << "\t";
-        cout << "$t2: " << Reg[10] << "\t";
-        cout << "$t3: " << Reg[11] << "\t";
-        cout << "$t4: " << Reg[12] << "\t";
-        cout << "$t5: " << Reg[13] << "\t";
-        cout << "$t6: " << Reg[14] << "\t";
-        cout << "$t7: " << Reg[15] << "\t";
-        cout << "$s0: " << Reg[16] << "\t";
-        cout << "$s1: " << Reg[17] << "\t";
-        cout << "$s2: " << Reg[18] << "\t";
-        cout << "$s3: " << Reg[19] << "\t";
-        cout << "$s4: " << Reg[20] << "\t";
-        cout << "$s5: " << Reg[21] <<  "\t";
-        cout << "$s6: " << Reg[22] <<  "\t";
-        cout << "$s7: " << Reg[23] <<  "\t";
-        cout << "$t8: " << Reg[24] <<  "\t";
-        cout << "$t9: " << Reg[25] <<  "\t";
-        cout << "$sp: " << Reg[29] <<  "\t";
-        cout << "$fp: " << Reg[30] <<  "\t";
-        cout << "$ra: " << Reg[31] << endl;
-      */
+        /*
+                cout << pc << ' ' << endl;
+                cout << "$v0: " << Reg[2] << "\t";
+                cout << "$v1: " << Reg[3] << "\t";
+                cout << "$a0: " << Reg[4] << "\t";
+                cout << "$a1: " << Reg[5] << "\t";
+                cout << "$a2: " << Reg[6] << "\t";
+                cout << "$a3: " << Reg[7] << "\t";
+                cout << "$t0: " << Reg[8] << "\t";
+                cout << "$t1: " << Reg[9] << "\t";
+                cout << "$t2: " << Reg[10] << "\t";
+                cout << "$t3: " << Reg[11] << "\t";
+                cout << "$t4: " << Reg[12] << "\t";
+                cout << "$t5: " << Reg[13] << "\t";
+                cout << "$t6: " << Reg[14] << "\t";
+                cout << "$t7: " << Reg[15] << "\t";
+                cout << "$s0: " << Reg[16] << "\t";
+                cout << "$s1: " << Reg[17] << "\t";
+                cout << "$s2: " << Reg[18] << "\t";
+                cout << "$s3: " << Reg[19] << "\t";
+                cout << "$s4: " << Reg[20] << "\t";
+                cout << "$s5: " << Reg[21] <<  "\t";
+                cout << "$s6: " << Reg[22] <<  "\t";
+                cout << "$s7: " << Reg[23] <<  "\t";
+                cout << "$t8: " << Reg[24] <<  "\t";
+                cout << "$t9: " << Reg[25] <<  "\t";
+                cout << "$sp: " << Reg[29] <<  "\t";
+                cout << "$fp: " << Reg[30] <<  "\t";
+                cout << "$ra: " << Reg[31] << endl;
+              */
+
+      cout << pc << ' ' << endl;
+      cout << "$v0: " << Reg[2] << endl;
+      cout << "$v1: " << Reg[3] << endl;
+      cout << "$a0: " << Reg[4] << endl;
+      cout << "$a1: " << Reg[5] << endl;
+      cout << "$a2: " << Reg[6] << endl;
+      cout << "$a3: " << Reg[7] << endl;
+      cout << "$t0: " << Reg[8] << endl;
+      cout << "$t1: " << Reg[9] << endl;
+      cout << "$t2: " << Reg[10] << endl;
+      cout << "$t3: " << Reg[11] << endl;
+      cout << "$t4: " << Reg[12] << endl;
+      cout << "$t5: " << Reg[13] << endl;
+      cout << "$t6: " << Reg[14] << endl;
+      cout << "$t7: " << Reg[15] << endl;
+      cout << "$s0: " << Reg[16] << endl;
+      cout << "$s1: " << Reg[17] << endl;
+      cout << "$s2: " << Reg[18] << endl;
+      cout << "$s3: " << Reg[19] << endl;
+      cout << "$s4: " << Reg[20] << endl;
+      cout << "$s5: " << Reg[21] <<  endl;
+      cout << "$s6: " << Reg[22] <<  endl;
+      cout << "$s7: " << Reg[23] <<  endl;
+      cout << "$t8: " << Reg[24] <<  endl;
+      cout << "$t9: " << Reg[25] <<  endl;
+      cout << "$sp: " << Reg[29] <<  endl;
+      cout << "$fp: " << Reg[30] <<  endl;
+      cout << "$ra: " << Reg[31] << endl;
+      cout << "" << endl;
 
         pc = EXMEM.pcplus1;
     }

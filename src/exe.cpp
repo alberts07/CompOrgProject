@@ -404,6 +404,11 @@ void movn()
         Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
         Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
     }
+    else
+    {
+      Shadow_EXMEM.ALUResult = Shadow_IDEX.RdValue;
+      Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    }
 }
 
 void movz()
@@ -415,6 +420,11 @@ void movz()
     {
         Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue;
         Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
+    }
+    else
+    {
+      Shadow_EXMEM.ALUResult = Shadow_IDEX.RdValue;
+      Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
     }
 }
 
