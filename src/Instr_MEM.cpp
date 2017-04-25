@@ -8,7 +8,7 @@ extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
 using namespace std;
 
-extern int memory[10000];
+extern int memory[1200];
 
 void Instr_MEM()
 {
