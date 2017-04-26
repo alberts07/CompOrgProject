@@ -22,7 +22,7 @@ class cache{
     int cache_access;
     int cache_size;
     int block_size;
-
+    unsigned int addr;
     unsigned int addrtag;
     int block_address;
     int block_offset;
@@ -31,13 +31,13 @@ class cache{
     int byte_bits;
 
     cache (int size, int block);
-    void get_tag(unsigned int addr);
-    void get_block(unsigned int addr);
-    void get_block_offset();
-    bool is_valid();
-    bool is_dirty();
+    void get_tag(void);
+    void get_block(void);
+    void get_block_offset(void);
+    bool is_valid(void);
+    bool is_dirty(void);
     unsigned int read_cache(void);
-    void write_cache(unsigned int addr, unsigned int *blockmemdata);
+    void write_cache(unsigned int *blockmemdata);
 };
 
 #endif
