@@ -60,12 +60,12 @@ cache::cache (int size, int block) {
   addrtag = 0;
   block_address = 0;
   block_offset = 0;
-  //block_bits = (int) log2(cache_size / block_size);
+  block_bits = log(cache_size / block_size) / log(2);    //log2 (x) = logy (x) / logy (2)
   byte_bits = 2;
 }
 
 void cache::get_tag(unsigned int addr){
-  unsigned int tag_mask= 0xFFFFFFFF<<(block_bits + byte_bits);
+  unsigned int tag_mask = (0xFFFFFFFF << (block_bits + byte_bits));
   addrtag = addr & tag_mask;
 }
 

@@ -833,6 +833,7 @@ int main()
     int format = -1;
     int test_loop = 0;
     unsigned int instruction = 0;
+    cout << "The amount of bits needed for Block Offset: "<< icache.block_bits << endl;
     for(test_loop = 0; test_loop < 12; test_loop++)
     {
         pc = memory[5];
@@ -841,10 +842,9 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            cout << "Hello" << endl;
-            icache.get_tag(memory[pc]);
+            icache.get_tag(pc);
             cout << "Got Tag: " << hex << icache.addrtag << endl;
-            icache.get_block(memory[pc]);
+            icache.get_block(pc);
             cout << "Got Block: " << hex << icache.block_address << endl;
             icache.get_block_offset();
             cout << "Got Block Offset: " << dec << icache.block_offset << endl;
