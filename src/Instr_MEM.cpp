@@ -62,7 +62,7 @@ void Instr_MEM()
                         cout << "attempting a load byte 0";
                         cout << "mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
-                        cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "Updated Sign Extended value is " << Shadow_MEMWB.DstRegValue;
                     }
                     break;
                 }
