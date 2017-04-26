@@ -31,9 +31,9 @@ class cache{
     int byte_bits;
 
     cache (int size, int block);
-    void get_tag(void);
-    void get_block(void);
-    void get_block_offset(void);
+    unsigned int get_tag(void);
+    unsigned int get_block(void);
+    unsigned int get_block_offset(void);
     bool is_valid(void);
     bool is_dirty(void);
     unsigned int read_cache(void);

@@ -68,17 +68,20 @@ cache::cache (int size, int block) {
   addr = 0;
 }
 
-void cache::get_tag(void){
+unsigned int cache::get_tag(void){
   unsigned int tag_mask = (0xFFFFFFFF << (block_bits + byte_bits));
   addrtag = addr & tag_mask;
+  return addrtag;
 }
 
-void cache::get_block(void){
+unsigned int cache::get_block(void){
   block_address = addr /  block_size;
+  return block_address;
 }
 
-void cache::get_block_offset(void){
+unsigned int cache::get_block_offset(void){
   block_offset = block_address % block_size;
+  return block_offset;
 }
 
 bool cache::is_valid(void){
@@ -99,31 +102,24 @@ void cache::write_cache(unsigned int *blockmemdata){
 unsigned int cache::read_cache(void){
   unsigned int dataa = 0;
   int WRITE_BACK = 0;
-  if(!WRITE_BACK)
+  if(is_valid() && tag[block_address+block_offset] == get_tag())
   {
-      if(is_valid() && tag[block_address+block_offset] == addrtag){
-        dataa = data[addrtag];
-        DONE = true;
-        cache_hit++;
-      }
+    dataa = data[addrtag];
+    DONE = true;
+    cache_hit++;
+  }
       //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
-      else
-      {
-        data[addrtag] = instr[addr];
-        memory[addr] = instr[addr];
-        clock_cycles = clock_cycles + 8;
-        //write_cache(addr, ); //need to write from memory
-      }
+  else if(!WRITE_BACK)
+  {
+    data[addrtag] = instr[addr];
+    memory[addr] = instr[addr];
+    clock_cycles = clock_cycles + 8;
+    //write_cache(addr, ); //need to write from memory
   }
   else
   {
-      if(valid[addrtag] && tag[block_address+block_offset] == addrtag){
-        dataa = data[addrtag];
-        DONE = true;
-        cache_hit++;
-      }
       //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
-      else if((dirty[block_address+block_offset])){
+      if((dirty[block_address+block_offset])){
         //write to main memory
         //write_cache(addr, ); //need to write from memory
       }
