@@ -841,10 +841,15 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
+            cout << "Hello" << endl;
             icache.get_tag(memory[pc]);
+            cout << "Got Tag" << endl;
             icache.get_block(memory[pc]);
+            cout << "Got Block" << endl;
             icache.get_block_offset();
+            cout << "Got Block Offset" << endl;
             instruction = icache.read_cache();
+            cout << "Instruction: "<< instruction << endl;
             Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
@@ -897,7 +902,6 @@ int main()
             // cout << "$fp: " << Reg[30] <<  endl;
             // cout << "$ra: " << Reg[31] << endl;
             // cout << "" << endl;
-
             // cout << pc << ' ' << "\t";
             // cout << "$v0: " << Reg[2] << "\t";
             // cout << "$v1: " << Reg[3] << "\t";
