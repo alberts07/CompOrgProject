@@ -843,11 +843,12 @@ int main()
         {
             cout << "Hello" << endl;
             icache.get_tag(memory[pc]);
-            cout << "Got Tag" << endl;
+            cout << "Got Tag: " << hex << icache.addrtag << endl;
             icache.get_block(memory[pc]);
-            cout << "Got Block" << endl;
+            cout << "Got Block: " << hex << icache.block_address << endl;
             icache.get_block_offset();
-            cout << "Got Block Offset" << endl;
+            cout << "Got Block Offset: " << dec << icache.block_offset << endl;
+            //Code Breaks Here - Need to mess with how it acquires the instruction
             instruction = icache.read_cache();
             cout << "Instruction: "<< instruction << endl;
             Instr_IF(memory[pc]);
