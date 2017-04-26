@@ -29,7 +29,10 @@ void Instr_MEM()
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) >> 16;
                     if((Shadow_IDEX.opcode == lh_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00008000) != 0))
                     {
+                        cout << "attempting a load upper half word";
+                        cout << "Mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFF0000;
+                        cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
                     break;
                 }
@@ -38,8 +41,8 @@ void Instr_MEM()
                     Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF;
                     if((Shadow_IDEX.opcode == lh_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00008000) != 0))
                     {
-                        cout << "attempting a load half word";
-                        cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "attempting a load lower half word";
+                        cout << "Mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFF0000;
                         cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
@@ -57,7 +60,7 @@ void Instr_MEM()
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
                     {
                         cout << "attempting a load byte 0";
-                        cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
                         cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
@@ -69,7 +72,7 @@ void Instr_MEM()
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
                     {
                         cout << "attempting a load byte 1";
-                        cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "Byte value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
                         cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
