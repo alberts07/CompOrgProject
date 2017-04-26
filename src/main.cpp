@@ -13,6 +13,7 @@ using namespace std;
 cache dcache(256, 16);
 cache icache(256, 16);
 
+
 #define testing   0
 
 
@@ -831,6 +832,7 @@ int main()
     unsigned int clock_cycles = 0;
     int format = -1;
     int test_loop = 0;
+    unsigned int instruction = 0;
     for(test_loop = 0; test_loop < 12; test_loop++)
     {
         pc = memory[5];
@@ -839,6 +841,10 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
+            icache.get_tag(memory[pc]);
+            icache.get_block(memory[pc]);
+            icache.get_block_offset();
+            instruction = icache.read_cache();
             Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
@@ -930,5 +936,7 @@ int main()
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Clock Cycles: " << dec <<clock_cycles << endl;
+            cout << "I-Cache Hit Rate: " << icache.cache_hit / icache.cache_access << endl;
+            clock_cycles = 0;
     }
 }

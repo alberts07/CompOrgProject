@@ -92,9 +92,10 @@ void cache::write_cache(unsigned int addr, unsigned int *blockmemdata){
   }
 }
 
-void cache::read_cache(cache, unsigned int addr, unsigned int *data){
-  if(valid[addr] && tag[block_address+block_offset] == addrtag){
-    *data = data[addrtag];
+unsigned int cache::read_cache(void){
+  unsigned int dataa = 0;
+  if(valid[addrtag] && tag[block_address+block_offset] == addrtag){
+    dataa = data[addrtag];
     DONE = true;
     cache_hit++;
   }
@@ -104,4 +105,5 @@ void cache::read_cache(cache, unsigned int addr, unsigned int *data){
     //write_cache(addr, ); //need to write from memory
   }
   cache_access++;
+  return dataa;
 }

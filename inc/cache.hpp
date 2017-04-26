@@ -36,7 +36,7 @@ class cache{
     void get_block_offset();
     bool is_valid();
     bool is_dirty();
-    void read_cache(cache, unsigned int addr, unsigned int *data);
+    unsigned int read_cache(void);
     void write_cache(unsigned int addr, unsigned int *blockmemdata);
 };
 
