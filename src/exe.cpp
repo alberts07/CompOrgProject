@@ -175,6 +175,8 @@ void lb()
     Shadow_EXMEM.mem = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) % 4;
     Shadow_EXMEM.half = false;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
+    cout << "Result: " << dec << Shadow_EXMEM.ALUResult << endl;
+    cout << "Result: " << dec << Shadow_EXMEM.mem << endl;
 }
 void lbu()
 {
@@ -437,7 +439,7 @@ void seb()
   else
       Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue & 0x000000FF;
 
-  cout << "Result: " << dec << Shadow_EXMEM.ALUResult << endl;
+  //cout << "Result: " << dec << Shadow_EXMEM.ALUResult << endl;
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 
 }
