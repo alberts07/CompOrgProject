@@ -37,22 +37,8 @@ using namespace std;
 // }
 
 
-
-  // bool valid[];
-  // bool dirty[];
-  // int data[];
-  // unsigned int tag[];
   // enum STATE = {IDLE , SEARCH, WRITE, SET};
-  // bool DONE = false;
-  // int cache_hit = 0;
-  // int cache_access = 0;
-  // int cache_size = 0;
-  // int block_size = 0;
-  //
-  // unsigned int tag = 0;
-  // int block_address = 0;
-  // int block_offset = 0;
-  // int byte_offset = 2;
+
 
 cache::cache (int size, int block) {
   cache_size = size;
