@@ -325,7 +325,6 @@ void sltiu()
         Shadow_EXMEM.ALUResult = 1;
     else
         Shadow_EXMEM.ALUResult = 0;
-    Shadow_EXMEM.RegWrite = true;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
 }
 
@@ -443,7 +442,7 @@ void seb()
   else
       Shadow_EXMEM.ALUResult = Shadow_IDEX.RtValue & 0x000000FF;
 
-  //cout << "Result: " << dec << Shadow_EXMEM.ALUResult << endl;
+  cout << "Ouput Reg: " << Shadow_IDEX.Rd << " Result: " << dec << Shadow_EXMEM.ALUResult << " Previous Value: " << Shadow_IDEX.RtValue <<endl;
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 
 }

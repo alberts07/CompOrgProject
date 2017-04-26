@@ -314,6 +314,10 @@ void Instr_Exe(int format)
       {
           case seb_opcode:
           {
+              Shadow_EXMEM.RegWrite = true;
+              Shadow_EXMEM.MemRead = false;
+              Shadow_EXMEM.MemWrite = false;
+              Shadow_EXMEM.MemtoReg = false;
               seb();
               break;
           }

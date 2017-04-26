@@ -57,6 +57,7 @@ void Instr_MEM()
                 case 0:
                 {
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+                    
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
                     {
                         cout << "attempting a load byte 0 ";
@@ -136,22 +137,22 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x00FFFFFF) | ((0x000000FF & Shadow_EXMEM.RtValue) << 24);
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
                     break;
                 }
                 case 1:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFF00FFFF) | ((0x000000FF & Shadow_EXMEM.RtValue) << 16);
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFF00FFFF) | ((Shadow_EXMEM.RtValue) << 16);
                     break;
                 }
                 case 2:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF00FF) | ((0x000000FF & Shadow_EXMEM.RtValue) << 8);
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF00FF) | ((Shadow_EXMEM.RtValue) << 8);
                     break;
                 }
                 case 3:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFFFF00) | ((0x000000FF & Shadow_EXMEM.RtValue));
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFFFF00) | ((Shadow_EXMEM.RtValue));
                     break;
                 }
                 case 4:

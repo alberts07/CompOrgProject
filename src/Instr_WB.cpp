@@ -21,4 +21,8 @@ void Instr_WB(int format)
     {
         Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
     }
+    if((Shadow_MEMWB.RegWrite == true) && (format == special_opcode))
+    {
+        Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
+    }
 }
