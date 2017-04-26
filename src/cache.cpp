@@ -102,7 +102,7 @@ void cache::write_cache(unsigned int *blockmemdata){
 unsigned int cache::read_cache(void){
   unsigned int dataa = 0;
   int WRITE_BACK = 0;
-  if(is_valid() && tag[block_address+block_offset] == get_tag())
+  if(is_valid() && tag[get_block_offset() + get_block()] == get_tag())
   {
     dataa = data[addrtag];
     DONE = true;
