@@ -42,7 +42,6 @@ void addiu()
 
     Shadow_EXMEM.ALUResult = Shadow_IDEX.RsValue + Shadow_IDEX.immed16;
     Shadow_EXMEM.DstReg = Shadow_IDEX.Rt;
-    // cout << Shadow_IDEX.RsValue << ' ' << Shadow_IDEX.immed16 << ' ' << Shadow_EXMEM.ALUResult  << endl;
 }
 
 void addu()
@@ -169,7 +168,7 @@ void jr()
 
 void lb()
 {
-  #if !testing
+  #if testing
       cout << "lb" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
@@ -179,7 +178,7 @@ void lb()
 }
 void lbu()
 {
-  #if !testing
+  #if testing
       cout << "lbu" << endl;
   #endif
      Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;
@@ -258,7 +257,7 @@ void ori()
 
 void sb()
 {
-  #if !testing
+  #if testing
       cout << "sb" << endl;
   #endif
     Shadow_EXMEM.ALUResult = (Shadow_IDEX.RsValue + Shadow_IDEX.immed16) >> 2;

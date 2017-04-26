@@ -788,7 +788,7 @@ unsigned int memory[1200] = {
 0x65736172,   // 	esar
 0x00000000   // 	nop
 };
-/*
+
 
 void printMemory(){
     FILE *f = fopen("MEMORY.txt", "w");
@@ -807,7 +807,7 @@ void printMemory(){
     fclose(f);
     return;
 }
-*/
+
 
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
@@ -921,11 +921,11 @@ int main()
         pc = EXMEM.pcplus1;
     }
 
-        //printMemory();
-        cout << "Memory[6]: "<< memory[6] << endl;
-        cout << "Memory[7]: "<< hex << memory[7] << endl;
-        cout << "Memory[8]: "<< hex << memory[8] << endl;
-        cout << "Memory[9]: "<< hex << memory[9] << endl;
+        printMemory();
+        cout << "Memory[6]: "<< hex << memory[6] << endl;
+        cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
+        cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
+        cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
         cout << "Clock Cycles: " << dec <<clock_cycles << endl;
 
 }
