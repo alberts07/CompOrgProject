@@ -4,13 +4,13 @@
 #include "Instr_MEM.hpp"
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
-//#include "cache.hpp"
+#include "cache.hpp"
 #include <iostream>
 #include <stdio.h>
 #include <cstdlib>
 using namespace std;
-//cache dcache(256, 16);
-//cache icache(128, 16);
+cache dcache(256, 16);
+cache icache(128, 16);
 #define testing   1
 
 
@@ -792,21 +792,21 @@ unsigned int memory[1200] = {
 };
 
 void printMemory(){
-  FILE *f = fopen("MEMORY.txt", "w");
-  if (f == NULL)
-  {
-    printf("Error opening file!\n");
-    exit(1);
-  }
+    FILE *f = fopen("MEMORY.txt", "w");
+    if (f == NULL)
+    {
+      printf("Error opening file!\n");
+      exit(1);
+    }
 
-// print some text
-  int index = 1;
-  while(index < 1200){
-    fprintf(f, "%d:  0x%08x\n", index, memory[index]);
-    index++;
-  }
-  fclose(f);
-  return;
+  // print some text
+    int index = 1;
+    while(index < 1200){
+      fprintf(f, "%d:  0x%08x\n", index, memory[index]);
+      index++;
+    }
+    fclose(f);
+    return;
 }
 
 
