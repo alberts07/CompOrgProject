@@ -821,7 +821,7 @@ unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
 unsigned int branch_pc = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+unsigned int cycle = 0;
 struct ifid Shadow_IFID;
 struct ifid IFID;
 struct idex Shadow_IDEX;
@@ -946,7 +946,7 @@ int main()
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
-            cout << "Clock Cycles: " << dec <<clock_cycles << endl;
+            cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles << endl;
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             clock_cycles = 0;
     //}

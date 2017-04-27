@@ -14,7 +14,7 @@
 using namespace std;
 extern unsigned int memory[1200];
 extern unsigned int instr[1200];
-extern unsigned int clock_cycles;
+extern unsigned int cycle;
 extern int MISS_PENALTY;
 extern int MISS_PENALTY2;
 
@@ -120,15 +120,15 @@ unsigned int cache::read_cache(unsigned int addr){
       }
 
       if(i == 0){
-        std::cout << "I am increasing the cycle count from " << clock_cycles << '\n';
-        clock_cycles = clock_cycles + MISS_PENALTY;
-        std::cout << "I am increasing the cycle count to " << clock_cycles << '\n';
+        std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        cycle = cycle + MISS_PENALTY;
+        std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
 
       else{
-        std::cout << "I am increasing the cycle count from " << clock_cycles << '\n';
-        clock_cycles = clock_cycles + MISS_PENALTY2;
-        std::cout << "I am increasing the cycle count to " << clock_cycles << '\n';
+        std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        cycle = cycle + MISS_PENALTY2;
+        std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
 
     //write_cache(addr, ); //need to write from memory
