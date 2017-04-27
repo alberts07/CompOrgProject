@@ -12,7 +12,7 @@
 using namespace std;
 
 cache dcache(256, 16);
-cache icache(256, 16);
+cache icache(64, 1);
 
 
 #define testing   0
@@ -836,6 +836,7 @@ int main()
     unsigned int clock_cycles = 0;
     int format = -1;
 
+        unsigned int instruction = 0;
         pc = memory[5];
         Reg[29] = memory[0];
         Reg[30] = memory[1];
@@ -850,9 +851,9 @@ int main()
             // icache.get_block_offset();
             // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
             // //Code Breaks Here - Need to mess with how it acquires the instruction
-            // instruction = icache.read_cache();
-            // cout << "Instruction: "<< instruction << endl;
-            Instr_IF(memory[pc]);
+            instruction = icache.read_cache(pc);
+            cout << "Instruction: "<< instruction << endl;
+            Instr_IF(instruction);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);

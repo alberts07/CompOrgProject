@@ -58,6 +58,10 @@ cache::cache (int size, int block) {
       data[i] = 0;
       tag[i] = 0;
   }
+  data[0] = 0x27bdfc50;
+  data[1] = 0xafbf03ac;
+  data[2] = 0xafb203a8;
+  data[3] = 0xafb103a4;
   DONE = false;
   cache_hit = 0;
   cache_access = 0;
