@@ -84,7 +84,7 @@ void Instr_MEM()
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
                     {
                         cout << "attempting a load byte 2";
-                        cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
                         cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
@@ -96,7 +96,7 @@ void Instr_MEM()
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
                     {
                         cout << "attempting a load byte 3";
-                        cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                        cout << "mem value is " << Shadow_MEMWB.DstRegValue;
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
                         cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     }
@@ -105,7 +105,7 @@ void Instr_MEM()
                 case 4:
                 {
                     cout << "attempting a load byte 4";
-                    cout << "Original value is " << Shadow_MEMWB.DstRegValue;
+                    cout << "mem value is " << Shadow_MEMWB.DstRegValue;
                     Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                     cout << "Updated value is " << Shadow_MEMWB.DstRegValue;
                     break;
