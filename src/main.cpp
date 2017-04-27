@@ -12,7 +12,7 @@
 using namespace std;
 
 cache dcache(256, 16);
-cache icache(256, 1);
+cache icache(64, 4);
 
 
 #define testing   0
@@ -853,10 +853,10 @@ int main()
             // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
             // //Code Breaks Here - Need to mess with how it acquires the instruction
             // std::cout << "the new pc is  " << pc << '\n';
-            instruction = icache.read_cache(pc);
+            // instruction = icache.read_cache(pc);
             // cout << "Instruction: "<< instruction << endl;
             // std::cout << memory[pc] << '\n';
-            Instr_IF(instruction);
+            Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -940,8 +940,6 @@ int main()
             pc = EXMEM.pcplus1;
         }
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            std::cout << "Cache hits are" << icache.cache_hit << '\n';
-            std::cout << "Cache accesses are" << icache.cache_access << '\n';
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;

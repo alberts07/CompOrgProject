@@ -19,6 +19,7 @@ class cache{
     vector<unsigned int> tag;
     bool DONE;
     int cache_hit;
+    int tot_block_offset;
     int cache_access;
     int cache_size;
     int block_size;
@@ -32,7 +33,7 @@ class cache{
     cache (int size, int block);
     unsigned int get_tag(unsigned int);
     void get_block(unsigned int);
-    void get_block_offset(void);
+    void get_block_offset(unsigned int);
     bool is_valid(void);
     bool is_dirty(void);
     unsigned int read_cache(unsigned int);
