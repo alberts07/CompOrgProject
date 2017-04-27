@@ -158,9 +158,36 @@ unsigned int cache::read_cache(unsigned int addr){
   return data[block_offset + block_address];
 }
 
-void cache::write_cache(unsigned int *blockmemdata){
+void cache::write_cache(addr, unsigned int *data){
+  addrtag = get_tag(addr);
+  get_block(addr);
+  get_block_offset(addr);
+  int validblock = is_valid();
+  unsigned int write_buffer[block_size] = {0};
+  if(WRITE_BACK){
+    if(validblock && dirty[block_address]){
+      for(int i = 0; i < block_size; i++){
+        memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+      }
+      dirty[block_address] = false;
+    }
+    //SHOULD WRITE CHECK TO SEE IF WHAT IT IS WRITING IS ALREADY IN THE CACHE?
+  }
   for(int i = 0; i < block_size; i++){
-    data[block_address+i] = blockmemdata[i];
-  //write a whole block size to the cache data
+
+    data[i + (block_address*block_size)] = writebuffer[i];
+    tag[i + block_address] = addrtag;
+    if( i == block_size -1){
+      if(!dirty[block_address]){
+        valid[block_address] = true;
+        dirty[block_address] = true;
+      }
+    }
+  }
+  if(!WRITE_BACK){
+    for(int i = 0; i < block_size; i++){
+      memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+    }
+    dirty[block_address] = false;
   }
 }
