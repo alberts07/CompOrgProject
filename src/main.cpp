@@ -12,7 +12,7 @@
 using namespace std;
 
 cache dcache(256, 16);
-cache icache(64, 4);
+cache icache(64, 1);
 
 
 #define testing   0
@@ -830,6 +830,7 @@ struct exmem Shadow_EXMEM;
 struct exmem EXMEM;
 struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
+unsigned int delay_cycles = 0;
 
 int main()
 {
@@ -940,11 +941,14 @@ int main()
             pc = EXMEM.pcplus1;
         }
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
+            cout << "Delay Cycles: " << delay_cycles << endl;
+            cout << "Cycle: " << cycle << endl;
+            cout << "Clock Cycles: " << clock_cycles << endl;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
-            cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles << endl;
+            cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             clock_cycles = 0;
     //}

@@ -115,14 +115,20 @@ unsigned int cache::read_cache(unsigned int addr){
   return data[block_offset + block_address];
 }
 
-void cache::write_cache(addr, unsigned int *data){
+void cache::write_cache(unsigned int addr, unsigned int *data){
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  unsigned int write_buffer[block_size] = {0};
-  for(int i=0; i < block_size; i++){
-    write_buffer[i] = data - block_offset + i;
+  unsigned int write_buffer[block_size];
+  int i = 0;
+  while(i < block_size)
+  {
+      write_buffer[i] = 0;
+      i++;
+  }
+  for(i=0; i < block_size; i++){
+    write_buffer[i] = data[i] - block_offset + i;
   }
   if(WRITE_BACK){
     // Need to check if the cache has updated data from memory
@@ -134,7 +140,7 @@ void cache::write_cache(addr, unsigned int *data){
 
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = writebuffer[i];
+        data[i + (block_address*block_size)] = write_buffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -143,7 +149,7 @@ void cache::write_cache(addr, unsigned int *data){
     else{
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = writebuffer[i];
+        data[i + (block_address*block_size)] = write_buffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -154,7 +160,7 @@ void cache::write_cache(addr, unsigned int *data){
   else{ //WRITE_BACK is false, using write through
     for(int i = 0; i < block_size; i++){
       // Write the data given to the write buffer
-      data[i + (block_address*block_size)] = writebuffer[i];
+      data[i + (block_address*block_size)] = write_buffer[i];
       tag[i + block_address] = addrtag;
       // Also update memory at the same time
       memory[addr - block_offset + i] = data[i + (block_address*block_size)];

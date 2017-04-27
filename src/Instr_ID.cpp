@@ -7,10 +7,15 @@ using namespace std;
 
 extern struct  ifid Shadow_IFID;
 extern struct  idex Shadow_IDEX;
+extern struct exmem EXMEM;
+extern struct idex IDEX;
+extern unsigned int clock_cycles;
 extern int Reg[32];
 
 int Instr_ID()
 {
+
+
     Shadow_IDEX.instr = Shadow_IFID.instr;
     Shadow_IDEX.pcplus1 = Shadow_IFID.pcplus1;
 
