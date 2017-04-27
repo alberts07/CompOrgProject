@@ -95,12 +95,6 @@ unsigned int cache::read_cache(unsigned int addr){
       data[i + (block_address*block_size)] = memory[addr - block_offset + i];
       tag[i + block_address] = addrtag;
 
-      if( i == block_size - 1){
-        // Only set block valid when whole block was written
-        std::cout << "Setting " << block_address << "to be valid" << '\n';
-        valid[block_address] = true;
-      }
-
       if(i == 0){
         std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY;
@@ -112,6 +106,8 @@ unsigned int cache::read_cache(unsigned int addr){
         cycle = cycle + MISS_PENALTY2;
         std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
+      std::cout << "Setting " << block_address << "to be valid" << '\n';
+      valid[block_address] = true;
     }
   }
   cache_access++;
@@ -135,17 +131,13 @@ void cache::write_cache(addr, unsigned int *data){
       for(int i = 0; i < block_size; i++){
         memory[addr - block_offset + i] = data[i + (block_address*block_size)];
       }
+
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
         data[i + (block_address*block_size)] = writebuffer[i];
         tag[i + block_address] = addrtag;
-        if( i == block_size -1){
-          if(!dirty[block_address]){
-            // Update valid and dirty bit at end of
-            valid[block_address] = true;
-          }
-        }
       }
+      valid[block_address] = true;
       dirty[block_address] = false;
     }
     else{
@@ -159,11 +151,12 @@ void cache::write_cache(addr, unsigned int *data){
     }
     //SHOULD WRITE CHECK TO SEE IF WHAT IT IS WRITING IS ALREADY IN THE CACHE?
   }
-  else{
+  else{ //WRITE_BACK is false, using write through
     for(int i = 0; i < block_size; i++){
       // Write the data given to the write buffer
       data[i + (block_address*block_size)] = writebuffer[i];
       tag[i + block_address] = addrtag;
+      // Also update memory at the same time
       memory[addr - block_offset + i] = data[i + (block_address*block_size)];
     }
     valid[block_address] = true;
