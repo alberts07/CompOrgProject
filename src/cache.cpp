@@ -15,6 +15,7 @@ using namespace std;
 extern unsigned int memory[1200];
 extern unsigned int instr[1200];
 extern unsigned int clock_cycles;
+extern MISS_PENALTY
 
 // switch(STATE){
 //   case IDLE:
@@ -101,30 +102,28 @@ void cache::write_cache(unsigned int *blockmemdata){
 }
 
 unsigned int cache::read_cache(void){
-  unsigned int dataa = 0;
+  unsigned int ret_data = 0;
   int WRITE_BACK = 0;
   if(is_valid() && tag[get_block_offset() + get_block()] == get_tag())
   {
-    dataa = data[addrtag];
     DONE = true;
     cache_hit++;
   }
       //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
-  else if(!WRITE_BACK)
+  else //if(!WRITE_BACK)
   {
-    data[addrtag] = instr[addr];
-    memory[addr] = instr[addr];
-    clock_cycles = clock_cycles + 8;
+    data[addrtag] = memory[addr];
+    clock_cycles = clock_cycles + MISS_PENALTY;
     //write_cache(addr, ); //need to write from memory
   }
-  else
-  {
-      //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
-      if((dirty[block_address+block_offset])){
-        //write to main memory
-        //write_cache(addr, ); //need to write from memory
-      }
-  }
+  // else
+  // {
+  //     //else if((WRITE_BACK && dirty[block_address+block_offset]) || !WRITE_BACK){
+  //     if((dirty[block_address+block_offset])){
+  //       //write to main memory
+  //       //write_cache(addr, ); //need to write from memory
+  //     }
+  // }
   cache_access++;
-  return dataa;
+  return data[addr];
 }
