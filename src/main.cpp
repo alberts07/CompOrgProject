@@ -12,7 +12,7 @@
 using namespace std;
 
 cache dcache(256, 16);
-cache icache(64, 1);
+cache icache(256, 1);
 
 
 #define testing   0
@@ -815,7 +815,8 @@ unsigned int memory[1200] = {
 //     return;
 // }
 
-int MISS_PENALTY = 2;
+int MISS_PENALTY = 8;
+int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
 unsigned int branch_pc = 0;
@@ -851,8 +852,10 @@ int main()
             // icache.get_block_offset();
             // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
             // //Code Breaks Here - Need to mess with how it acquires the instruction
+            // std::cout << "the new pc is  " << pc << '\n';
             instruction = icache.read_cache(pc);
-            cout << "Instruction: "<< instruction << endl;
+            // cout << "Instruction: "<< instruction << endl;
+            // std::cout << memory[pc] << '\n';
             Instr_IF(instruction);
             Instr_WB(format);
             format = Instr_ID();
@@ -936,14 +939,15 @@ int main()
 
             pc = EXMEM.pcplus1;
         }
-
-            //printMemory();
+            double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
+            std::cout << "Cache hits are" << icache.cache_hit << '\n';
+            std::cout << "Cache accesses are" << icache.cache_access << '\n';
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Clock Cycles: " << dec <<clock_cycles << endl;
-            //cout << "I-Cache Hit Rate: " << icache.cache_hit / icache.cache_access << endl;
+            cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             clock_cycles = 0;
     //}
 }

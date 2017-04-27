@@ -15,7 +15,7 @@ class cache{
 
     vector<bool> valid;
     vector<bool> dirty;
-    vector<int> data;
+    vector<unsigned int> data;
     vector<unsigned int> tag;
     bool DONE;
     int cache_hit;
