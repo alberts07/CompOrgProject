@@ -797,23 +797,23 @@ unsigned int memory[1200] = {
 
 
 
-void printMemory(){
-    FILE *f = fopen("MEMORY.txt", "w");
-    if (f == NULL)
-    {
-      printf("Error opening file!\n");
-      exit(1);
-    }
-
-  // print some text
-    int index = 1;
-    while(index < 1200){
-      fprintf(f, "%d:  0x%08x\n", index, memory[index]);
-      index++;
-    }
-    fclose(f);
-    return;
-}
+// void printMemory(){
+//     FILE *f = fopen("MEMORY.txt", "w");
+//     if (f == NULL)
+//     {
+//       printf("Error opening file!\n");
+//       exit(1);
+//     }
+//
+//   // print some text
+//     int index = 1;
+//     while(index < 1200){
+//       fprintf(f, "%d:  0x%08x\n", index, memory[index]);
+//       index++;
+//     }
+//     fclose(f);
+//     return;
+// }
 
 int MISS_PENALTY = 2;
 unsigned int pc = 0x00000000;
@@ -832,30 +832,26 @@ struct memwb MEMWB;
 
 int main()
 {
-    memset(instr, 0, 1200);
+    //memset(instr, 0, 1200);
     unsigned int clock_cycles = 0;
     int format = -1;
-    int test_loop = 0;
-    unsigned int instruction = 0;
-    cout << "The amount of bits needed for Block Offset: "<< icache.block_bits << endl;
-    for(test_loop = 0; test_loop < 12; test_loop++)
-    {
+
         pc = memory[5];
         Reg[29] = memory[0];
         Reg[30] = memory[1];
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            icache.addr = pc;
-            icache.get_tag();
-            cout << "Got Tag: " << hex << icache.addrtag << endl;
-            icache.get_block();
-            cout << "Got Block: " << hex << icache.block_address << endl;
-            icache.get_block_offset();
-            cout << "Got Block Offset: " << dec << icache.block_offset << endl;
-            //Code Breaks Here - Need to mess with how it acquires the instruction
-            instruction = icache.read_cache();
-            cout << "Instruction: "<< instruction << endl;
+            // icache.addr = pc;
+            // icache.get_tag();
+            // cout << "Got Tag: " << hex << icache.addrtag << endl;
+            // icache.get_block();
+            // cout << "Got Block: " << hex << icache.block_address << endl;
+            // icache.get_block_offset();
+            // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
+            // //Code Breaks Here - Need to mess with how it acquires the instruction
+            // instruction = icache.read_cache();
+            // cout << "Instruction: "<< instruction << endl;
             Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
@@ -946,7 +942,7 @@ int main()
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Clock Cycles: " << dec <<clock_cycles << endl;
-            cout << "I-Cache Hit Rate: " << icache.cache_hit / icache.cache_access << endl;
+            //cout << "I-Cache Hit Rate: " << icache.cache_hit / icache.cache_access << endl;
             clock_cycles = 0;
-    }
+    //}
 }
