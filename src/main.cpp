@@ -518,7 +518,7 @@ using namespace std;
 // };
 
 
-//Program #2  Assembly Instructions
+// Program #2  Assembly Instructions
 unsigned int memory[1200] = {
 0x00000898,	// $sp = 2200
 0x00000898,	// $fp = 2200
@@ -849,19 +849,8 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            // icache.addr = pc;
-            // icache.get_tag();
-            // cout << "Got Tag: " << hex << icache.addrtag << endl;
-            // icache.get_block();
-            // cout << "Got Block: " << hex << icache.block_address << endl;
-            // icache.get_block_offset();
-            // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
-            // //Code Breaks Here - Need to mess with how it acquires the instruction
-            // std::cout << "the new pc is  " << pc << '\n';
-            //  instruction = icache.read_cache(pc);
-            // cout << "Instruction: "<< instruction << endl;
-            // std::cout << memory[pc] << '\n';
-            Instr_IF(memory[pc]);
+            instruction = icache.read_cache(pc);
+            Instr_IF(instruction);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -882,7 +871,7 @@ int main()
                 EXMEM.pcplus1 = branch_pc;
             }
             //
-            // cout << pc << ' ' << Shadow_IFID.instr << endl;
+
 
             // cout << dec << pc << ' ' << endl;
             // cout << "$v0: " << Reg[2] << endl;

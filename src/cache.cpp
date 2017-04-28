@@ -74,15 +74,19 @@ unsigned int cache::read_cache(unsigned int addr){
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
+  // std::cout << "The block is " << block_address << '\t';
+  // std::cout << "The block offset is " << block_offset << '\t';
+  // std::cout << "The tag is " << addrtag << '\t';
+
   // std::cout << "is it valid?" << validblock << '\n';
   // std::cout << "Tag value " << tag[block_offset+block_address] << '\n';
   // std::cout << "Address tag " << addrtag << '\n';
   if(validblock && tag[block_offset + block_address*block_size] == addrtag)
     // Data is already in the cache
   {
-    // std::cout << "The value is already in the cache :) " << '\n';
+    // std::cout << "The value is already in the cache :) " << '\t';
     cache_hit++;
-    // std::cout << "Number of hits is " << cache_hit << '\n';
+    // std::cout << "Number of hits is " << cache_hit << '\t';
   }
   else // Need to get it from memory
   {
@@ -95,7 +99,7 @@ unsigned int cache::read_cache(unsigned int addr){
       data[i + (block_address*block_size)] = memory[addr - block_offset + i];
       tag[i + block_address*block_size] = addrtag;
 
-      if(i == 0){
+      if(i == block_offset){
         // std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
@@ -108,10 +112,11 @@ unsigned int cache::read_cache(unsigned int addr){
       }
       // std::cout << "Setting " << block_address << "to be valid" << '\n';
     }
+    // cache_access = cache_access+ block_size - block_offset
     valid[block_address] = true;
   }
   cache_access++;
-  // std::cout << "Number of accesses is " << cache_access << '\n';
+  // std::cout << "Number of accesses is " << cache_access << '\t';
   return data[block_offset + block_address*block_size];
 }
 

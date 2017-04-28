@@ -50,6 +50,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
+                    //dcache.read_cache(pc+1);
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
 
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
