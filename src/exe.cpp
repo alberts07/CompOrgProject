@@ -79,8 +79,7 @@ void beq()
     if(Shadow_IDEX.RsValue == Shadow_IDEX.RtValue)
     {
         Shadow_IDEX.branch = true;
-        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = pc;
+        pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 void bgtz()
@@ -91,8 +90,7 @@ void bgtz()
     if(Shadow_IDEX.RsValue > 0)
     {
         Shadow_IDEX.branch = true;
-        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = pc;
+        pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -104,9 +102,7 @@ void blez()
     if(Shadow_IDEX.RsValue == 0 || ((Shadow_IDEX.RsValue & 0x80000000) >> 31) == 1)
     {
         Shadow_IDEX.branch = true;
-        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
-        //pc = pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = pc;
+        pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
     }
 }
 
@@ -117,10 +113,8 @@ void bltz()
   #endif
     if(Shadow_IDEX.RsValue < 0)
     {
-        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
         Shadow_IDEX.branch = true;
-        //pc = pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 
@@ -131,10 +125,8 @@ void bne()
   #endif
     if(Shadow_IDEX.RsValue != Shadow_IDEX.RtValue)
     {
-        pc = Shadow_EXMEM.pcplus1 + Shadow_IDEX.immed16;
+        pc = Shadow_IDEX.pcplus1 + Shadow_IDEX.immed16;
         Shadow_IDEX.branch = true;
-        //pc = pc  + Shadow_IDEX.immed16;
-        Shadow_EXMEM.pcplus1 = pc;
     }
 }
 

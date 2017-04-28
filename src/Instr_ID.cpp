@@ -3,6 +3,7 @@
 #include "Instr_IF.hpp"
 #include <iostream>
 #include "decode.hpp"
+#include "exe.hpp"
 using namespace std;
 
 extern struct  ifid Shadow_IFID;
@@ -20,6 +21,7 @@ int Instr_ID()
     Shadow_IDEX.pcplus1 = Shadow_IFID.pcplus1;
 
     int format = find_format(Shadow_IDEX.instr);
+
     if(format == rtype)
     {
         Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
@@ -81,6 +83,53 @@ int Instr_ID()
         Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
         Shadow_IDEX.Rd = find_rd(Shadow_IDEX.instr);
         return special_opcode;
+    }
+    if(format == branchtype)
+    {
+      Shadow_IDEX.RegWrite = false;
+      Shadow_IDEX.MemWrite = false;
+      Shadow_IDEX.MemRead = false;
+      Shadow_IDEX.MemtoReg = false;
+      Shadow_IFID.immed16 = find_immed16(Shadow_IDEX.instr);
+      Shadow_IDEX.immed16 = Shadow_IFID.immed16;
+      Shadow_IDEX.Rs = find_rs(Shadow_IDEX.instr);
+      Shadow_IDEX.RsValue = Reg[Shadow_IDEX.Rs];
+      Shadow_IDEX.Rt = find_rt(Shadow_IDEX.instr);
+      Shadow_IDEX.RtValue = Reg[Shadow_IDEX.Rt];
+      switch(Shadow_IDEX.opcode)
+      {
+            case blez_opcode:
+            {
+                  blez();
+                  break;
+            }
+            case bltz_opcode:
+            {
+                  bltz();
+                  break;
+            }
+            case bgtz_opcode:
+            {
+                  bgtz();
+                  break;
+            }
+            case beq_opcode:
+            {
+                  beq();
+                  break;
+            }
+            case bne_opcode:
+            {
+                  bne();
+                  break;
+            }
+            default:
+            {
+                  cout << "Did not find Branch" << endl;
+                  break;
+            }
+      }
+      return branchtype;
     }
 
 

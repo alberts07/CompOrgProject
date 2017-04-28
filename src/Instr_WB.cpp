@@ -25,4 +25,8 @@ void Instr_WB(int format)
     {
         Reg[Shadow_MEMWB.DstReg] = Shadow_MEMWB.ALUResult;
     }
+    if(format == branchtype)
+    {
+        //DO NOTHING
+    }
 }

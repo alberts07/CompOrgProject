@@ -72,6 +72,7 @@ struct memwb {
 #define     itype               0x00000001
 #define     jtype               0x00000010
 #define     special_opcode      0x00000011
+#define     branchtype          0x00000100
 //#define     special_opcode2l    0x00000100
 //#define     special_opcode3l    0x00000101
 

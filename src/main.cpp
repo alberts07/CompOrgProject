@@ -65,8 +65,8 @@ int main()
             clock_cycles++;
             if(Shadow_IDEX.branch == true)
             {
-                branch_pc = Shadow_EXMEM.pcplus1;
-                Instr_IF(memory[Shadow_IFID.pcplus1]);
+                branch_pc = pc;
+                Instr_IF(memory[Shadow_IDEX.pcplus1]);
                 format = Instr_ID();
                 Instr_Exe(format);
                 Instr_MEM();

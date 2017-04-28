@@ -248,51 +248,6 @@ void Instr_Exe(int format)
                sh();
                break;
            }
-           case beq_opcode:
-           {
-               Shadow_EXMEM.MemtoReg = false;
-               Shadow_EXMEM.RegWrite = false;
-               Shadow_EXMEM.MemRead = false;
-               Shadow_EXMEM.MemWrite = false;
-               beq();
-               break;
-           }
-           case bne_opcode:
-           {
-               Shadow_EXMEM.MemtoReg = false;
-               Shadow_EXMEM.RegWrite = false;
-               Shadow_EXMEM.MemRead = false;
-               Shadow_EXMEM.MemWrite = false;
-               bne();
-               break;
-           }
-           case bgtz_opcode:
-           {
-               Shadow_EXMEM.MemtoReg = false;
-               Shadow_EXMEM.RegWrite = false;
-               Shadow_EXMEM.MemRead = false;
-               Shadow_EXMEM.MemWrite = false;
-               bgtz();
-               break;
-           }
-           case blez_opcode:
-           {
-               Shadow_EXMEM.MemtoReg = false;
-               Shadow_EXMEM.RegWrite = false;
-               Shadow_EXMEM.MemRead = false;
-               Shadow_EXMEM.MemWrite = false;
-               blez();
-               break;
-           }
-           case bltz_opcode:
-           {
-               Shadow_EXMEM.MemtoReg = false;
-               Shadow_EXMEM.RegWrite = false;
-               Shadow_EXMEM.MemRead = false;
-               Shadow_EXMEM.MemWrite = false;
-               bltz();
-               break;
-           }
            case lhu_opcode:
            {
                Shadow_EXMEM.MemtoReg = true;
@@ -358,6 +313,10 @@ void Instr_Exe(int format)
               break;
           }
       }
+   }
+   if(format == branchtype)
+   {
+      //DO NOTHING
    }
    /*
    else
