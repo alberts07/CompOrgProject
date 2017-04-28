@@ -35,6 +35,7 @@ struct exmem Shadow_EXMEM;
 struct exmem EXMEM;
 struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
+unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 
 int main()
@@ -75,6 +76,7 @@ int main()
                 clock_cycles++;
                 Shadow_IDEX.branch = false;
                 EXMEM.pcplus1 = branch_pc;
+                instr_count++;
             }
             //
 
@@ -139,11 +141,12 @@ int main()
             // cout << "$ra: " << Reg[31] << endl;
 
             pc = EXMEM.pcplus1;
+            instr_count++;
         }
         if(memory[5] == 120)
         {
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)12179;
+            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
@@ -153,11 +156,14 @@ int main()
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
+            cycle = 0;
+            delay_cycles = 0;
+            instr_count = 0;
         }
         if(memory[5] == 140)
         {
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)474173;
+            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count;
             cout << "Memory[6]: "<< dec << memory[6] << endl;
             cout << "Memory[7]: "<< dec << memory[7] << endl;
             cout << "Memory[8]: "<< dec << memory[8] << endl;
@@ -167,6 +173,9 @@ int main()
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
+            cycle = 0;
+            delay_cycles = 0;
+            instr_count = 0;
         }
 
     //}
