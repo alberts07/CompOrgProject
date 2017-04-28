@@ -1,4 +1,4 @@
-
+//
 //  Instr_cache.cpp
 //
 //
@@ -38,31 +38,26 @@ cache::cache (int size, int block) {
   addrtag = 0;
   block_address = 0;
   block_offset = 0;
-  block_offset_bits = log(block_size) / log(2);
-  block_address_bits = log(cache_size / block_size) / log(2); // # of bits to get block address
-  block_address_mask = pow(2, block_address_bits) - 1;
-  block_offset_mask = pow(2, block_offset_bits) - 1;
-  cout << "Block Offset Mask & Bits: " << block_offset_mask << " " << block_offset_bits<< endl;
+  tot_block_offset = log(block_size) / log(2);
+  block_bits = log(cache_size / block_size) / log(2); // # of bits to get block #
+  byte_bits = 2;  //This will always be 2 because we are word aligned
 }
 
 unsigned int cache::get_tag(unsigned int addr){
-  unsigned int tag_mask = (0xFFFFFFFF << (block_address_bits + block_offset_bits)); //Tag only upper bits above block and byte offset
+  unsigned int tag_mask = (0xFFFFFFFF << (block_bits + tot_block_offset)); //Tag only upper bits above block and byte offset
   addrtag = addr & tag_mask; //Tag that gets placed in tag vector
   std::cout << "address tag is " << addrtag <<  '\n';
   return addrtag;
 }
 
 void cache::get_block(unsigned int addr){
-//  block_address = (addr % cache_size) / block_size; //What block # it belongs to
-   block_address = addr & block_address_mask;
-   std::cout << "block address is " << block_address <<  '\n';
-
+  block_address = (addr % cache_size) / block_size; //What block # it belongs to
+  std::cout << "block address is " << block_address <<  '\n';
 }
 
 void cache::get_block_offset(unsigned int addr){
-  //block_offset = addr  % block_size; // Where in the block it is located
+  block_offset = addr  % block_size; // Where in the block it is located
   std::cout << "Block offset is " << block_offset << '\n';
-  block_offset = (addr >> block_offset_bits) & block_offset_mask;
 }
 
 bool cache::is_valid(){
@@ -120,20 +115,14 @@ unsigned int cache::read_cache(unsigned int addr){
   return data[block_offset + block_address];
 }
 
-void cache::write_cache(unsigned int addr, unsigned int *data){
+void cache::write_cache(addr, unsigned int *data){
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  unsigned int write_buffer[block_size];
-  int i = 0;
-  while(i < block_size)
-  {
-      write_buffer[i] = 0;
-      i++;
-  }
-  for(i=0; i < block_size; i++){
-    write_buffer[i] = data[i] - block_offset + i;
+  unsigned int write_buffer[block_size] = {0};
+  for(int i=0; i < block_size; i++){
+    write_buffer[i] = data - block_offset + i;
   }
   if(WRITE_BACK){
     // Need to check if the cache has updated data from memory
@@ -145,7 +134,7 @@ void cache::write_cache(unsigned int addr, unsigned int *data){
 
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = write_buffer[i];
+        data[i + (block_address*block_size)] = writebuffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -154,7 +143,7 @@ void cache::write_cache(unsigned int addr, unsigned int *data){
     else{
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = write_buffer[i];
+        data[i + (block_address*block_size)] = writebuffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -165,7 +154,7 @@ void cache::write_cache(unsigned int addr, unsigned int *data){
   else{ //WRITE_BACK is false, using write through
     for(int i = 0; i < block_size; i++){
       // Write the data given to the write buffer
-      data[i + (block_address*block_size)] = write_buffer[i];
+      data[i + (block_address*block_size)] = writebuffer[i];
       tag[i + block_address] = addrtag;
       // Also update memory at the same time
       memory[addr - block_offset + i] = data[i + (block_address*block_size)];
