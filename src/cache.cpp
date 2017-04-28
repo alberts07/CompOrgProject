@@ -120,7 +120,8 @@ void cache::write_cache(unsigned int addr, unsigned int *data){
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  unsigned int write_buffer[block_size] = {0};
+  unsigned int write_buffer[block_size];
+  for(int k = 0; k < block_size; k++) write_buffer[k] = 0;
   for(int i=0; i < block_size; i++){
     write_buffer[i] = data[i - block_offset];
   }
