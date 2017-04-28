@@ -7,19 +7,31 @@
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
+extern struct memwb MEMWB;
 extern unsigned int pc;
 extern cache dcache;
 using namespace std;
+extern unsigned int delay_cycles;
 
 extern int memory[1200];
 
 void Instr_MEM()
 {
+
     Shadow_MEMWB.RegWrite = Shadow_EXMEM.RegWrite;
     Shadow_MEMWB.MemtoReg = Shadow_EXMEM.MemtoReg;
     Shadow_MEMWB.DstReg = Shadow_EXMEM.DstReg;
     Shadow_MEMWB.ALUResult = Shadow_EXMEM.ALUResult;
     Shadow_MEMWB.pcplus1 = Shadow_EXMEM.pcplus1;
+
+    if((MEMWB.RegWrite) && (MEMWB.DstReg != 0) && (MEMWB.DstReg == Shadow_IDEX.Rs))
+    {
+        delay_cycles++;
+    }
+    if((MEMWB.RegWrite) && (MEMWB.DstReg != 0) && (MEMWB.DstReg == Shadow_IDEX.Rt))
+    {
+        delay_cycles++;
+    }
 
     unsigned int data = 0;
     if(Shadow_EXMEM.MemRead)

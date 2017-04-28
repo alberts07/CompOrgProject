@@ -19,14 +19,14 @@ using namespace std;
 unsigned int memory[1200];
 
 cache dcache(256, 16);
-cache icache(256,1);
+cache icache(64,1);
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
 unsigned int branch_pc = 0;
-int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 unsigned int cycle = 0;
+int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 struct ifid Shadow_IFID;
 struct ifid IFID;
 struct idex Shadow_IDEX;
@@ -40,7 +40,7 @@ unsigned int delay_cycles = 0;
 int main()
 {
 
-  transfer_Program2();
+  transfer_Program1();
   // for(int i = 64; i < 257; i = i * 2){
   //   for(int j = 16; j > 0; j = j / 4){
   //     std::cout << "Using " << i << " and " << j << '\n';
@@ -55,8 +55,8 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            instruction = icache.read_icache(pc);
-            Instr_IF(instruction);
+            //instruction = icache.read_icache(pc);
+            Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -140,20 +140,35 @@ int main()
 
             pc = EXMEM.pcplus1;
         }
+        if(memory[5] == 120)
+        {
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)12179;
-            cout << "Delay Cycles: " << delay_cycles << endl;
-            cout << "Clock Cycles: " << clock_cycles << endl;
+            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)474173;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
-            cout << "Cycle: " << cycle << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
             cout << "CPI: " << CPI << endl;
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
+        }
+        if(memory[5] == 140)
+        {
+            double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
+            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)474173;
+            cout << "Memory[6]: "<< dec << memory[6] << endl;
+            cout << "Memory[7]: "<< dec << memory[7] << endl;
+            cout << "Memory[8]: "<< dec << memory[8] << endl;
+            cout << "Memory[9]: "<< dec << memory[9] << endl;
+            cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
+            cout << "CPI: " << CPI << endl;
+            cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
+            std::cout << '\n';
+            clock_cycles = 0;
+        }
+
     //}
     // }
   // }
