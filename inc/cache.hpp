@@ -17,6 +17,7 @@ class cache{
     vector<bool> dirty;
     vector<unsigned int> data;
     vector<unsigned int> tag;
+    vector<unsigned int> write_buffer;
     bool DONE;
     int cache_hit;
     int tot_block_offset;
@@ -31,12 +32,14 @@ class cache{
     int byte_bits;
 
     cache (int size, int block);
+
     unsigned int get_tag(unsigned int);
     void get_block(unsigned int);
     void get_block_offset(unsigned int);
     bool is_valid(void);
     bool is_dirty(void);
-    unsigned int read_cache(unsigned int);
+    unsigned int read_icache(unsigned int);
+    unsigned int read_dcache(unsigned int);
     void write_cache(unsigned int, unsigned int *);
 };
 

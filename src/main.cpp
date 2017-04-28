@@ -849,7 +849,7 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            instruction = icache.read_cache(pc);
+            instruction = icache.read_icache(pc);
             Instr_IF(instruction);
             Instr_WB(format);
             format = Instr_ID();

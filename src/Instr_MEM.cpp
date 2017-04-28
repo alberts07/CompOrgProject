@@ -1,11 +1,14 @@
 
 #include "Instr_ID.hpp"
 #include "Instr_IF.hpp"
+#include "cache.hpp"
 #include <iostream>
 
 extern struct idex Shadow_IDEX;
 extern struct memwb Shadow_MEMWB;
 extern struct exmem Shadow_EXMEM;
+extern unsigned int pc;
+extern cache dcache;
 using namespace std;
 
 extern int memory[1200];
@@ -18,6 +21,7 @@ void Instr_MEM()
     Shadow_MEMWB.ALUResult = Shadow_EXMEM.ALUResult;
     Shadow_MEMWB.pcplus1 = Shadow_EXMEM.pcplus1;
 
+    unsigned int data = 0;
     if(Shadow_EXMEM.MemRead)
     {
         if(Shadow_EXMEM.half == true)
@@ -50,7 +54,11 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                    //dcache.read_cache(pc+1);
+                    data = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+                    if(dcache.read_dcache(pc))
+                      data = dcache.data[dcache.block_address * dcache.block_offset];
+                    else
+                      dcache.write_cache(pc, &data);
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
 
                     if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
