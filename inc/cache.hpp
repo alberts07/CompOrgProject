@@ -37,7 +37,7 @@ class cache{
     bool is_valid(void);
     bool is_dirty(void);
     unsigned int read_cache(unsigned int);
-    void write_cache(unsigned int *blockmemdata);
+    void write_cache(unsigned int, unsigned int *);
 };
 
 #endif

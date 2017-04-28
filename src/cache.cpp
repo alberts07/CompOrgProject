@@ -30,8 +30,8 @@ cache::cache (int size, int block) {
   {
       valid[i] = false;
       dirty[i] = false;
-      data[i] = 0;
-      tag[i] = 0;
+      data[i] = -1;
+      tag[i] = -1;
   }
   cache_hit = 0;
   cache_access = 0;
@@ -46,18 +46,18 @@ cache::cache (int size, int block) {
 unsigned int cache::get_tag(unsigned int addr){
   unsigned int tag_mask = (0xFFFFFFFF << (block_bits + tot_block_offset)); //Tag only upper bits above block and byte offset
   addrtag = addr & tag_mask; //Tag that gets placed in tag vector
-  std::cout << "address tag is " << addrtag <<  '\n';
+  // std::cout << "address tag is " << addrtag <<  '\n';
   return addrtag;
 }
 
 void cache::get_block(unsigned int addr){
   block_address = (addr % cache_size) / block_size; //What block # it belongs to
-  std::cout << "block address is " << block_address <<  '\n';
+  // std::cout << "block address is " << block_address <<  '\n';
 }
 
 void cache::get_block_offset(unsigned int addr){
   block_offset = addr  % block_size; // Where in the block it is located
-  std::cout << "Block offset is " << block_offset << '\n';
+  // std::cout << "Block offset is " << block_offset << '\n';
 }
 
 bool cache::is_valid(){
@@ -69,60 +69,60 @@ bool cache::is_dirty(){
 }
 
 unsigned int cache::read_cache(unsigned int addr){
-  std::cout << "pc is " << addr << '\n';
+  // std::cout << "pc is " << addr << '\n';
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  std::cout << "is it valid?" << validblock << '\n';
-  std::cout << "Tag value " << tag[block_offset+block_address] << '\n';
-  std::cout << "Address tag " << addrtag << '\n';
-  if(validblock && tag[block_offset + block_address] == addrtag)
+  // std::cout << "is it valid?" << validblock << '\n';
+  // std::cout << "Tag value " << tag[block_offset+block_address] << '\n';
+  // std::cout << "Address tag " << addrtag << '\n';
+  if(validblock && tag[block_offset + block_address*block_size] == addrtag)
     // Data is already in the cache
   {
-    std::cout << "The value is already in the cache :) " << '\n';
+    // std::cout << "The value is already in the cache :) " << '\n';
     cache_hit++;
-    std::cout << "Number of hits is " << cache_hit << '\n';
+    // std::cout << "Number of hits is " << cache_hit << '\n';
   }
   else // Need to get it from memory
   {
 
     for(int i = 0; i < block_size; i++){
       // Takes in the whole block from beginning to end
-      std::cout << "i is" << i << '\n';
-      std::cout << "The location is " << i + (block_address*block_size) << '\n';
-      std::cout << "The pc loaded is " << memory[addr - block_offset + i] << '\n';
+      // std::cout << "i is" << i << '\n';
+      // std::cout << "The location is " << i + (block_address*block_size) << '\n';
+      // std::cout << "The pc loaded is " << memory[addr - block_offset + i] << '\n';
       data[i + (block_address*block_size)] = memory[addr - block_offset + i];
-      tag[i + block_address] = addrtag;
+      tag[i + block_address*block_size] = addrtag;
 
       if(i == 0){
-        std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY;
-        std::cout << "I am increasing the cycle count to " << cycle << '\n';
+        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
 
       else{
-        std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY2;
-        std::cout << "I am increasing the cycle count to " << cycle << '\n';
+        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
-      std::cout << "Setting " << block_address << "to be valid" << '\n';
-      valid[block_address] = true;
+      // std::cout << "Setting " << block_address << "to be valid" << '\n';
     }
+    valid[block_address] = true;
   }
   cache_access++;
-  std::cout << "Number of accesses is " << cache_access << '\n';
-  return data[block_offset + block_address];
+  // std::cout << "Number of accesses is " << cache_access << '\n';
+  return data[block_offset + block_address*block_size];
 }
 
-void cache::write_cache(addr, unsigned int *data){
+void cache::write_cache(unsigned int addr, unsigned int *data){
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
   unsigned int write_buffer[block_size] = {0};
   for(int i=0; i < block_size; i++){
-    write_buffer[i] = data - block_offset + i;
+    write_buffer[i] = data[i - block_offset];
   }
   if(WRITE_BACK){
     // Need to check if the cache has updated data from memory
@@ -134,7 +134,7 @@ void cache::write_cache(addr, unsigned int *data){
 
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = writebuffer[i];
+        data[i + (block_address*block_size)] = write_buffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -143,7 +143,7 @@ void cache::write_cache(addr, unsigned int *data){
     else{
       for(int i = 0; i < block_size; i++){
         // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = writebuffer[i];
+        data[i + (block_address*block_size)] = write_buffer[i];
         tag[i + block_address] = addrtag;
       }
       valid[block_address] = true;
@@ -154,7 +154,7 @@ void cache::write_cache(addr, unsigned int *data){
   else{ //WRITE_BACK is false, using write through
     for(int i = 0; i < block_size; i++){
       // Write the data given to the write buffer
-      data[i + (block_address*block_size)] = writebuffer[i];
+      data[i + (block_address*block_size)] = write_buffer[i];
       tag[i + block_address] = addrtag;
       // Also update memory at the same time
       memory[addr - block_offset + i] = data[i + (block_address*block_size)];

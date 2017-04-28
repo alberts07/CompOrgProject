@@ -11,8 +11,7 @@
 #include <cstdlib>
 using namespace std;
 
-cache dcache(256, 16);
-cache icache(64, 4);
+
 
 
 #define testing   0
@@ -814,7 +813,8 @@ unsigned int memory[1200] = {
 //     fclose(f);
 //     return;
 // }
-
+cache dcache(256, 16);
+cache icache(256,1);
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
@@ -834,6 +834,10 @@ unsigned int delay_cycles = 0;
 
 int main()
 {
+  // for(int i = 64; i < 257; i = i * 2){
+  //   for(int j = 16; j > 0; j = j / 4){
+  //     std::cout << "Using " << i << " and " << j << '\n';
+  //     cache icache(i,j);
     //memset(instr, 0, 1200);
     unsigned int clock_cycles = 0;
     int format = -1;
@@ -854,10 +858,10 @@ int main()
             // cout << "Got Block Offset: " << dec << icache.block_offset << endl;
             // //Code Breaks Here - Need to mess with how it acquires the instruction
             // std::cout << "the new pc is  " << pc << '\n';
-             instruction = icache.read_cache(pc);
+            //  instruction = icache.read_cache(pc);
             // cout << "Instruction: "<< instruction << endl;
             // std::cout << memory[pc] << '\n';
-            Instr_IF(instruction);
+            Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -943,15 +947,18 @@ int main()
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
             double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)12179;
             cout << "Delay Cycles: " << delay_cycles << endl;
-            cout << "Cycle: " << cycle << endl;
             cout << "Clock Cycles: " << clock_cycles << endl;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
+            cout << "Cycle: " << cycle << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
             cout << "CPI: " << CPI << endl;
             cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
+            std::cout << '\n';
             clock_cycles = 0;
     //}
+    // }
+  // }
 }
