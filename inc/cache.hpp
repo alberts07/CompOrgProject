@@ -18,17 +18,17 @@ class cache{
     vector<unsigned int> data;
     vector<unsigned int> tag;
     bool DONE;
+    unsigned int block_address_mask;
+    unsigned int block_offset_mask;
     int cache_hit;
-    int tot_block_offset;
+    int block_offset_bits;
     int cache_access;
     int cache_size;
     int block_size;
     unsigned int addrtag;
     int block_address;
     int block_offset;
-    int byte_offset;
-    int block_bits;
-    int byte_bits;
+    int block_address_bits;
 
     cache (int size, int block);
     unsigned int get_tag(unsigned int);

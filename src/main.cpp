@@ -12,7 +12,7 @@
 using namespace std;
 
 cache dcache(256, 16);
-cache icache(256, 1);
+cache icache(64, 4);
 
 
 #define testing   0
