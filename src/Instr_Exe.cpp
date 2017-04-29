@@ -17,36 +17,11 @@ extern struct memwb MEMWB;
 extern struct exmem EXMEM;
 extern struct idex IDEX;
 extern unsigned int delay_cycles;
+extern bool counted;
 
 
 void Instr_Exe(int format)
 {
-    if((EXMEM.RegWrite) && (EXMEM.DstReg == Shadow_IDEX.Rt) && (EXMEM.DstReg != 0))
-    {
-         //Shadow_IDEX.RtValue = EXMEM.ALUResult;
-    }
-    if((EXMEM.RegWrite) && (EXMEM.DstReg == Shadow_IDEX.Rs) && (EXMEM.DstReg != 0))
-    {
-         //Shadow_IDEX.RtValue = EXMEM.ALUResult;
-    }
-
-    // if(((Shadow_IDEX.opcode == lw_opcode) || (Shadow_IDEX.opcode == lb_opcode)\
-    //  || (Shadow_IDEX.opcode == sb_opcode) ||(Shadow_IDEX.opcode == sb_opcode))\
-    //  && ((MEMWB.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
-    //  && ((format == rtype) || (format == itype)))
-    // {
-    //       delay_cycles = delay_cycles + 1;
-    // }
-    // if(((Shadow_IDEX.opcode == blez_opcode) || (Shadow_IDEX.opcode == bgtz_opcode)\
-    //   || (Shadow_IDEX.opcode == bltz_opcode) || (Shadow_IDEX.opcode == bne_opcode)\
-    //   || (Shadow_IDEX.opcode == beq_opcode)) && ((IDEX.opcode == lb_opcode) || (IDEX.opcode == lw_opcode)))
-    // {
-    //       delay_cycles = delay_cycles + 2;
-    // }
-
-
-
-
     Shadow_EXMEM.MemtoReg = Shadow_IDEX.MemtoReg;
     Shadow_EXMEM.RegWrite = Shadow_IDEX.RegWrite;
     Shadow_EXMEM.MemRead = Shadow_IDEX.MemRead;

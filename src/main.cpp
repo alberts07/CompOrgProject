@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include "Program1.hpp"
 #include "Program2.hpp"
+#include <iomanip>
 using namespace std;
 
 #define testing   0
@@ -19,12 +20,14 @@ using namespace std;
 unsigned int memory[1200];
 
 cache dcache(1024, 1);
-cache icache(64,4);
+cache icache(64,1);
+bool counted = false;
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
 unsigned int branch_pc = 0;
+extern double cache_configuration_1;
 unsigned int cycle = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 struct ifid Shadow_IFID;
@@ -56,12 +59,13 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            instruction = icache.read_icache(pc);
-            Instr_IF(instruction);
+            // instruction = icache.read_icache(pc);
+            // Instr_IF(instruction);
+            Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
-            Instr_MEM();
+            Instr_MEM(format);
             Update_State();
             clock_cycles++;
             if(Shadow_IDEX.branch == true)
@@ -70,7 +74,7 @@ int main()
                 Instr_IF(memory[Shadow_IDEX.pcplus1]);
                 format = Instr_ID();
                 Instr_Exe(format);
-                Instr_MEM();
+                Instr_MEM(format);
                 Instr_WB(format);
                 Update_State();
                 clock_cycles++;
@@ -152,8 +156,8 @@ int main()
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
             cout << "Memory[9]: 0x"<< hex << memory[9] << endl;
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
-            cout << "CPI: " << CPI << endl;
-            cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
+            cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
+            cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
@@ -162,15 +166,15 @@ int main()
         }
         if(memory[5] == 140)
         {
-            double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count;
+            double Icache_hitrate = 100 * ((double) icache.cache_hit + cache_configuration_1) / (double) icache.cache_access;
+            double CPI = (((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count);
             cout << "Memory[6]: "<< dec << memory[6] << endl;
             cout << "Memory[7]: "<< dec << memory[7] << endl;
             cout << "Memory[8]: "<< dec << memory[8] << endl;
             cout << "Memory[9]: "<< dec << memory[9] << endl;
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
-            cout << "CPI: " << CPI << endl;
-            cout << "I-Cache Hit Rate: " << Icache_hitrate << endl;
+            cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
+            cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
