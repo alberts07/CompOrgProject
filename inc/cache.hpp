@@ -40,7 +40,9 @@ class cache{
     bool is_dirty(void);
     unsigned int read_icache(unsigned int);
     unsigned int read_dcache(unsigned int);
-    void write_cache(unsigned int, unsigned int *);
+    unsigned int mem_cache(unsigned int);
+    void write_dcache(unsigned int, unsigned int);
+
 };
 
 #endif
