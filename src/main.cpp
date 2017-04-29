@@ -65,7 +65,7 @@ int main()
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
-            Instr_MEM(format);
+            Instr_MEM();
             Update_State();
             clock_cycles++;
             if(Shadow_IDEX.branch == true)
@@ -74,7 +74,7 @@ int main()
                 Instr_IF(memory[Shadow_IDEX.pcplus1]);
                 format = Instr_ID();
                 Instr_Exe(format);
-                Instr_MEM(format);
+                Instr_MEM();
                 Instr_WB(format);
                 Update_State();
                 clock_cycles++;
