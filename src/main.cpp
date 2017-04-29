@@ -18,8 +18,8 @@ using namespace std;
 
 unsigned int memory[1200];
 
-cache dcache(256, 16);
-cache icache(64,1);
+cache dcache(1024, 1);
+cache icache(64,4);
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
@@ -39,12 +39,12 @@ unsigned int delay_cycles = 0;
 
 int main()
 {
+  for(int i = 64; i < 257; i = i * 2){
+    for(int j = 16; j > 0; j = j / 4){
+      std::cout << "Using " << i << " and " << j << '\n';
+      cache icache(i,j);
 
   transfer_Program1();
-  // for(int i = 64; i < 257; i = i * 2){
-  //   for(int j = 16; j > 0; j = j / 4){
-  //     std::cout << "Using " << i << " and " << j << '\n';
-  //     cache icache(i,j);
     unsigned int clock_cycles = 0;
     int format = -1;
 
@@ -55,8 +55,8 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            //instruction = icache.read_icache(pc);
-            Instr_IF(memory[pc]);
+            instruction = icache.read_icache(pc);
+            Instr_IF(instruction);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -143,7 +143,7 @@ int main()
         if(memory[5] == 120)
         {
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
-            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)474173;
+            double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)12179;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
             cout << "Memory[8]: 0x"<< hex << memory[8] << endl;
@@ -170,6 +170,6 @@ int main()
         }
 
     //}
-    // }
-  // }
+    }
+  }
 }

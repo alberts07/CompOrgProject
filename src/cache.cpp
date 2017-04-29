@@ -102,7 +102,7 @@ unsigned int cache::read_icache(unsigned int addr){
       data[i + (block_address*block_size)] = memory[addr - block_offset + i];
       tag[i + block_address*block_size] = addrtag;
 
-      if(i == block_offset){
+      if(i == 0){
         // std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
@@ -113,8 +113,12 @@ unsigned int cache::read_icache(unsigned int addr){
         cycle = cycle + MISS_PENALTY2;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
+      if( i == block_offset){
+            MISS_PENALTY2 = 1;
+      }
       // std::cout << "Setting " << block_address << "to be valid" << '\n';
     }
+    MISS_PENALTY2 = 2;
     // cache_access = cache_access+ block_size - block_offset
     valid[block_address] = true;
     dirty[block_address] = false;
