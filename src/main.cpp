@@ -19,8 +19,10 @@ using namespace std;
 
 unsigned int memory[1200];
 
-cache dcache(1024, 1);
+
 cache icache(64,1);
+cache dcache(1024,1);
+
 bool counted = false;
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
@@ -40,28 +42,38 @@ struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
+bool WRITE_BACK = false;
 
 int main()
 {
-  for(int i = 64; i < 257; i = i * 2){
-    for(int j = 16; j > 0; j = j / 4){
-      std::cout << "Using " << i << " and " << j << '\n';
-      cache icache(i,j);
+  // for(int i = 64; i < 257; i = i * 2){
+  //   for(int j = 16; j > 0; j = j / 4){
+  //     std::cout << "Using icache (" << i << "," << j <<')' << '\n';
+  //     cache icache(i,j);
+  //     if(i == 64){
+  //       std::cout << "Using dcache (" << "1024," << j <<')' << '\n';
+  //       cache dcache(1024,j);
+  //     }
+  //     else{
+  //       std::cout << "Using dcache (" << "256," << j <<')' << '\n';
+  //       cache dcache(256,j);
+  //     }
 
   transfer_Program1();
     unsigned int clock_cycles = 0;
     int format = -1;
 
         unsigned int instruction = 0;
+        int program_indicator = memory[5];
         pc = memory[5];
         Reg[29] = memory[0];
         Reg[30] = memory[1];
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            // instruction = icache.read_icache(pc);
-            // Instr_IF(instruction);
-            Instr_IF(memory[pc]);
+            instruction = icache.read_icache(pc);
+            Instr_IF(instruction);
+            // Instr_IF(memory[pc]);
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
@@ -147,9 +159,10 @@ int main()
             pc = EXMEM.pcplus1;
             instr_count++;
         }
-        if(memory[5] == 120)
+        if(program_indicator == 120)
         {
             double Icache_hitrate = 100 * (double) icache.cache_hit / (double) icache.cache_access;
+            double Dcache_hitrate = 100 * (double) dcache.cache_hit / (double) dcache.cache_access;
             double CPI = ((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count;
             cout << "Memory[6]: "<< hex << memory[6] << endl;
             cout << "Memory[7]: 0x"<< hex << memory[7] << endl;
@@ -158,15 +171,17 @@ int main()
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
             cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
             cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
+            cout << "D-Cache Hit Rate: " << fixed << setprecision(2) << Dcache_hitrate << endl;
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
             delay_cycles = 0;
             instr_count = 0;
         }
-        if(memory[5] == 140)
+        if(program_indicator == 140)
         {
             double Icache_hitrate = 100 * ((double) icache.cache_hit + cache_configuration_1) / (double) icache.cache_access;
+            double Dcache_hitrate = 100 * (double) dcache.cache_hit / (double) dcache.cache_access;
             double CPI = (((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count);
             cout << "Memory[6]: "<< dec << memory[6] << endl;
             cout << "Memory[7]: "<< dec << memory[7] << endl;
@@ -175,6 +190,8 @@ int main()
             cout << "Total Clock Cycles: " << dec<< cycle + clock_cycles + delay_cycles << endl;
             cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
             cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
+            cout << "D-Cache Hit Rate: " << fixed << setprecision(2) << Dcache_hitrate << endl;
+
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
@@ -183,6 +200,6 @@ int main()
         }
 
     //}
-    }
-  }
+  //   }
+  // }
 }
