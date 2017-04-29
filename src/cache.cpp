@@ -17,7 +17,7 @@ extern unsigned int instr[1200];
 extern unsigned int cycle;
 extern int MISS_PENALTY;
 extern int MISS_PENALTY2;
-int WRITE_BACK = 0;
+extern bool WRITE_BACK;
 
 cache::cache (int size, int block) {
   cache_size = size / 4; // Words we can store
@@ -42,8 +42,6 @@ cache::cache (int size, int block) {
   block_bits = log(cache_size / block_size) / log(2); // # of bits to get block #
   byte_bits = 2;  //This will always be 2 because we are word aligned
 
-  write_buffer.resize(block_size);
-  for(int k = 0; k < block_size; k++) write_buffer[k] = 0;
 }
 
 unsigned int cache::get_tag(unsigned int addr){
@@ -135,75 +133,126 @@ unsigned int cache::read_dcache(unsigned int addr){
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  // std::cout << "The block is " << block_address << '\t';
-  // std::cout << "The block offset is " << block_offset << '\t';
-  // std::cout << "The tag is " << addrtag << '\t';
+  // std::cout << "Block number is " << block_address << '\n';
+  // std::cout << "Block offset is " << block_offset << '\n';
 
-  // std::cout << "is it valid?" << validblock << '\n';
-  // std::cout << "Tag value " << tag[block_offset+block_address] << '\n';
-  // std::cout << "Address tag " << addrtag << '\n';
   if(validblock && tag[block_offset + block_address*block_size] == addrtag)
     // Data is already in the cache
   {
     // std::cout << "The value is already in the cache :) " << '\t';
     cache_hit++;
     cache_access++;
-    return 1;
-
-    // std::cout << "Number of hits is " << cache_hit << '\t';
+    return true;
   }
   else // Need to get it from memory
   {
       cache_access++;
-      return 0;
+      return false;
   }
 }
 
-void cache::write_cache(unsigned int addr, unsigned int *input){
+unsigned int cache::mem_cache(unsigned int addr){
+
+  addrtag = get_tag(addr);
+  get_block(addr);
+  get_block_offset(addr);
+
+  // std::cout << "The value in the cache is " << data[(block_address*block_size)+block_offset] << '\n';
+  // std::cout << "The tag should be " << addrtag << '\n';
+  // std::cout << "The tag in the cache is " << tag[block_address] << '\n';
+
+  for(int i=0; i < block_size; i++){
+      // Takes in the whole block from beginning to end
+
+      data[i + (block_address*block_size)] = memory[addr - block_offset + i];
+      tag[i + block_address*block_size] = addrtag;
+
+      if(i == 0){
+        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        cycle = cycle + MISS_PENALTY;
+        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+      }
+
+      else{
+        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+        cycle = cycle + MISS_PENALTY2;
+        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+      }
+      if( i == block_offset){
+            MISS_PENALTY2 = 1;
+      }
+      // std::cout << "Setting " << block_address << "to be valid" << '\n';
+    }
+    MISS_PENALTY2 = 2;
+
+
+    // std::cout << "The updated values are " << data[block_address*block_size] << "\n";// << data[block_address*block_size+1] << " " << data[block_address*block_size+2] << " " << data[block_address*block_size + 3] << '\n';
+
+    valid[block_address] = true;
+    dirty[block_address] = false;
+    cache_access++;
+    // std::cout << "Number of accesses is " << cache_access << '\t';
+    return data[block_offset + block_address*block_size];
+}
+
+void cache::write_dcache(unsigned int addr, unsigned int rt){
+  //store word instructions
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-
-  for(int i=0; i < block_size; i++){
-    write_buffer[i] = data[block_address*block_size + i];
-  }
   if(WRITE_BACK){
     // Need to check if the cache has updated data from memory
     if(validblock && dirty[block_address]){
       // Cache is diff from memory, so need to write value back before replacing
       for(int i = 0; i < block_size; i++){
-        memory[addr - block_offset + i] = write_buffer[i];
-      }
+        memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+        if(i == 0){
+          // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+          cycle = cycle + MISS_PENALTY;
+          // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+        }
 
-      for(int i = 0; i < block_size; i++){
-        // Write the data given to the cache
-        data[i + (block_address*block_size)] = input[i];
-        tag[i + block_address*block_size] = addrtag;
+        else{
+          // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+          cycle = cycle + MISS_PENALTY2;
+          // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+        }
+        if( i == block_offset){
+              MISS_PENALTY2 = 1;
+        }
       }
-      valid[block_address] = true;
       dirty[block_address] = false;
+      MISS_PENALTY2 = 2;
     }
-    else{ //if !dirty or ! valid
-      for(int i = 0; i < block_size; i++){
-        // Write the data given to the write buffer
-        data[i + (block_address*block_size)] = input[i];
-        tag[i + block_address] = addrtag;
-      }
-      valid[block_address] = true;
-      dirty[block_address] = true;
-    }
-    //SHOULD WRITE CHECK TO SEE IF WHAT IT IS WRITING IS ALREADY IN THE CACHE?
   }
-  else{ //WRITE_BACK is false, using write through
+
+  data[(block_address*block_size) +block_offset] = rt;
+  tag[block_address * block_size +block_offset] = addrtag;
+  
+  if(!WRITE_BACK)
+  {
     for(int i = 0; i < block_size; i++){
-      // Write the data given to the write buffer
-      data[i + (block_address*block_size)] = input[i];
-      tag[i + block_address*block_size] = addrtag;
-      // Also update memory at the same time
-      memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+    // Write the data given to the cache
+    memory[addr+i - block_offset] = data[i + (block_address*block_size)];
+    tag[i + block_address*block_size] = addrtag;
     }
-    valid[block_address] = true;
-    dirty[block_address] = false;
   }
+
+
+  valid[block_address] = true;
+  dirty[block_address] = true;
+
+  //
+  // else{ //WRITE_BACK is false, using write through
+  //   for(int i = 0; i < block_size; i++){
+  //     // Write the data given to the write buffer
+  //     data[i + (block_address*block_size)] = input[i];
+  //     tag[i + block_address*block_size] = addrtag;
+  //     // Also update memory at the same time
+  //     memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+  //   }
+  //   valid[block_address] = true;
+  //   dirty[block_address] = false;
+  // }
 }

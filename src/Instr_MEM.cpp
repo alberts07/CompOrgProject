@@ -66,17 +66,14 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  //  data = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
-                    // if(dcache.read_dcache(pc))
-                      // data = dcache.data[dcache.block_address * dcache.block_offset];
-                    // else
-                      // dcache.write_cache(pc, &data);
-                    Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+                  data = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
 
-                    if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
-                    {
-                        Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
-                    }
+                  Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+
+                  if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
+                  {
+                      Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
+                  }
                     break;
                 }
                 case 1:
@@ -108,7 +105,29 @@ void Instr_MEM()
                 }
                 case 4:
                 {
-                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
+                  // std::cout << "Attempting a load of " << memory[Shadow_EXMEM.ALUResult] << " to register " << Shadow_MEMWB.DstReg << '\n';
+                  // std::cout << "The old value was " << Shadow_MEMWB.DstRegValue << '\n';
+                  // std::cout << "The ALUResult is " << Shadow_EXMEM.ALUResult << '\n';
+                  if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                  {
+                    // std::cout << "The value was in the cache" << '\n';
+                    // // This somehow sets a2 to a3 and fucks it up
+                    // std::cout << "The register is " << Shadow_MEMWB.DstReg << '\n';
+                    // std::cout << "The value was " << Shadow_MEMWB.DstRegValue << '\n';
+                    Shadow_MEMWB.DstRegValue = dcache.data[dcache.block_address * dcache.block_size + dcache.block_offset];
+                    // std::cout << "It is now " << dcache.data[dcache.block_address * dcache.block_size + dcache.block_offset] << '\n';
+                  }
+                  else
+                  {
+                      // std::cout << "The register is " << Shadow_MEMWB.DstReg << '\n';
+                      // std::cout << "The value was not in the cache" << '\n';
+                      // std::cout << "The value was " << Shadow_MEMWB.DstRegValue << '\n';
+                      Shadow_MEMWB.DstRegValue = dcache.mem_cache(Shadow_EXMEM.ALUResult);
+                      // std::cout << "It is now " << dcache.mem_cache(Shadow_EXMEM.ALUResult) << '\n';
+
+                  }
+                  // std::cout << "The new value is " << Shadow_MEMWB.DstRegValue << '\n';
+                  //Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                     break;
                 }
             }
@@ -158,7 +177,8 @@ void Instr_MEM()
                 }
                 case 4:
                 {
-                    memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
+                    dcache.write_dcache(Shadow_EXMEM.ALUResult, Shadow_EXMEM.RtValue);
+                    //memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
                     break;
                 }
             }
