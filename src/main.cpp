@@ -18,25 +18,6 @@ using namespace std;
 
 unsigned int memory[1200];
 
-
-
-// void printMemory(){
-//     FILE *f = fopen("MEMORY.txt", "w");
-//     if (f == NULL)
-//     {
-//       printf("Error opening file!\n");
-//       exit(1);
-//     }
-//
-//   // print some text
-//     int index = 1;
-//     while(index < 1200){
-//       fprintf(f, "%d:  0x%08x\n", index, memory[index]);
-//       index++;
-//     }
-//     fclose(f);
-//     return;
-// }
 cache dcache(256, 16);
 cache icache(256,1);
 int MISS_PENALTY = 8;
@@ -64,7 +45,6 @@ int main()
   //   for(int j = 16; j > 0; j = j / 4){
   //     std::cout << "Using " << i << " and " << j << '\n';
   //     cache icache(i,j);
-    //memset(instr, 0, 1200);
     unsigned int clock_cycles = 0;
     int format = -1;
 
@@ -128,6 +108,7 @@ int main()
             // cout << "$fp: " << Reg[30] <<  endl;
             // cout << "$ra: " << Reg[31] << endl;
             // cout << "" << endl;
+
             // cout << pc << ' ' << "\t";
             // cout << "$v0: " << Reg[2] << "\t";
             // cout << "$v1: " << Reg[3] << "\t";
