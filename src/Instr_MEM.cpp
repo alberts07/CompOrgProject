@@ -66,7 +66,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                    data = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
+                  //  data = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
                     // if(dcache.read_dcache(pc))
                       // data = dcache.data[dcache.block_address * dcache.block_offset];
                     // else
