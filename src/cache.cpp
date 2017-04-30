@@ -202,17 +202,17 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
-  std::cout << "The block address is " << block_address << '\n';
-  std::cout << "The block offset is " << block_offset << '\n';
-  std::cout << "The old tag is " << tag[block_address*block_size+block_offset] << '\n';
-  std::cout << "The new tag should be " << addrtag << '\n';
-  std::cout << "The cache data is " << data[block_address*block_size+block_offset] << '\n';
-  std::cout << "The cache data should update to " << rt << '\n';
-  std::cout << "Before the operation the valid and dirty bits are " << validblock << ' ' << dirty[block_address] << '\n';
+  // std::cout << "The block address is " << block_address << '\n';
+  // std::cout << "The block offset is " << block_offset << '\n';
+  // std::cout << "The old tag is " << tag[block_address*block_size+block_offset] << '\n';
+  // std::cout << "The new tag should be " << addrtag << '\n';
+  // std::cout << "The cache data is " << data[block_address*block_size+block_offset] << '\n';
+  // std::cout << "The cache data should update to " << rt << '\n';
+  // std::cout << "Before the operation the valid and dirty bits are " << validblock << ' ' << dirty[block_address] << '\n';
 
 
   if(WRITE_BACK){
-    std::cout << "Should not be here, this is WB" << '\n';
+    // std::cout << "Should not be here, this is WB" << '\n';
     // // Need to check if the cache has updated data from memory
 
     if(dirty[block_address]){
@@ -249,15 +249,15 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
 
   if(!WRITE_BACK)
   {
-    std::cout << "Setting the cache value from " << data[(block_address*block_size) +block_offset] << " to " << rt << '\n';
+    // std::cout << "Setting the cache value from " << data[(block_address*block_size) +block_offset] << " to " << rt << '\n';
     data[(block_address*block_size) +block_offset] = rt;
-    std::cout << "Updating memory with the values from the cache" << '\n';
+    // std::cout << "Updating memory with the values from the cache" << '\n';
     for(int i = 0; i < block_size; i++){
-      std::cout << "Updating memory location " << addr + i - block_offset << " from " << memory[addr+i-block_offset] << " to " << data[i + (block_address*block_size)] << '\n';
+      // std::cout << "Updating memory location " << addr + i - block_offset << " from " << memory[addr+i-block_offset] << " to " << data[i + (block_address*block_size)] << '\n';
       memory[addr+i - block_offset] = data[i + (block_address*block_size)];
-      std::cout << "Checking if the tag in location " << i + block_address*block_size << " which is " <<tag[i + block_address*block_size] << " is equal to " << addrtag << '\n';
+      // std::cout << "Checking if the tag in location " << i + block_address*block_size << " which is " <<tag[i + block_address*block_size] << " is equal to " << addrtag << '\n';
       if(tag[i + block_address*block_size] != addrtag) {
-        std::cout << "The tag was not equal and we need to simulate misses" << '\n';
+        // std::cout << "The tag was not equal and we need to simulate misses" << '\n';
         if(i == 0){
           // std::cout << "I am increasing the cycle count from " << cycle << '\n';
           cycle = cycle + MISS_PENALTY;
@@ -274,13 +274,13 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
           MISS_PENALTY2 = 1;
         }
       }
-      std::cout << "Update the previous tag to the addrtag" << '\n';
+      // std::cout << "Update the previous tag to the addrtag" << '\n';
       tag[i + block_address*block_size] = addrtag;
     }
     MISS_PENALTY2 = 2;
-    std::cout << "Setting the valid bit of block " << block_address << " from " << valid[block_address] << " to true " << '\n';
+    // std::cout << "Setting the valid bit of block " << block_address << " from " << valid[block_address] << " to true " << '\n';
     valid[block_address] = true;
-    std::cout << "Setting the dirty bit of block " << block_address << " from " << dirty[block_address] << " to true " << '\n';
+    // std::cout << "Setting the dirty bit of block " << block_address << " from " << dirty[block_address] << " to true " << '\n';
     dirty[block_address] = true;
   }
 }

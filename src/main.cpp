@@ -17,7 +17,6 @@
 #include <iomanip>
 using namespace std;
 
-#define testing   0
 
 
 unsigned int memory[1200];
@@ -38,7 +37,7 @@ unsigned int delay_cycles = 0;
 //###########################  Cache Parameters #########################################################################################
 bool WRITE_BACK = false;
 int dCACHEON = 0;
-int iCACHEON = 0;
+int iCACHEON = 1;
 int iCACHE_SIZE = 256;
 int dCACHE_SIZE =128;
 int WORDS = 1;
