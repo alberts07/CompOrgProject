@@ -146,6 +146,7 @@ unsigned int cache::read_dcache(unsigned int addr){
   }
   else // Need to get it from memory
   {
+      // std::cout << "The value is not in the cache >:( " << '\t';
       cache_access++;
       return false;
   }
@@ -201,12 +202,90 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
   get_block(addr);
   get_block_offset(addr);
   int validblock = is_valid();
+  std::cout << "The block address is " << block_address << '\n';
+  std::cout << "The block offset is " << block_offset << '\n';
+  std::cout << "The old tag is " << tag[block_address*block_size+block_offset] << '\n';
+  std::cout << "The new tag should be " << addrtag << '\n';
+  std::cout << "The cache data is " << data[block_address*block_size+block_offset] << '\n';
+  std::cout << "The cache data should update to " << rt << '\n';
+  std::cout << "Before the operation the valid and dirty bits are " << validblock << ' ' << dirty[block_address] << '\n';
+
+
   if(WRITE_BACK){
-    // Need to check if the cache has updated data from memory
-    if(validblock && dirty[block_address]){
-      // Cache is diff from memory, so need to write value back before replacing
+    std::cout << "Should not be here, this is WB" << '\n';
+    // // Need to check if the cache has updated data from memory
+    // if(validblock && dirty[block_address]){
+    //   // Cache is diff from memory, so need to write value back before replacing
+    //   // std::cout << "The cache block is dirty" << '\n';
+    //   for(int i = 0; i < block_size; i++){
+    //     // std::cout << "Storing " << data[i + (block_address*block_size)] << " to memory location " << addr - block_offset + i << " which had value " << memory[addr - block_offset + i] << '\n';
+    //     memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+    //     if(i == 0){
+    //       // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+    //       cycle = cycle + MISS_PENALTY;
+    //       // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+    //     }
+    //
+    //     else{
+    //       // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+    //       cycle = cycle + MISS_PENALTY2;
+    //       // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+    //     }
+    //     if( i == block_offset){
+    //           MISS_PENALTY2 = 1;
+    //     }
+    //   }
+    //   dirty[block_address] = false;
+    //   MISS_PENALTY2 = 2;
+    // }
+    // data[(block_address*block_size) +block_offset] = rt;
+    // tag[(block_address*block_size) +block_offset] = addrtag;
+    // dirty[block_address] = true;
+    // valid[block_address] = true;
+    if(dirty[block_address]){
       for(int i = 0; i < block_size; i++){
-        memory[addr - block_offset + i] = data[i + (block_address*block_size)];
+        memory[addr+i - block_offset] = data[i + (block_address*block_size)];
+
+        if(tag[i + block_address*block_size] != addrtag) {
+
+          if(i == 0){
+            // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+            cycle = cycle + MISS_PENALTY;
+            // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+          }
+
+          else{
+            // std::cout << "I am increasing the cycle count from " << cycle << '\n';
+            cycle = cycle + MISS_PENALTY2;
+            // std::cout << "I am increasing the cycle count to " << cycle << '\n';
+          }
+
+          if( i == block_offset){
+            MISS_PENALTY2 = 1;
+          }
+        }
+        tag[i + block_address*block_size] = addrtag;
+      }
+    }
+    data[(block_address*block_size) +block_offset] = rt;
+
+    MISS_PENALTY2 = 2;
+    valid[block_address] = true;
+    dirty[block_address] = true;
+  }
+
+
+  if(!WRITE_BACK)
+  {
+    std::cout << "Setting the cache value from " << data[(block_address*block_size) +block_offset] << " to " << rt << '\n';
+    data[(block_address*block_size) +block_offset] = rt;
+    std::cout << "Updating memory with the values from the cache" << '\n';
+    for(int i = 0; i < block_size; i++){
+      std::cout << "Updating memory location " << addr + i - block_offset << " from " << memory[addr+i-block_offset] << " to " << data[i + (block_address*block_size)] << '\n';
+      memory[addr+i - block_offset] = data[i + (block_address*block_size)];
+      std::cout << "Checking if the tag in location " << i + block_address*block_size << " which is " <<tag[i + block_address*block_size] << " is equal to " << addrtag << '\n';
+      if(tag[i + block_address*block_size] != addrtag) {
+        std::cout << "The tag was not equal and we need to simulate misses" << '\n';
         if(i == 0){
           // std::cout << "I am increasing the cycle count from " << cycle << '\n';
           cycle = cycle + MISS_PENALTY;
@@ -218,45 +297,18 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
           cycle = cycle + MISS_PENALTY2;
           // std::cout << "I am increasing the cycle count to " << cycle << '\n';
         }
+
         if( i == block_offset){
-              MISS_PENALTY2 = 1;
+          MISS_PENALTY2 = 1;
         }
       }
-      dirty[block_address] = false;
-      MISS_PENALTY2 = 2;
-    }
-  }
-
-  data[(block_address*block_size) +block_offset] = rt;
-  tag[block_address * block_size +block_offset] = addrtag;
-
-  if(!WRITE_BACK)
-  {
-    for(int i = 0; i < block_size; i++){
-    // Write the data given to the cache
-      memory[addr+i - block_offset] = data[i + (block_address*block_size)];
+      std::cout << "Update the previous tag to the addrtag" << '\n';
       tag[i + block_address*block_size] = addrtag;
-
-      if(i == 0){
-        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
-        cycle = cycle + MISS_PENALTY;
-        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
-      }
-
-      else{
-        // std::cout << "I am increasing the cycle count from " << cycle << '\n';
-        cycle = cycle + MISS_PENALTY2;
-        // std::cout << "I am increasing the cycle count to " << cycle << '\n';
-      }
-
-      if( i == block_offset){
-        MISS_PENALTY2 = 1;
-      }
     }
     MISS_PENALTY2 = 2;
+    std::cout << "Setting the valid bit of block " << block_address << " from " << valid[block_address] << " to true " << '\n';
+    valid[block_address] = true;
+    std::cout << "Setting the dirty bit of block " << block_address << " from " << dirty[block_address] << " to true " << '\n';
+    dirty[block_address] = true;
   }
-
-
-  valid[block_address] = true;
-  dirty[block_address] = true;
 }

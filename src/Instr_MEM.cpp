@@ -169,24 +169,18 @@ void Instr_MEM()
                   // std::cout << "The ALUResult is " << Shadow_EXMEM.ALUResult << '\n';
                   if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                   {
-                    // std::cout << "The value was in the cache" << '\n';
-                    // // This somehow sets a2 to a3 and fucks it up
-                    // std::cout << "The register is " << Shadow_MEMWB.DstReg << '\n';
-                    // std::cout << "The value was " << Shadow_MEMWB.DstRegValue << '\n';
+                    // This somehow sets a2 to a3 and fucks it up
                     Shadow_MEMWB.DstRegValue = dcache.data[dcache.block_address * dcache.block_size + dcache.block_offset];
                     // std::cout << "It is now " << dcache.data[dcache.block_address * dcache.block_size + dcache.block_offset] << '\n';
                   }
                   else
                   {
-                      // std::cout << "The register is " << Shadow_MEMWB.DstReg << '\n';
-                      // std::cout << "The value was not in the cache" << '\n';
-                      // std::cout << "The value was " << Shadow_MEMWB.DstRegValue << '\n';
                       Shadow_MEMWB.DstRegValue = dcache.mem_cache(Shadow_EXMEM.ALUResult);
                       // std::cout << "It is now " << dcache.mem_cache(Shadow_EXMEM.ALUResult) << '\n';
 
                   }
                   // std::cout << "The new value is " << Shadow_MEMWB.DstRegValue << '\n';
-                  //Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
+                  // Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                     break;
                 }
             }
@@ -236,8 +230,15 @@ void Instr_MEM()
                 }
                 case 4:
                 {
+                    // std::cout << "Attempting a store word of " << Shadow_EXMEM.RtValue << " to " << memory[Shadow_EXMEM.ALUResult] << '\n';
+
+                    std::cout << "The memory location " << Shadow_EXMEM.ALUResult << " is being written " << '\n';
+                    std::cout << "The old memory data is " << memory[Shadow_EXMEM.ALUResult] << " is being written " << '\n';
+                    std::cout << "The new memory data should be " << Shadow_EXMEM.RtValue << " is being written " << '\n';
+
                     dcache.write_dcache(Shadow_EXMEM.ALUResult, Shadow_EXMEM.RtValue);
-                    //memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
+                    // memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
+                    std::cout << '\n';
                     break;
                 }
             }

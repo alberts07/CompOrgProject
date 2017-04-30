@@ -20,8 +20,8 @@ using namespace std;
 unsigned int memory[1200];
 
 
-cache icache(64,1);
-cache dcache(1024,1);
+cache icache(128,4);
+cache dcache(258,4);
 
 bool counted = false;
 int MISS_PENALTY = 8;
@@ -71,6 +71,7 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
+            std::cout << "pc is " << pc << '\n';
             instruction = icache.read_icache(pc);
             Instr_IF(instruction);
             // Instr_IF(memory[pc]);
@@ -126,7 +127,7 @@ int main()
             // cout << "$fp: " << Reg[30] <<  endl;
             // cout << "$ra: " << Reg[31] << endl;
             // cout << "" << endl;
-
+            //
             // cout << pc << ' ' << "\t";
             // cout << "$v0: " << Reg[2] << "\t";
             // cout << "$v1: " << Reg[3] << "\t";
