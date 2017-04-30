@@ -18,17 +18,11 @@ using namespace std;
 
 
 unsigned int memory[1200];
-
-
-
-
-bool counted = false;
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
 unsigned int clock_cycles = 0;
 unsigned int branch_pc = 0;
-extern double cache_configuration_1;
 unsigned int cycle = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 struct ifid Shadow_IFID, IFID, IFID_1;
@@ -38,14 +32,16 @@ struct memwb Shadow_MEMWB, MEMWB, MEMWB_1;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 
+//###########################  Cache Parameters #########################################################################################
 bool WRITE_BACK = false;
 int dCACHEON = 0;
-int iCACHEON = 1;
-int iCACHE_SIZE = 128;
-int dCACHE_SIZE = 256;
+int iCACHEON = 0;
+int iCACHE_SIZE = 256;
+int dCACHE_SIZE =128;
 int WORDS = 1;
 cache icache(iCACHE_SIZE,WORDS);
 cache dcache(dCACHE_SIZE,WORDS);
+//#######################################################################################################################################
 
 int main()
 {
@@ -62,7 +58,7 @@ int main()
   //       cache dcache(256,j);
   //     }
 
-  transfer_Program1();
+    transfer_Program2();
     unsigned int clock_cycles = 0;
     int format = -1;
 
@@ -188,7 +184,7 @@ int main()
         }
         if(program_indicator == 140)
         {
-            double Icache_hitrate = 100 * ((double) icache.cache_hit + cache_configuration_1) / (double) icache.cache_access;
+            double Icache_hitrate = 100 * ((double) icache.cache_hit) / (double) icache.cache_access;
             double Dcache_hitrate = 100 * (double) dcache.cache_hit / (double) dcache.cache_access;
             double CPI = (((double)cycle + (double)clock_cycles + (double)delay_cycles)/ (double)instr_count);
             cout << "Memory[6]: "<< dec << memory[6] << endl;

@@ -430,5 +430,3 @@ void seb()
   Shadow_EXMEM.DstReg = Shadow_IDEX.Rd;
 
 }
-
-double cache_configuration_1 = -96.0;
