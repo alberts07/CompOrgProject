@@ -35,6 +35,7 @@ unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 
 //###########################  Cache Parameters #########################################################################################
+bool EARLY_START = true;
 bool WRITE_BACK = false;
 int dCACHEON = 0;
 int iCACHEON = 1;
@@ -47,19 +48,6 @@ cache dcache(dCACHE_SIZE,WORDS);
 
 int main()
 {
-  // for(int i = 64; i < 257; i = i * 2){
-  //   for(int j = 16; j > 0; j = j / 4){
-  //     std::cout << "Using icache (" << i << "," << j <<')' << '\n';
-  //     cache icache(i,j);
-  //     if(i == 64){
-  //       std::cout << "Using dcache (" << "1024," << j <<')' << '\n';
-  //       cache dcache(1024,j);
-  //     }
-  //     else{
-  //       std::cout << "Using dcache (" << "256," << j <<')' << '\n';
-  //       cache dcache(256,j);
-  //     }
-
     transfer_Program2();
     unsigned int clock_cycles = 0;
     int format = -1;
@@ -207,6 +195,4 @@ int main()
         }
 
     //}
-  //   }
-  // }
 }

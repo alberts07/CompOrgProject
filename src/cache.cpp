@@ -18,6 +18,7 @@ extern unsigned int cycle;
 extern int MISS_PENALTY;
 extern int MISS_PENALTY2;
 extern bool WRITE_BACK;
+extern bool EARLY_START;
 
 cache::cache (int size, int block) {
   cache_size = size / 4; // Words we can store
@@ -65,24 +66,20 @@ bool cache::is_valid(){
   return valid[block_address]; // checks if the block is valid
 }
 
-bool cache::is_dirty(){
-  return dirty[block_address]; // checks if the block is dirty
-}
-
 unsigned int cache::read_icache(unsigned int addr){
   // std::cout << "pc is " << addr << '\n';
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
-  int validblock = is_valid();
+
   // std::cout << "The block is " << block_address << '\t';
   // std::cout << "The block offset is " << block_offset << '\t';
   // std::cout << "The tag is " << addrtag << '\t';
-
   // std::cout << "is it valid?" << validblock << '\n';
   // std::cout << "Tag value " << tag[block_offset+block_address] << '\n';
   // std::cout << "Address tag " << addrtag << '\n';
-  if(validblock && tag[block_offset + block_address*block_size] == addrtag)
+
+  if(is_valid() && tag[block_offset + block_address*block_size] == addrtag)
     // Data is already in the cache
   {
     // std::cout << "The value is already in the cache :) " << '\t';
@@ -94,6 +91,7 @@ unsigned int cache::read_icache(unsigned int addr){
 
     for(int i = 0; i < block_size; i++){
       // Takes in the whole block from beginning to end
+
       // std::cout << "i is" << i << '\n';
       // std::cout << "The location is " << i + (block_address*block_size) << '\n';
       // std::cout << "The pc loaded is " << memory[addr - block_offset + i] << '\n';
@@ -101,6 +99,7 @@ unsigned int cache::read_icache(unsigned int addr){
       tag[i + block_address*block_size] = addrtag;
 
       if(i == 0){
+
         // std::cout << "I am increasing the cycle count from " << cycle << '\n';
         cycle = cycle + MISS_PENALTY;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
@@ -111,13 +110,14 @@ unsigned int cache::read_icache(unsigned int addr){
         cycle = cycle + MISS_PENALTY2;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
-      if( i == block_offset){
-            MISS_PENALTY2 = 1;
+      if(EARLY_START){
+        if( i == block_offset){
+              MISS_PENALTY2 = 1;
+        }
       }
       // std::cout << "Setting " << block_address << "to be valid" << '\n';
     }
     MISS_PENALTY2 = 2;
-    // cache_access = cache_access+ block_size - block_offset
     valid[block_address] = true;
     dirty[block_address] = false;
   }
@@ -128,15 +128,16 @@ unsigned int cache::read_icache(unsigned int addr){
 
 
 unsigned int cache::read_dcache(unsigned int addr){
-  // std::cout << "pc is " << addr << '\n';
+
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
-  int validblock = is_valid();
+
+  // std::cout << "pc is " << addr << '\n';
   // std::cout << "Block number is " << block_address << '\n';
   // std::cout << "Block offset is " << block_offset << '\n';
 
-  if(validblock && tag[block_offset + block_address*block_size] == addrtag)
+  if(is_valid() && tag[block_offset + block_address*block_size] == addrtag)
     // Data is already in the cache
   {
     // std::cout << "The value is already in the cache :) " << '\t';
@@ -179,13 +180,7 @@ unsigned int cache::mem_cache(unsigned int addr){
         cycle = cycle + MISS_PENALTY2;
         // std::cout << "I am increasing the cycle count to " << cycle << '\n';
       }
-      if( i == block_offset){
-            MISS_PENALTY2 = 1;
-      }
-      // std::cout << "Setting " << block_address << "to be valid" << '\n';
     }
-    MISS_PENALTY2 = 2;
-
 
     // std::cout << "The updated values are " << data[block_address*block_size] << "\n";// << data[block_address*block_size+1] << " " << data[block_address*block_size+2] << " " << data[block_address*block_size + 3] << '\n';
 
@@ -198,10 +193,11 @@ unsigned int cache::mem_cache(unsigned int addr){
 
 void cache::write_dcache(unsigned int addr, unsigned int rt){
   //store word instructions
+
   addrtag = get_tag(addr);
   get_block(addr);
   get_block_offset(addr);
-  int validblock = is_valid();
+
   // std::cout << "The block address is " << block_address << '\n';
   // std::cout << "The block offset is " << block_offset << '\n';
   // std::cout << "The old tag is " << tag[block_address*block_size+block_offset] << '\n';
@@ -210,12 +206,10 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
   // std::cout << "The cache data should update to " << rt << '\n';
   // std::cout << "Before the operation the valid and dirty bits are " << validblock << ' ' << dirty[block_address] << '\n';
 
-
   if(WRITE_BACK){
-    // std::cout << "Should not be here, this is WB" << '\n';
-    // // Need to check if the cache has updated data from memory
+    // Need to check if the cache has updated data from memory
 
-    if(dirty[block_address]){
+    if(valid[block_address] & dirty[block_address]){
       for(int i = 0; i < block_size; i++){
         memory[addr+i - block_offset] = data[i + (block_address*block_size)];
         if(tag[i + block_address*block_size] != addrtag) {
@@ -231,21 +225,15 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
             cycle = cycle + MISS_PENALTY2;
             // std::cout << "I am increasing the cycle count to " << cycle << '\n';
           }
-
-          if( i == block_offset){
-            MISS_PENALTY2 = 1;
-          }
         }
         tag[i + block_address*block_size] = addrtag;
       }
     }
     data[(block_address*block_size) +block_offset] = rt;
-
     MISS_PENALTY2 = 2;
     valid[block_address] = true;
-    dirty[block_address] = false;
+    dirty[block_address] = true;
   }
-
 
   if(!WRITE_BACK)
   {
@@ -268,10 +256,6 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
           // std::cout << "I am increasing the cycle count from " << cycle << '\n';
           cycle = cycle + MISS_PENALTY2;
           // std::cout << "I am increasing the cycle count to " << cycle << '\n';
-        }
-
-        if( i == block_offset){
-          MISS_PENALTY2 = 1;
         }
       }
       // std::cout << "Update the previous tag to the addrtag" << '\n';
