@@ -20,13 +20,12 @@ void Instr_MEM()
 
   int taken = 0;
 
-
   if(((IDEX_1.opcode == lw_opcode) || (IDEX_1.opcode == lb_opcode)) && ((Shadow_IDEX.opcode == blez_opcode)\
    || (Shadow_IDEX.opcode == bltz_opcode) || (Shadow_IDEX.opcode == bgtz_opcode) \
     || (Shadow_IDEX.opcode == beq_opcode) || (Shadow_IDEX.opcode == bne_opcode)) \
     && ((EXMEM_1.DstReg == Shadow_IDEX.Rs) || (EXMEM_1.DstReg == Shadow_IDEX.Rt)))
     {
-        // Load 2 cycles before branch Issue
+        // Load 2 cycles before dependent branch
         delay_cycles++;
     }
   if(EXMEM.MemRead && (EXMEM.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
@@ -35,8 +34,7 @@ void Instr_MEM()
     && (taken == 0))
   {
 
-        // cout << "Entered Forwarding Stall 3: Load and Branch Issue: " << endl;
-        // cout << pc + 1<< endl;
+        // Load 1 cycle before a dependent Branch
         delay_cycles++;
         taken = 1;
   }
@@ -46,9 +44,7 @@ void Instr_MEM()
     || (Shadow_IDEX.opcode == bgtz_opcode) || (Shadow_IDEX.opcode == beq_opcode) || (Shadow_IDEX.opcode == bne_opcode))\
     && (taken == 0))
   {
-        // if((pc +1 != 28) && (pc + 1 != 18) && (pc + 1 != 38)){
-        // cout << "Entered Forwarding Stall 3: Instr and Branch Issue:  " << endl;
-        // cout << pc + 1 << endl;}
+        // Instr 1 cycle before Branch
         delay_cycles++;
         taken = 1;
   }
@@ -57,11 +53,7 @@ void Instr_MEM()
     || (Shadow_IDEX.opcode != bgtz_opcode) || (Shadow_IDEX.opcode != beq_opcode) || (Shadow_IDEX.opcode != bne_opcode))\
     && (taken == 0))
   {
-        // if(pc + 1 != 127)
-        // {
-        //   cout << "Entered Forwarding Stall 4: Load ahead of instr using result. Issue: " << endl;
-        //   cout << pc + 1<< endl;
-        // }
+        //Load 1 cycle before Instr
         delay_cycles++;
         taken = 1;
   }
