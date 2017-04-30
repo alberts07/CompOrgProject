@@ -18,7 +18,6 @@ using namespace std;
 
 
 unsigned int memory[1200];
-bool counted = false;
 int MISS_PENALTY = 8;
 int MISS_PENALTY2 = 2;
 unsigned int pc = 0x00000000;
@@ -33,6 +32,7 @@ struct memwb Shadow_MEMWB, MEMWB, MEMWB_1;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 
+//###########################  Cache Parameters #########################################################################################
 bool WRITE_BACK = false;
 int dCACHEON = 0;
 int iCACHEON = 0;
@@ -41,6 +41,7 @@ int dCACHE_SIZE =128;
 int WORDS = 1;
 cache icache(iCACHE_SIZE,WORDS);
 cache dcache(dCACHE_SIZE,WORDS);
+//#######################################################################################################################################
 
 int main()
 {
