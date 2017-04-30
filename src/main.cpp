@@ -32,14 +32,10 @@ unsigned int branch_pc = 0;
 extern double cache_configuration_1;
 unsigned int cycle = 0;
 int Reg[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-struct ifid Shadow_IFID;
-struct ifid IFID;
-struct idex Shadow_IDEX;
-struct idex IDEX;
-struct exmem Shadow_EXMEM;
-struct exmem EXMEM;
-struct memwb Shadow_MEMWB;
-struct memwb MEMWB;
+struct ifid Shadow_IFID, IFID, IFID_1;
+struct idex Shadow_IDEX, IDEX, IDEX_1;
+struct exmem Shadow_EXMEM, EXMEM, EXMEM_1;
+struct memwb Shadow_MEMWB, MEMWB, MEMWB_1;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 

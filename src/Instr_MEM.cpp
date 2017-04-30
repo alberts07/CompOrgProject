@@ -4,17 +4,14 @@
 #include "cache.hpp"
 #include <iostream>
 
-extern struct idex Shadow_IDEX;
-extern struct memwb Shadow_MEMWB;
-extern struct exmem Shadow_EXMEM;
-extern struct memwb MEMWB;
-extern struct exmem EXMEM;
-extern struct idex IDEX;
+extern struct idex Shadow_IDEX, IDEX, IDEX_1;
+extern struct memwb Shadow_MEMWB, MEMWB_1, MEMWB;
+extern struct exmem Shadow_EXMEM, EXMEM, EXMEM_1;
 extern unsigned int pc;
 extern cache dcache;
 using namespace std;
 extern unsigned int delay_cycles;
-extern bool CACHEON;
+extern int CACHEON;
 
 extern int memory[1200];
 
@@ -23,7 +20,16 @@ void Instr_MEM()
 
   int taken = 0;
 
-  if(EXMEM.MemRead && (MEMWB.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
+
+  if(((IDEX_1.opcode == lw_opcode) || (IDEX_1.opcode == lb_opcode)) && ((Shadow_IDEX.opcode == blez_opcode)\
+   || (Shadow_IDEX.opcode == bltz_opcode) || (Shadow_IDEX.opcode == bgtz_opcode) \
+    || (Shadow_IDEX.opcode == beq_opcode) || (Shadow_IDEX.opcode == bne_opcode)) \
+    && ((EXMEM_1.DstReg == Shadow_IDEX.Rs) || (EXMEM_1.DstReg == Shadow_IDEX.Rt)))
+    {
+        // Load 2 cycles before branch Issue
+        delay_cycles++;
+    }
+  if(EXMEM.MemRead && (EXMEM.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
    && ((Shadow_IDEX.opcode == blez_opcode) || (Shadow_IDEX.opcode == bltz_opcode)\
     || (Shadow_IDEX.opcode == bgtz_opcode) || (Shadow_IDEX.opcode == beq_opcode) || (Shadow_IDEX.opcode == bne_opcode))\
     && (taken == 0))
@@ -31,11 +37,11 @@ void Instr_MEM()
 
         // cout << "Entered Forwarding Stall 3: Load and Branch Issue: " << endl;
         // cout << pc + 1<< endl;
-        delay_cycles = delay_cycles + 1;
+        delay_cycles++;
         taken = 1;
   }
 
-  if(EXMEM.RegWrite && (MEMWB.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
+  if(EXMEM.RegWrite && (EXMEM.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rs) || (EXMEM.DstReg == Shadow_IDEX.Rt))\
     && ((Shadow_IDEX.opcode == blez_opcode) || (Shadow_IDEX.opcode == bltz_opcode)\
     || (Shadow_IDEX.opcode == bgtz_opcode) || (Shadow_IDEX.opcode == beq_opcode) || (Shadow_IDEX.opcode == bne_opcode))\
     && (taken == 0))
@@ -46,7 +52,7 @@ void Instr_MEM()
         delay_cycles++;
         taken = 1;
   }
-  if(EXMEM.MemRead && (MEMWB.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rt) || (EXMEM.DstReg == Shadow_IDEX.Rs))\
+  if(EXMEM.MemRead && (EXMEM.DstReg != 0)  && ((EXMEM.DstReg == Shadow_IDEX.Rt) || (EXMEM.DstReg == Shadow_IDEX.Rs))\
     && ((Shadow_IDEX.opcode != blez_opcode) || (Shadow_IDEX.opcode != bltz_opcode)\
     || (Shadow_IDEX.opcode != bgtz_opcode) || (Shadow_IDEX.opcode != beq_opcode) || (Shadow_IDEX.opcode != bne_opcode))\
     && (taken == 0))
@@ -58,24 +64,6 @@ void Instr_MEM()
         // }
         delay_cycles++;
         taken = 1;
-  }
-
-  if((MEMWB.RegWrite) && (MEMWB.DstReg != 0) && ((MEMWB.DstReg == Shadow_IDEX.Rs) || (MEMWB.DstReg == Shadow_IDEX.Rt))\
-    && !((EXMEM.RegWrite) && (EXMEM.DstReg == Shadow_IDEX.Rs) && (EXMEM.DstReg != 0))\
-    && (taken == 0))
-  {
-        // cout << "Entered Forwarding Stall 1: " << endl;
-        // cout << pc + 1 << endl;
-        delay_cycles++;
-         taken = 1;
-  }
-  if((EXMEM.MemWrite) && (Shadow_EXMEM.RegWrite || Shadow_EXMEM.MemRead) && ((IDEX.Rt == Shadow_IDEX.Rs) || (IDEX.Rt == Shadow_IDEX.Rt))\
-    && (taken == 0))
-  {
-        // cout << "Entered Forwarding Stall ?: " << endl;
-        // cout << pc + 1 << endl;
-        delay_cycles++;
-         taken = 1;
   }
 
     Shadow_MEMWB.RegWrite = Shadow_EXMEM.RegWrite;
