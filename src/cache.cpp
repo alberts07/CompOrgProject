@@ -214,38 +214,10 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
   if(WRITE_BACK){
     std::cout << "Should not be here, this is WB" << '\n';
     // // Need to check if the cache has updated data from memory
-    // if(validblock && dirty[block_address]){
-    //   // Cache is diff from memory, so need to write value back before replacing
-    //   // std::cout << "The cache block is dirty" << '\n';
-    //   for(int i = 0; i < block_size; i++){
-    //     // std::cout << "Storing " << data[i + (block_address*block_size)] << " to memory location " << addr - block_offset + i << " which had value " << memory[addr - block_offset + i] << '\n';
-    //     memory[addr - block_offset + i] = data[i + (block_address*block_size)];
-    //     if(i == 0){
-    //       // std::cout << "I am increasing the cycle count from " << cycle << '\n';
-    //       cycle = cycle + MISS_PENALTY;
-    //       // std::cout << "I am increasing the cycle count to " << cycle << '\n';
-    //     }
-    //
-    //     else{
-    //       // std::cout << "I am increasing the cycle count from " << cycle << '\n';
-    //       cycle = cycle + MISS_PENALTY2;
-    //       // std::cout << "I am increasing the cycle count to " << cycle << '\n';
-    //     }
-    //     if( i == block_offset){
-    //           MISS_PENALTY2 = 1;
-    //     }
-    //   }
-    //   dirty[block_address] = false;
-    //   MISS_PENALTY2 = 2;
-    // }
-    // data[(block_address*block_size) +block_offset] = rt;
-    // tag[(block_address*block_size) +block_offset] = addrtag;
-    // dirty[block_address] = true;
-    // valid[block_address] = true;
+
     if(dirty[block_address]){
       for(int i = 0; i < block_size; i++){
         memory[addr+i - block_offset] = data[i + (block_address*block_size)];
-
         if(tag[i + block_address*block_size] != addrtag) {
 
           if(i == 0){
@@ -271,7 +243,7 @@ void cache::write_dcache(unsigned int addr, unsigned int rt){
 
     MISS_PENALTY2 = 2;
     valid[block_address] = true;
-    dirty[block_address] = true;
+    dirty[block_address] = false;
   }
 
 

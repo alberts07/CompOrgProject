@@ -20,8 +20,8 @@ using namespace std;
 unsigned int memory[1200];
 
 
-cache icache(128,4);
-cache dcache(258,4);
+cache icache(128,1);
+cache dcache(258,1);
 
 bool counted = false;
 int MISS_PENALTY = 8;
@@ -42,7 +42,7 @@ struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
-bool WRITE_BACK = false;
+bool WRITE_BACK = true;
 
 int main()
 {
