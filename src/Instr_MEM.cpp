@@ -85,13 +85,13 @@ void Instr_MEM()
                     {
                         Shadow_MEMWB.DstRegValue = (dcache.mem_cache(Shadow_EXMEM.ALUResult) & 0xFFFF0000) >> 16;
                         // std::cout << "It is now " << dcache.mem_cache(Shadow_EXMEM.ALUResult) << '\n';
-
                     }
                   }
 
-                  else{
+                  else
+                  {
                       Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) >> 16;
-                    }
+                  }
 
                     if((Shadow_IDEX.opcode == lh_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00008000) != 0))
                     {
@@ -102,7 +102,8 @@ void Instr_MEM()
                 case 1:
                 {
 
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting a lower half load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -118,9 +119,10 @@ void Instr_MEM()
                     }
                   }
 
-                  else{
+                  else
+                  {
                     Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF;
-                    }
+                  }
 
                     if((Shadow_IDEX.opcode == lh_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00008000) != 0))
                     {
@@ -136,7 +138,8 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting a byte 0 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -152,7 +155,8 @@ void Instr_MEM()
                     }
                   }
 
-                  else{
+                  else
+                  {
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0xFF000000)>> 24;
                   }
 
@@ -164,7 +168,8 @@ void Instr_MEM()
                 }
                 case 1:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting a byte 1 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -179,19 +184,21 @@ void Instr_MEM()
 
                     }
                   }
-                  else{
+                  else
+                  {
                       Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0x00FF0000) >> 16;
-                    }
+                  }
 
-                    if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
-                    {
-                        Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
-                    }
-                    break;
+                  if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
+                  {
+                      Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
+                  }
+                  break;
                 }
                 case 2:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting a byte 2 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -206,7 +213,8 @@ void Instr_MEM()
 
                     }
                   }
-                  else{
+                  else
+                  {
                     Shadow_MEMWB.DstRegValue = (memory[Shadow_EXMEM.ALUResult] & 0x0000FF00) >> 8;
                   }
 
@@ -214,11 +222,12 @@ void Instr_MEM()
                     {
                         Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
                     }
-                    break;
+                  break;
                 }
                 case 3:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting a byte 3 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -233,19 +242,21 @@ void Instr_MEM()
 
                     }
                   }
-                  else{
-                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x000000FF;
-                  }
+                else
+                {
+                  Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0x000000FF;
+                }
 
-                  if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
-                    {
-                        Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
-                    }
-                    break;
+                if((Shadow_IDEX.opcode == lb_opcode) && ((Shadow_MEMWB.DstRegValue & 0x00000080) != 0))
+                  {
+                      Shadow_MEMWB.DstRegValue = Shadow_MEMWB.DstRegValue | 0xFFFFFF00;
+                  }
+                  break;
                 }
                 case 4:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "Attempting a load of " << memory[Shadow_EXMEM.ALUResult] << " to register " << Shadow_MEMWB.DstReg << '\n';
                     // std::cout << "The old value was " << Shadow_MEMWB.DstRegValue << '\n';
                     // std::cout << "The ALUResult is " << Shadow_EXMEM.ALUResult << '\n';
@@ -264,12 +275,12 @@ void Instr_MEM()
                     }
                     // std::cout << "The new value is " << Shadow_MEMWB.DstRegValue << '\n';
                   }
-                  else{
-                    Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
-                  }
-
-                  break;
+                else
+                {
+                  Shadow_MEMWB.DstRegValue = memory[Shadow_EXMEM.ALUResult] & 0xFFFFFFFF;
                 }
+                break;
+              }
             }
         }
     }
@@ -281,38 +292,42 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write an upper half" << '\n';
-                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
+                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                    {
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0x0000FFFF) | ((0xFFFF0000 & Shadow_EXMEM.RtValue) << 16);
                     }
-                    else{
+                    else
+                    {
                       data = (memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF) | ((0xFFFF0000 & Shadow_EXMEM.RtValue) << 16);
                     }
                       dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
-                    }
-                    else{
-                      memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF) | ((0x0000FFFF & Shadow_EXMEM.RtValue) << 16);
-                    }
-
-                    break;
+                  }
+                  else{
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x0000FFFF) | ((0x0000FFFF & Shadow_EXMEM.RtValue) << 16);
+                  }
+                  break;
                 }
                 case 1:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write lower half" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                         data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFF0000) | ((0x0000FFFF & Shadow_EXMEM.RtValue));
-                      }
-                      else{
-                        data = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) | ((0x0000FFFF & Shadow_EXMEM.RtValue));
-                      }
-                        dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
                     }
-                    else{
+                    else
+                    {
+                      data = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) | ((0x0000FFFF & Shadow_EXMEM.RtValue));
+                    }
+                      dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
+                    }
+                    else
+                    {
                       memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF0000) | ((0x0000FFFF & Shadow_EXMEM.RtValue));
                     }
-
                     break;
                 }
             }
@@ -323,78 +338,92 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write byte 0" << '\n';
-                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
+                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                    {
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
                     }
-                    else{
+                    else
+                    {
                       data = (memory[Shadow_EXMEM.ALUResult] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
                     }
                       dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
                   }
-                  else{
-                  memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
+                  else
+                  {
+                    memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
                   }
                   break;
                 }
                 case 1:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write byte 1" << '\n';
-                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
+                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                    {
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFF00FFFF) | ((Shadow_EXMEM.RtValue) << 16);
                     }
-                    else{
+                    else
+                    {
                       data = (memory[Shadow_EXMEM.ALUResult] & 0xFF00FFFF) | ((Shadow_EXMEM.RtValue) << 16);
                     }
-                      dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
+                    dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
                   }
-                  else{
+                  else
+                  {
                     memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFF00FFFF) | ((Shadow_EXMEM.RtValue) << 16);
                   }
-
                     break;
                 }
                 case 2:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write byte 2" << '\n';
-                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
+                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                    {
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFF00FF) | ((Shadow_EXMEM.RtValue) << 8);
                     }
-                    else{
+                    else
+                    {
                       data = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF00FF) | ((Shadow_EXMEM.RtValue) << 8);
                     }
-                      dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
+                    dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
                   }
-                  else{
+                  else
+                  {
                     memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFF00FF) | ((Shadow_EXMEM.RtValue) << 8);
                   }
-
                   break;
                 }
                 case 3:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "We are attempting to write byte 3" << '\n';
-                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
+                    if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
+                    {
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFFFF00) | ((Shadow_EXMEM.RtValue));
                     }
-                    else{
+                    else
+                    {
                       data = (memory[Shadow_EXMEM.ALUResult] & 0xFFFFFF00) | ((Shadow_EXMEM.RtValue));
                       dcache.write_dcache(Shadow_EXMEM.ALUResult, data);
                     }
                   }
-                  else{
+                  else
+                  {
                     memory[Shadow_EXMEM.ALUResult] = (memory[Shadow_EXMEM.ALUResult] & 0xFFFFFF00) | ((Shadow_EXMEM.RtValue));
                   }
-
                   break;
                 }
                 case 4:
                 {
-                  if(dCACHEON){
+                  if(dCACHEON)
+                  {
                     // std::cout << "Attempting a store word of " << Shadow_EXMEM.RtValue << " to " << memory[Shadow_EXMEM.ALUResult] << '\n';
 
                     // std::cout << "The memory location " << Shadow_EXMEM.ALUResult << " is being written " << '\n';
@@ -403,7 +432,8 @@ void Instr_MEM()
 
                     dcache.write_dcache(Shadow_EXMEM.ALUResult, Shadow_EXMEM.RtValue);
                   }
-                  else{
+                  else
+                  {
                     memory[Shadow_EXMEM.ALUResult] = 0xFFFFFFFF & Shadow_EXMEM.RtValue;
                   }
                   break;
@@ -412,6 +442,5 @@ void Instr_MEM()
         }
     }
     else
-    {
-    }
+    {}
 }
