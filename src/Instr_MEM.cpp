@@ -11,7 +11,7 @@ extern unsigned int pc;
 extern cache dcache;
 using namespace std;
 extern unsigned int delay_cycles;
-extern int CACHEON;
+extern int dCACHEON;
 
 extern int memory[1200];
 
@@ -72,15 +72,6 @@ void Instr_MEM()
     Shadow_MEMWB.ALUResult = Shadow_EXMEM.ALUResult;
     Shadow_MEMWB.pcplus1 = Shadow_EXMEM.pcplus1;
 
-    if((MEMWB.RegWrite) && (MEMWB.DstReg != 0) && (MEMWB.DstReg == Shadow_IDEX.Rs))
-    {
-        delay_cycles++;
-    }
-    if((MEMWB.RegWrite) && (MEMWB.DstReg != 0) && (MEMWB.DstReg == Shadow_IDEX.Rt))
-    {
-        delay_cycles++;
-    }
-
     unsigned int data = 0;
     if(Shadow_EXMEM.MemRead)
     {
@@ -90,7 +81,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting an upper half load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -119,7 +110,7 @@ void Instr_MEM()
                 case 1:
                 {
 
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting a lower half load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -153,7 +144,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting a byte 0 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -181,7 +172,7 @@ void Instr_MEM()
                 }
                 case 1:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting a byte 1 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -208,7 +199,7 @@ void Instr_MEM()
                 }
                 case 2:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting a byte 2 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -235,7 +226,7 @@ void Instr_MEM()
                 }
                 case 3:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting a byte 3 load of " << memory[Shadow_EXMEM.ALUResult] << " to memory location " << Shadow_EXMEM.ALUResult << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult))
                     {
@@ -262,7 +253,7 @@ void Instr_MEM()
                 }
                 case 4:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     // std::cout << "Attempting a load of " << memory[Shadow_EXMEM.ALUResult] << " to register " << Shadow_MEMWB.DstReg << '\n';
                     // std::cout << "The old value was " << Shadow_MEMWB.DstRegValue << '\n';
                     // std::cout << "The ALUResult is " << Shadow_EXMEM.ALUResult << '\n';
@@ -298,7 +289,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write an upper half" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0x0000FFFF) | ((0xFFFF0000 & Shadow_EXMEM.RtValue) << 16);
@@ -316,7 +307,7 @@ void Instr_MEM()
                 }
                 case 1:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write lower half" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                         data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFF0000) | ((0x0000FFFF & Shadow_EXMEM.RtValue));
@@ -340,7 +331,7 @@ void Instr_MEM()
             {
                 case 0:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write byte 0" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0x00FFFFFF) | ((Shadow_EXMEM.RtValue) << 24);
@@ -357,7 +348,7 @@ void Instr_MEM()
                 }
                 case 1:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write byte 1" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFF00FFFF) | ((Shadow_EXMEM.RtValue) << 16);
@@ -375,7 +366,7 @@ void Instr_MEM()
                 }
                 case 2:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write byte 2" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFF00FF) | ((Shadow_EXMEM.RtValue) << 8);
@@ -393,7 +384,7 @@ void Instr_MEM()
                 }
                 case 3:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     std::cout << "We are attempting to write byte 3" << '\n';
                     if(dcache.read_dcache(Shadow_EXMEM.ALUResult)){
                       data = (dcache.data[dcache.block_address*dcache.block_size+dcache.block_offset] & 0xFFFFFF00) | ((Shadow_EXMEM.RtValue));
@@ -411,7 +402,7 @@ void Instr_MEM()
                 }
                 case 4:
                 {
-                  if(CACHEON){
+                  if(dCACHEON){
                     // std::cout << "Attempting a store word of " << Shadow_EXMEM.RtValue << " to " << memory[Shadow_EXMEM.ALUResult] << '\n';
 
                     std::cout << "The memory location " << Shadow_EXMEM.ALUResult << " is being written " << '\n';

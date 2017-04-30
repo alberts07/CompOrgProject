@@ -20,8 +20,7 @@ using namespace std;
 unsigned int memory[1200];
 
 
-cache icache(128,16);
-cache dcache(256,1);
+
 
 bool counted = false;
 int MISS_PENALTY = 8;
@@ -40,7 +39,13 @@ unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
 
 bool WRITE_BACK = false;
-int CACHEON = 0;
+int dCACHEON = 0;
+int iCACHEON = 1;
+int iCACHE_SIZE = 128;
+int dCACHE_SIZE = 256;
+int WORDS = 1;
+cache icache(iCACHE_SIZE,WORDS);
+cache dcache(dCACHE_SIZE,WORDS);
 
 int main()
 {
@@ -70,7 +75,7 @@ int main()
         while(pc != 0)
         {
             std::cout << "pc is " << pc << '\n';
-            if (CACHEON){
+            if (iCACHEON){
               instruction = icache.read_icache(pc);
               Instr_IF(instruction);
             }
