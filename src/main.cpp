@@ -73,7 +73,7 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            std::cout << "pc is " << pc << '\n';
+            // std::cout << "pc is " << pc << '\n';
             if (iCACHEON){
               instruction = icache.read_icache(pc);
               Instr_IF(instruction);
