@@ -37,7 +37,6 @@ class cache{
     void get_block(unsigned int);
     void get_block_offset(unsigned int);
     bool is_valid(void);
-    bool is_dirty(void);
     unsigned int read_icache(unsigned int);
     unsigned int read_dcache(unsigned int);
     unsigned int mem_cache(unsigned int);
