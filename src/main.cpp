@@ -1,3 +1,4 @@
+//User created .hpp's
 #include "Instr_IF.hpp"
 #include "Instr_ID.hpp"
 #include "Instr_WB.hpp"
@@ -5,12 +6,14 @@
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
 #include "cache.hpp"
+#include "Program1.hpp"
+#include "Program2.hpp"
+
+//C++ Libraries used
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
 #include <cstdlib>
-#include "Program1.hpp"
-#include "Program2.hpp"
 #include <iomanip>
 using namespace std;
 
