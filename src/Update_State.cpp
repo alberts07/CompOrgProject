@@ -9,12 +9,12 @@ extern struct memwb Shadow_MEMWB, MEMWB, MEMWB_1;
 
 void Update_State()
 {
-    IFID_1 = IFID;
-    IDEX_1 = IDEX;
-    EXMEM_1 = EXMEM;
-    MEMWB_1 = MEMWB;
-    IFID = Shadow_IFID;
-    IDEX = Shadow_IDEX;
-    EXMEM = Shadow_EXMEM;
-    MEMWB = Shadow_MEMWB;
+    IFID_1 = IFID;          //Two states behind next state
+    IDEX_1 = IDEX;          //Two states behind next state
+    EXMEM_1 = EXMEM;        //Two states behind next state
+    MEMWB_1 = MEMWB;        //Two states behind next state
+    IFID = Shadow_IFID;     //One state behind next state
+    IDEX = Shadow_IDEX;     //One state behind next state
+    EXMEM = Shadow_EXMEM;   //One state behind next state
+    MEMWB = Shadow_MEMWB;   //One state behind next state
 }

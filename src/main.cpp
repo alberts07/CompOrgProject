@@ -1,3 +1,4 @@
+//User created .hpp's
 #include "Instr_IF.hpp"
 #include "Instr_ID.hpp"
 #include "Instr_WB.hpp"
@@ -5,12 +6,14 @@
 #include "Instr_Exe.hpp"
 #include "Update_State.hpp"
 #include "cache.hpp"
+#include "Program1.hpp"
+#include "Program2.hpp"
+
+//C++ Libraries used
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
 #include <cstdlib>
-#include "Program1.hpp"
-#include "Program2.hpp"
 #include <iomanip>
 using namespace std;
 
@@ -70,7 +73,7 @@ int main()
         Shadow_IDEX.branch = false;
         while(pc != 0)
         {
-            std::cout << "pc is " << pc << '\n';
+            // std::cout << "pc is " << pc << '\n';
             if (iCACHEON){
               instruction = icache.read_icache(pc);
               Instr_IF(instruction);
@@ -176,6 +179,7 @@ int main()
             cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
             cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
             cout << "D-Cache Hit Rate: " << fixed << setprecision(2) << Dcache_hitrate << endl;
+
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
