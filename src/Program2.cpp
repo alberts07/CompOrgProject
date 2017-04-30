@@ -2,6 +2,8 @@
 extern unsigned int memory[1200];
 
 
+//This program is responsible for transferring Program 2 into main memory
+
 
 
 unsigned int program2[1200] = {
