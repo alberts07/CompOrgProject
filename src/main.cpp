@@ -20,8 +20,8 @@ using namespace std;
 unsigned int memory[1200];
 
 
-cache icache(128,1);
-cache dcache(258,1);
+cache icache(128,16);
+cache dcache(256,1);
 
 bool counted = false;
 int MISS_PENALTY = 8;
@@ -42,7 +42,9 @@ struct memwb Shadow_MEMWB;
 struct memwb MEMWB;
 unsigned int instr_count = 0;
 unsigned int delay_cycles = 0;
-bool WRITE_BACK = true;
+
+bool WRITE_BACK = false;
+int CACHEON = 0;
 
 int main()
 {
@@ -72,9 +74,13 @@ int main()
         while(pc != 0)
         {
             std::cout << "pc is " << pc << '\n';
-            instruction = icache.read_icache(pc);
-            Instr_IF(instruction);
-            // Instr_IF(memory[pc]);
+            if (CACHEON){
+              instruction = icache.read_icache(pc);
+              Instr_IF(instruction);
+            }
+            else{
+              Instr_IF(memory[pc]);
+            }
             Instr_WB(format);
             format = Instr_ID();
             Instr_Exe(format);
