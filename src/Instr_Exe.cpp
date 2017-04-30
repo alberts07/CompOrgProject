@@ -293,10 +293,4 @@ void Instr_Exe(int format)
    {
       //DO NOTHING
    }
-   /*
-   else
-   {
-       cout << "The format given did not match any message type" << endl;
-   }
-   */
 }
