@@ -16,6 +16,8 @@ extern struct idex Shadow_IDEX;
 extern struct ifid  Shadow_IFID;
 extern unsigned int pc;
 
+//This is where all of the arithmetic instructions, branches, and jump functions are housed
+
 void add()
 {
 

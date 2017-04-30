@@ -8,6 +8,8 @@ using namespace std;
 extern cache icache;
 extern unsigned int pc;
 
+
+//This is where the instruciton is fecthed for the Shadow register
 void Instr_IF(unsigned int instruction)
 {
     Shadow_IFID.instr = instruction;

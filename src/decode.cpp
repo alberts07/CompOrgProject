@@ -5,6 +5,9 @@
 
 extern struct idex Shadow_IDEX;
 
+//These are the functions where the bits are parsed through and interpreted.
+//Find immediate fields, shift amounts, registers, and their respctive values. 
+
 int find_format(unsigned int instr)
 {
     Shadow_IDEX.opcode = find_opcode(instr);

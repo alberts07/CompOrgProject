@@ -7,6 +7,8 @@ extern struct idex Shadow_IDEX, IDEX, IDEX_1;
 extern struct exmem Shadow_EXMEM, EXMEM, EXMEM_1;
 extern struct memwb Shadow_MEMWB, MEMWB, MEMWB_1;
 
+
+//Responsible for updating the States of the Registers
 void Update_State()
 {
     IFID_1 = IFID;          //Two states behind next state

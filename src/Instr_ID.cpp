@@ -13,6 +13,8 @@ extern struct idex IDEX;
 extern unsigned int clock_cycles;
 extern int Reg[32];
 
+
+//This is where the instruction is decoded and the control bits are set. 
 int Instr_ID()
 {
 

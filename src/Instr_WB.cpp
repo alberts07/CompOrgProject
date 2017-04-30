@@ -6,6 +6,9 @@ extern struct exmem Shadow_EXMEM;
 extern struct idex Shadow_IDEX;
 extern int Reg[32];
 
+
+
+//This is where the values get written back to the regsiters
 void Instr_WB(int format)
 {
 
