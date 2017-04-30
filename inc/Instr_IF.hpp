@@ -68,27 +68,23 @@ struct memwb {
 
 
 //Type Determination
-#define     rtype               0x00000000
-#define     itype               0x00000001
-#define     jtype               0x00000010
-#define     special_opcode      0x00000011
-#define     branchtype          0x00000100
-//#define     special_opcode2l    0x00000100
-//#define     special_opcode3l    0x00000101
+#define     rtype               0x00000000    //Rtype operation
+#define     itype               0x00000001    //Itype operation
+#define     jtype               0x00000010    //Jtype operation
+#define     special_opcode      0x00000011    //Reserved for Seb
+#define     branchtype          0x00000100    //Reserved for Branches
 
 
 //Masks for Determining Values
-#define     opcode_mask             0xFC000000
-#define     function_mask           0x0000003F
-#define     rs_mask                 0x03E00000
-#define     rt_mask                 0x001F0000
-#define     rd_mask                 0x0000F800
-#define     shamt_mask              0x000007C0
-#define     immed16_mask            0x0000FFFF
-#define     immed26_mask            0x03FFFFFF
-#define     jump_mask               0xF0000000
-//#define     br_coprocessor          0x00030000
-//#define     spec_opcode3_mask       0x001F0000
+#define     opcode_mask             0xFC000000    //For determining opcode
+#define     function_mask           0x0000003F    //For determining function of Rtype operation
+#define     rs_mask                 0x03E00000    //Used for determining Rs Register
+#define     rt_mask                 0x001F0000    //Used for determining Rt Register
+#define     rd_mask                 0x0000F800    //Used for determining Rd Register
+#define     shamt_mask              0x000007C0    //Used for determining Shift Amount
+#define     immed16_mask            0x0000FFFF    //Used for determining Immediate 16 field
+#define     immed26_mask            0x03FFFFFF    //Used for determining Immediate 26 field for Jumps
+#define     jump_mask               0xF0000000    //Used for taking the upper 4 bits of the PC Counter
 
 
 //Opcodes for every MIPS function
