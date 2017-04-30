@@ -176,6 +176,7 @@ int main()
             cout << "CPI: " << fixed << setprecision(3) << CPI << endl;
             cout << "I-Cache Hit Rate: " << fixed << setprecision(2) << Icache_hitrate << endl;
             cout << "D-Cache Hit Rate: " << fixed << setprecision(2) << Dcache_hitrate << endl;
+
             std::cout << '\n';
             clock_cycles = 0;
             cycle = 0;
