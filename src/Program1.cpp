@@ -1,5 +1,8 @@
 #include "Program1.hpp"
 
+
+
+//This code is responsible for transferring Porgram 1 into main memory
 extern unsigned int memory[1200];
 
 unsigned int program1[1200] = {
