@@ -38,7 +38,7 @@ bool WRITE_BACK = false;
 int dCACHEON = 0;
 int iCACHEON = 1;
 int iCACHE_SIZE = 256;
-int dCACHE_SIZE =128;
+int dCACHE_SIZE =256;
 int WORDS = 1;
 cache icache(iCACHE_SIZE,WORDS);
 cache dcache(dCACHE_SIZE,WORDS);
