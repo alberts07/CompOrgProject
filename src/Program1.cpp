@@ -1,10 +1,3 @@
-#include "Program1.hpp"
-
-
-
-//This code is responsible for transferring Porgram 1 into main memory
-extern unsigned int memory[1200];
-
 unsigned int program1[1200] = {
   0x00000bb8,	//	$sp = 3000
   0x00000bb8,	//	$fp = 3000
@@ -500,6 +493,14 @@ unsigned int program1[1200] = {
   0x0f0f0000,
   0x0000e000,
 };
+
+
+#include "Program1.hpp"
+
+
+
+//This code is responsible for transferring Porgram 1 into main memory
+extern unsigned int memory[1200];
 
 void transfer_Program1(void)
 {
